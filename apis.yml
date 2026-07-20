@@ -47,6 +47,8 @@ apis:
     type: APIReference
   - url: openapi/up-bank-cds-banking-products-openapi.yml
     type: OpenAPI
+  - url: overlays/up-bank-cds-banking-products-overlay.yaml
+    type: Overlay
   description: Public, unauthenticated Product Reference Data (PRD) API mandated for
     all Australian data holders under the Consumer Data Right. Confirmed live at
     https://api.up.com.au/cds-au/v1/banking/products (HTTP 200, x-v 3) returning a
@@ -74,6 +76,10 @@ apis:
     type: OpenAPI
   - url: https://github.com/up-banking/api
     type: SourceCode
+  - url: overlays/up-bank-openapi-overlay.yaml
+    type: Overlay
+  - url: asyncapi/up-bank-webhooks-asyncapi.yml
+    type: AsyncAPI
   description: Up's own documented personal-banking developer API (v1, beta), giving
     account holders programmatic read access to accounts and transaction data plus
     management of categories, tags, attachments, and webhooks for real-time transaction
@@ -82,6 +88,12 @@ apis:
     OpenAPI 3.0.3 contract (17 paths) is published at github.com/up-banking/api and
     harvested verbatim.
 common:
+- type: AgenticAccess
+  url: agentic-access/up-bank-agentic-access.yml
+- type: VulnerabilityDisclosure
+  url: security/up-bank-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/up-bank-domain-security.yml
 - type: Website
   url: https://www.up.com.au/
 - type: DeveloperPortal
@@ -102,6 +114,44 @@ common:
   url: https://www.up.com.au/privacy/
 - type: Support
   url: https://up.com.au/support/
+- type: Security
+  url: https://bugcrowd.com/engagements/bendigobank-vdp
+- type: Authentication
+  url: authentication/up-bank-authentication.yml
+- type: OpenIDConnect
+  url: well-known/up-bank-openid-configuration.json
+- type: OAuthScopes
+  url: scopes/up-bank-scopes.yml
+- type: Conventions
+  url: conventions/up-bank-conventions.yml
+- type: ErrorCatalog
+  url: errors/up-bank-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/up-bank-lifecycle.yml
+- type: Deprecation
+  url: https://developer.up.com.au/
+- type: Conformance
+  url: conformance/up-bank-conformance.yml
+- type: WellKnown
+  url: well-known/up-bank-well-known.yml
+- type: SecurityTxt
+  url: well-known/up-bank-security.txt
+- type: MCPServer
+  url: mcp/up-bank-mcp.yml
+- type: LLMsTxt
+  url: llms/up-bank-llms.txt
+- type: Packages
+  url: packages/up-bank-packages.yml
+- type: RateLimits
+  url: rate-limits/up-bank-rate-limits.yml
+- type: DataModel
+  url: data-model/up-bank-data-model.yml
+- type: AsyncAPI
+  url: asyncapi/up-bank-webhooks-asyncapi.yml
+- type: Webhooks
+  url: asyncapi/up-bank-webhooks-asyncapi.yml
+- type: AgentSkill
+  url: skills/_index.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

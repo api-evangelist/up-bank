@@ -1,0 +1,32 @@
+generated: '2026-07-20'
+method: searched
+hosts:
+  - host: https://api.up.com.au
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: up-bank-openid-configuration.json
+        note: >-
+          FAPI / CDR-compliant OpenID Provider metadata for Up's Consumer Data
+          Right data-sharing surface (issuer https://api.up.com.au). Advertises
+          PAR (required), private_key_jwt client auth, mTLS-bound access tokens,
+          PS256/ES256, S256 PKCE, JARM, and the CDR banking scopes.
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+  - host: https://up.com.au
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: up-bank-security.txt
+        note: >-
+          RFC 9116 security.txt pointing to the Bendigo Bank vulnerability
+          disclosure program on Bugcrowd (Up is a brand of Bendigo and Adelaide
+          Bank).
+  - host: https://developer.up.com.au
+    documents:
+      - path: /llms.txt
+        status: 404

@@ -1,0 +1,114 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/up-bank-openapi.json
+spec_type: AsyncAPI
+asyncapi: '2.6.0'
+info:
+  title: Up Personal Banking Webhooks
+  version: v1
+  description: >-
+    Event surface for the Up Personal Banking API. Once a webhook is registered
+    (POST /webhooks), Up delivers JSON-encoded POST callbacks to the configured
+    URL whenever transaction activity occurs on the account. Every callback
+    carries an X-Up-Authenticity-Signature header, which is the HMAC-SHA256 of
+    the raw request body signed with the per-webhook secretKey returned at
+    creation time. The subscriber URL must respond 200 within 30s or delivery is
+    retried with exponential backoff. Derived verbatim from the webhook callback
+    definition in Up's published OpenAPI 3.0.3 contract.
+defaultContentType: application/json
+channels:
+  webhook-events:
+    description: >-
+      The subscriber-hosted URL registered via POST /webhooks. Up POSTs
+      webhook-event callbacks here.
+    subscribe:
+      summary: Receive Up webhook events
+      operationId: receiveWebhookEvent
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        oneOf:
+          - $ref: '#/components/messages/TransactionCreated'
+          - $ref: '#/components/messages/TransactionSettled'
+          - $ref: '#/components/messages/TransactionDeleted'
+          - $ref: '#/components/messages/Ping'
+components:
+  messageTraits:
+    signed:
+      headers:
+        type: object
+        properties:
+          X-Up-Authenticity-Signature:
+            type: string
+            description: >-
+              HMAC-SHA256 hex digest of the raw request body, signed with the
+              webhook's secretKey. Verify with a constant-time compare.
+  messages:
+    TransactionCreated:
+      name: TRANSACTION_CREATED
+      title: Transaction created
+      summary: A new transaction was created on the account.
+      traits: [$ref: '#/components/messageTraits/signed']
+      payload:
+        $ref: '#/components/schemas/WebhookEventCallback'
+    TransactionSettled:
+      name: TRANSACTION_SETTLED
+      title: Transaction settled
+      summary: A transaction transitioned from HELD to SETTLED.
+      traits: [$ref: '#/components/messageTraits/signed']
+      payload:
+        $ref: '#/components/schemas/WebhookEventCallback'
+    TransactionDeleted:
+      name: TRANSACTION_DELETED
+      title: Transaction deleted
+      summary: A HELD transaction was deleted (e.g. a hotel pre-auth released).
+      traits: [$ref: '#/components/messageTraits/signed']
+      payload:
+        $ref: '#/components/schemas/WebhookEventCallback'
+    Ping:
+      name: PING
+      title: Ping
+      summary: Manually triggered test event via POST /webhooks/{webhookId}/ping.
+      traits: [$ref: '#/components/messageTraits/signed']
+      payload:
+        $ref: '#/components/schemas/WebhookEventCallback'
+  schemas:
+    WebhookEventCallback:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          required: [type, id, attributes, relationships]
+          properties:
+            type:
+              type: string
+              const: webhook-events
+            id:
+              type: string
+              description: Stable event id (constant across delivery retries).
+            attributes:
+              type: object
+              required: [eventType, createdAt]
+              properties:
+                eventType:
+                  type: string
+                  enum: [TRANSACTION_CREATED, TRANSACTION_SETTLED, TRANSACTION_DELETED, PING]
+                createdAt:
+                  type: string
+                  format: date-time
+            relationships:
+              type: object
+              required: [webhook]
+              properties:
+                webhook:
+                  type: object
+                transaction:
+                  type: object
+                  description: >-
+                    Present for transaction events; carries the transaction id
+                    and a related link. Absent for PING. Not present for
+                    TRANSACTION_DELETED as a resolvable link (resource no longer
+                    exists).

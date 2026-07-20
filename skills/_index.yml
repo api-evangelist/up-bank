@@ -1,0 +1,33 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/up-bank-openapi.json
+skills:
+  - file: up-bank-list-accounts-and-transactions.md
+    name: List Up accounts and their transactions
+    api: openapi/up-bank-openapi.json
+    operations:
+      - GET /util/ping
+      - GET /accounts
+      - GET /accounts/{accountId}/transactions
+      - GET /transactions
+      - GET /transactions/{id}
+  - file: up-bank-categorize-and-tag-transactions.md
+    name: Categorize and tag Up transactions
+    api: openapi/up-bank-openapi.json
+    operations:
+      - GET /categories
+      - GET /transactions/{id}
+      - PATCH /transactions/{transactionId}/relationships/category
+      - GET /tags
+      - POST /transactions/{transactionId}/relationships/tags
+      - DELETE /transactions/{transactionId}/relationships/tags
+  - file: up-bank-realtime-transaction-webhooks.md
+    name: Receive real-time Up transaction webhooks
+    api: openapi/up-bank-openapi.json
+    operations:
+      - POST /webhooks
+      - GET /webhooks
+      - GET /webhooks/{id}
+      - POST /webhooks/{webhookId}/ping
+      - GET /webhooks/{webhookId}/logs
+      - DELETE /webhooks/{id}

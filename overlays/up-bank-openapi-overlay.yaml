@@ -1,0 +1,58 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Up Personal Banking API
+  version: 1.0.0
+extends: openapi/up-bank-openapi.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-rating: 4
+      x-apievangelist-notes: >-
+        Well-structured JSON:API contract with rich schemas, in-spec examples,
+        tags, summaries and descriptions on every operation, a security scheme
+        defined and applied globally, and a fully documented webhook callback.
+        Primary gap: operations carry no operationId (all 20 operations are
+        anonymous), which weakens tooling, SDK codegen, Arazzo/MCP grounding,
+        and machine reference. The x-apievangelist-operationId values below are
+        our recommended stable ids; they are a suggestion overlay and do not
+        mutate Up's published contract.
+  - target: $.paths['/accounts'].get
+    update: { x-apievangelist-operationId: listAccounts }
+  - target: $.paths['/accounts/{id}'].get
+    update: { x-apievangelist-operationId: getAccount }
+  - target: $.paths['/accounts/{accountId}/transactions'].get
+    update: { x-apievangelist-operationId: listAccountTransactions }
+  - target: $.paths['/transactions'].get
+    update: { x-apievangelist-operationId: listTransactions }
+  - target: $.paths['/transactions/{id}'].get
+    update: { x-apievangelist-operationId: getTransaction }
+  - target: $.paths['/transactions/{transactionId}/relationships/category'].patch
+    update: { x-apievangelist-operationId: categorizeTransaction }
+  - target: $.paths['/categories'].get
+    update: { x-apievangelist-operationId: listCategories }
+  - target: $.paths['/categories/{id}'].get
+    update: { x-apievangelist-operationId: getCategory }
+  - target: $.paths['/tags'].get
+    update: { x-apievangelist-operationId: listTags }
+  - target: $.paths['/transactions/{transactionId}/relationships/tags'].post
+    update: { x-apievangelist-operationId: addTransactionTags }
+  - target: $.paths['/transactions/{transactionId}/relationships/tags'].delete
+    update: { x-apievangelist-operationId: removeTransactionTags }
+  - target: $.paths['/attachments'].get
+    update: { x-apievangelist-operationId: listAttachments }
+  - target: $.paths['/attachments/{id}'].get
+    update: { x-apievangelist-operationId: getAttachment }
+  - target: $.paths['/webhooks'].get
+    update: { x-apievangelist-operationId: listWebhooks }
+  - target: $.paths['/webhooks'].post
+    update: { x-apievangelist-operationId: createWebhook }
+  - target: $.paths['/webhooks/{id}'].get
+    update: { x-apievangelist-operationId: getWebhook }
+  - target: $.paths['/webhooks/{id}'].delete
+    update: { x-apievangelist-operationId: deleteWebhook }
+  - target: $.paths['/webhooks/{webhookId}/ping'].post
+    update: { x-apievangelist-operationId: pingWebhook }
+  - target: $.paths['/webhooks/{webhookId}/logs'].get
+    update: { x-apievangelist-operationId: listWebhookLogs }
+  - target: $.paths['/util/ping'].get
+    update: { x-apievangelist-operationId: ping }

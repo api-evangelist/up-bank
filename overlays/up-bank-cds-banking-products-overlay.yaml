@@ -1,0 +1,21 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Up CDR Product Reference Data API
+  version: 1.0.0
+extends: openapi/up-bank-cds-banking-products-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-rating: 3
+      x-apievangelist-notes: >-
+        This is the shared DSB Consumer Data Standards Banking API contract, not
+        an Up-proprietary spec. Up implements the unauthenticated Product
+        Reference Data surface (GET /banking/products and Get Product Detail) at
+        api.up.com.au/cds-au/v1/banking/products, confirmed live (HTTP 200,
+        x-v 3) returning four products. The remaining CDR banking endpoints in
+        the standard require the full CDR ecosystem (accredited data recipient,
+        MTLS, consent) and are not part of Up's public developer surface.
+  - target: $.servers
+    update:
+      - url: https://api.up.com.au/cds-au/v1
+        description: Up's live CDR Product Reference Data host (public, unauthenticated).

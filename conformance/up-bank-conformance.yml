@@ -1,0 +1,62 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/up-bank-openapi.json, openapi/up-bank-cds-banking-products-openapi.yml
+standards:
+  - id: json-api
+    conforms: true
+    evidence: >-
+      Resource objects use JSON:API type/id/attributes/relationships/links;
+      errors use the JSON:API error object; cursor pagination via links.prev /
+      links.next.
+  - id: oauth2
+    conforms: true
+    scope: cdr-data-sharing
+    evidence: >-
+      OIDC discovery at api.up.com.au/.well-known/openid-configuration advertises
+      authorization_code, client_credentials and refresh_token grants. (The
+      separate Personal Banking developer API uses HTTP Bearer PAT, not OAuth2.)
+  - id: oidc
+    conforms: true
+    scope: cdr-data-sharing
+    evidence: >-
+      Published OpenID Provider metadata (issuer https://api.up.com.au) with
+      authorization/token/userinfo/jwks endpoints and id_token signing.
+  - id: fapi
+    conforms: true
+    scope: cdr-data-sharing
+    evidence: >-
+      FAPI / CDR security profile: pushed authorization requests required,
+      private_key_jwt client auth, tls_client_certificate_bound_access_tokens
+      (mTLS sender-constrained tokens), PS256/ES256, S256 PKCE, JARM
+      (response_modes_supported=jwt), acr urn:cds.au:cdr:2 / cdr:3.
+  - id: mutual-tls
+    conforms: true
+    scope: cdr-data-sharing
+    evidence: tls_client_certificate_bound_access_tokens = true in OIDC metadata.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use JSON:API error objects, not application/problem+json.
+  - id: rfc3339-datetime
+    conforms: true
+    evidence: date-time fields (createdAt, settledAt, filter[since]/[until]) are RFC 3339.
+  - id: webhooks-hmac-sha256
+    conforms: true
+    evidence: >-
+      Webhook callbacks are signed with X-Up-Authenticity-Signature (HMAC-SHA256
+      of raw body using per-webhook secretKey).
+  - id: cdr-consumer-data-standards
+    conforms: true
+    scope: up-cdr-product-reference-data-api
+    evidence: >-
+      As an Australian data holder (brand of Bendigo and Adelaide Bank), Up
+      exposes the mandated unauthenticated Product Reference Data endpoint at
+      api.up.com.au/cds-au/v1/banking/products conforming to the DSB Consumer
+      Data Standards Banking APIs (Get Products / Get Product Detail).
+  - id: cursor-pagination
+    conforms: true
+    evidence: Opaque cursor pagination (page[after]/page[before], links.next/prev).
+notes: >-
+  Conformance is derived from the two harvested specs and the CDR mandate; no
+  separate certification document is asserted here. The CDS conformance applies
+  only to the Product Reference Data API, which implements the shared DSB
+  standard contract rather than an Up-proprietary spec.

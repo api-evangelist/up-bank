@@ -1,0 +1,20 @@
+generated: '2026-07-20'
+method: searched
+source: https://developer.up.com.au/
+summary: >-
+  The Up Personal Banking API is rate limited. Up documents a 429 "Too many
+  requests" response and an X-RateLimit-Remaining response header that reports
+  how many requests remain in the current window. Specific numeric thresholds
+  and the window length are not published.
+signals:
+  status_code: 429
+  headers:
+    - name: X-RateLimit-Remaining
+      description: Number of requests remaining in the current rate-limit window.
+  retry_guidance: >-
+    On 429, back off and retry. Watch X-RateLimit-Remaining to pace requests
+    before exhausting the window.
+limits: []
+notes: >-
+  No published limit_count / window duration; only the header + 429 behavior are
+  documented. Re-run to capture numeric limits if Up publishes them.

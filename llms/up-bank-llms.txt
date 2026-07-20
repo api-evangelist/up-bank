@@ -1,0 +1,36 @@
+# Up (up-bank)
+
+> Up is an Australian digital-only neobank (a brand of ASX-listed Bendigo and Adelaide Bank, which holds the ADI licence) serving 1M+ customers through a mobile-first app. Up exposes a documented Personal Banking developer API (accounts, transactions, categories, tags, attachments, webhooks) authenticated with a Personal Access Token, plus the mandated public, unauthenticated CDR Product Reference Data API under Australia's Consumer Data Right.
+
+## APIs
+- [Up Personal Banking API](https://developer.up.com.au/): v1 (beta) JSON:API read access to accounts and transactions, plus management of categories, tags, attachments and real-time transaction webhooks. Auth: Personal Access Token (Bearer).
+- [Up CDR Product Reference Data API](https://api.up.com.au/cds-au/v1/banking/products): public, unauthenticated Product Reference Data mandated under the Consumer Data Right; conforms to the DSB Consumer Data Standards Banking APIs.
+
+## Specs
+- [Up Personal Banking OpenAPI 3.0.3](https://raw.githubusercontent.com/api-evangelist/up-bank/refs/heads/main/openapi/up-bank-openapi.json)
+- [Up CDR Product Reference Data OpenAPI 3.0.3](https://raw.githubusercontent.com/api-evangelist/up-bank/refs/heads/main/openapi/up-bank-cds-banking-products-openapi.yml)
+- [Webhooks AsyncAPI 2.6](https://raw.githubusercontent.com/api-evangelist/up-bank/refs/heads/main/asyncapi/up-bank-webhooks-asyncapi.yml)
+
+## Docs
+- [Developer Portal](https://developer.up.com.au/)
+- [API Reference](https://developer.up.com.au/#welcome)
+- [Source / spec repo (GitHub)](https://github.com/up-banking/api)
+- [GitHub Organization](https://github.com/up-banking)
+
+## Conventions
+- Authentication: HTTP Bearer with a Personal Access Token (Authorization: Bearer up:yeah:xxxx). Verify with GET /util/ping.
+- Media: JSON:API resource objects (type/id/attributes/relationships/links).
+- Pagination: cursor — set page[size]; follow links.next / links.prev.
+- Filtering: filter[status], filter[category], filter[tag], filter[since], filter[until], filter[accountType], filter[ownershipType].
+- Errors: JSON:API error envelope { errors: [ { status, title, detail, source } ] } (not RFC 9457).
+- Idempotency: not supported.
+- Webhooks: HMAC-SHA256 signed via X-Up-Authenticity-Signature; event types TRANSACTION_CREATED, TRANSACTION_SETTLED, TRANSACTION_DELETED, PING.
+
+## Artifacts
+- [Authentication](https://raw.githubusercontent.com/api-evangelist/up-bank/refs/heads/main/authentication/up-bank-authentication.yml)
+- [Conventions](https://raw.githubusercontent.com/api-evangelist/up-bank/refs/heads/main/conventions/up-bank-conventions.yml)
+- [Error catalog](https://raw.githubusercontent.com/api-evangelist/up-bank/refs/heads/main/errors/up-bank-problem-types.yml)
+- [Data model](https://raw.githubusercontent.com/api-evangelist/up-bank/refs/heads/main/data-model/up-bank-data-model.yml)
+- [Lifecycle](https://raw.githubusercontent.com/api-evangelist/up-bank/refs/heads/main/lifecycle/up-bank-lifecycle.yml)
+- [MCP tool list (candidate)](https://raw.githubusercontent.com/api-evangelist/up-bank/refs/heads/main/mcp/up-bank-mcp.yml)
+- [Agent Skills](https://raw.githubusercontent.com/api-evangelist/up-bank/refs/heads/main/skills/_index.yml)

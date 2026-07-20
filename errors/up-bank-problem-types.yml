@@ -1,0 +1,43 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/up-bank-openapi.json
+format: json:api
+envelope:
+  shape: '{ "errors": [ { "status", "title", "detail", "source": { "parameter", "pointer" } } ] }'
+  description: >-
+    Up returns JSON:API error objects (not RFC 9457 application/problem+json).
+    "status" is the stringified HTTP status code, "title" is a short stable
+    description of the error type, "detail" is a per-occurrence description, and
+    "source" (when present) locates the offending query parameter or request
+    body attribute via source.parameter / source.pointer (RFC 6901 JSON
+    pointer).
+problems:
+  - status: 401
+    title: Not Authorized
+    detail: >-
+      The request was not authenticated because no valid credential was found in
+      the Authorization header, or the Authorization header was not present.
+    remediation: >-
+      Supply a valid Personal Access Token as "Authorization: Bearer <token>".
+      Confirm with GET /util/ping.
+    source_operation: openapi/up-bank-openapi.json#GET /util/ping
+    documented_in_spec: true
+  - status: 404
+    title: Not Found
+    detail: >-
+      A referenced resource does not exist — e.g. an invalid category identifier
+      passed to filter[parent] or filter[category], or a resource id that does
+      not resolve.
+    remediation: Verify the resource id / category id exists before referencing it.
+    source_operation: openapi/up-bank-openapi.json#GET /categories
+    documented_in_spec: false
+    note: >-
+      Described in operation prose ("Providing an invalid category identifier
+      results in a 404 response") but not enumerated as a spec response object.
+notes: >-
+  The published OpenAPI declares an explicit error response only on GET
+  /util/ping (401). Other 4xx conditions (404 for invalid category/tag filters,
+  validation errors on webhook creation and tag/category mutation) are described
+  in operation prose and share the same JSON:API ErrorResponse envelope. This
+  catalog is derived from the spec; a fuller error reference was not published
+  separately by Up at the time of harvest.

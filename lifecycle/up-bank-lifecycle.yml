@@ -1,0 +1,32 @@
+generated: '2026-07-20'
+method: searched
+source: https://developer.up.com.au/
+versioning:
+  scheme: uri-path
+  current: v1
+  stability: beta
+  docs: https://developer.up.com.au/
+  detail: >-
+    The API is versioned in the URI path (/api/v1) so breaking changes can be
+    made in a future version without impacting existing clients. v1 is
+    documented as a beta release.
+deprecation:
+  policy_url: https://developer.up.com.au/
+  sunset_header: false
+  detail: >-
+    Up documents a backwards-compatibility guarantee: "Some endpoints or fields
+    within an endpoint may be deprecated, but nothing will be removed within any
+    given version, in order to maintain backwards compatibility with existing
+    clients." Removals happen only across a major version bump. No RFC 8594
+    Sunset/Deprecation response headers are documented.
+sla:
+  url: null
+  detail: No published SLA / uptime commitment for the developer API (beta).
+status_page: null
+status_page_detail: >-
+  No dedicated developer/API status page was found on developer.up.com.au or
+  up.com.au at the time of harvest.
+deprecated_operations: []
+notes: >-
+  Deprecation posture confirmed from the developer docs; versioning is URI-path.
+  No status page and no formal SLA were found.

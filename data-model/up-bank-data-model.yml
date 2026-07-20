@@ -1,0 +1,111 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/up-bank-openapi.json
+description: >-
+  Entity-relationship graph for the Up Personal Banking API, derived from the
+  JSON:API resource objects and their relationships[] in the published OpenAPI
+  3.0.3 contract. All resources use string ids (UUIDs, except tags and
+  categories which use human-readable string ids).
+entities:
+  - name: account
+    type: accounts
+    id: uuid
+    attributes: [displayName, accountType, ownershipType, balance, createdAt]
+    enums:
+      accountType: [SAVER, TRANSACTIONAL, HOME_LOAN]
+      ownershipType: [INDIVIDUAL, JOINT]
+  - name: transaction
+    type: transactions
+    id: uuid
+    attributes: [status, rawText, description, message, isCategorizable, holdInfo, roundUp, cashback, amount, foreignAmount, cardPurchaseMethod, settledAt, createdAt, transactionType, note, performingCustomer]
+    enums:
+      status: [HELD, SETTLED]
+  - name: category
+    type: categories
+    id: string-slug
+    attributes: [name]
+    note: Pre-defined parent/child taxonomy; parent categories cannot be assigned directly.
+  - name: tag
+    type: tags
+    id: string-label
+    note: User-defined label; the label is the id. Max 6 tags per transaction.
+  - name: attachment
+    type: attachments
+    id: uuid
+    attributes: [createdAt, fileURL, fileURLExpiresAt, fileExtension, fileContentType]
+  - name: webhook
+    type: webhooks
+    id: uuid
+    attributes: [url, description, secretKey, createdAt]
+  - name: webhook-event
+    type: webhook-events
+    id: uuid
+    attributes: [eventType, createdAt]
+  - name: webhook-delivery-log
+    type: webhook-delivery-logs
+    id: uuid
+    attributes: [request, response, deliveryStatus, createdAt]
+    enums:
+      deliveryStatus: [DELIVERED, UNDELIVERABLE, BAD_RESPONSE_CODE]
+relationships:
+  - from: transaction
+    to: account
+    kind: belongs_to
+    via: account
+  - from: transaction
+    to: account
+    kind: has_one
+    via: transferAccount
+    note: Present when the transaction is a transfer between accounts.
+  - from: transaction
+    to: category
+    kind: has_one
+    via: category
+  - from: transaction
+    to: category
+    kind: has_one
+    via: parentCategory
+  - from: transaction
+    to: tag
+    kind: has_many
+    via: tags
+  - from: transaction
+    to: attachment
+    kind: has_one
+    via: attachment
+  - from: account
+    to: transaction
+    kind: has_many
+    via: transactions
+  - from: category
+    to: category
+    kind: belongs_to
+    via: parent
+  - from: category
+    to: category
+    kind: has_many
+    via: children
+  - from: attachment
+    to: transaction
+    kind: belongs_to
+    via: transaction
+  - from: tag
+    to: transaction
+    kind: has_many
+    via: transactions
+  - from: webhook
+    to: webhook-delivery-log
+    kind: has_many
+    via: logs
+  - from: webhook-event
+    to: webhook
+    kind: belongs_to
+    via: webhook
+  - from: webhook-event
+    to: transaction
+    kind: has_one
+    via: transaction
+  - from: webhook-delivery-log
+    to: webhook-event
+    kind: belongs_to
+    via: webhookEvent

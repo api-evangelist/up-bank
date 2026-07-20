@@ -1,0 +1,44 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/up-bank-openapi.json
+docs: https://developer.up.com.au/#authentication
+summary:
+  types: [http, oauth2, openIdConnect]
+  http_schemes: [bearer]
+  api_key_in: []
+  oauth2_flows: [authorizationCode, clientCredentials, refreshToken]
+notes: >-
+  Up presents two distinct authentication surfaces. (1) The Personal Banking
+  developer API authenticates with a Personal Access Token as an HTTP Bearer
+  token (Authorization: Bearer up:yeah:xxxx), minted by the account holder in
+  the Up app or at api.up.com.au and scoped to personal (own-account) use. (2)
+  Up is an Australian Consumer Data Right (CDR) data holder, so it also runs a
+  FAPI-grade OpenID Provider (discovery at
+  https://api.up.com.au/.well-known/openid-configuration, issuer
+  https://api.up.com.au) for accredited data recipients: authorization_code +
+  client_credentials + refresh_token grants, pushed authorization requests
+  (required), private_key_jwt client authentication, mTLS-bound access tokens,
+  PS256/ES256 signing, S256 PKCE, and JARM (response_mode=jwt). The public CDR
+  Product Reference Data endpoint (api.up.com.au/cds-au/v1/banking/products) is
+  unauthenticated by mandate.
+schemes:
+  - name: bearer_auth
+    type: http
+    scheme: bearer
+    description: >-
+      Personal Access Token issued to an Up customer. Presented as
+      "Authorization: Bearer <token>". Verify a token works by calling
+      GET /util/ping (200 on success, 401 on failure).
+    sources: [openapi/up-bank-openapi.json]
+    applied_globally: true
+  - name: cdr_oidc
+    type: openIdConnect
+    openIdConnectUrl: https://api.up.com.au/.well-known/openid-configuration
+    description: >-
+      CDR / FAPI OpenID Connect provider for accredited data recipients.
+      authorization_code + client_credentials + refresh_token; PAR required;
+      private_key_jwt; mTLS-bound (tls_client_certificate_bound_access_tokens)
+      access tokens; PS256/ES256; PKCE S256; JARM. Scopes catalogued in
+      scopes/up-bank-scopes.yml.
+    source: https://api.up.com.au/.well-known/openid-configuration
+    applied_globally: false

@@ -1,0 +1,54 @@
+generated: '2026-07-20'
+method: searched
+source: https://api.up.com.au/.well-known/openid-configuration
+docs: https://consumerdatastandardsaustralia.github.io/standards/#security-profile
+context: >-
+  These OAuth2 / OpenID Connect scopes are advertised by Up's Consumer Data
+  Right (CDR) OpenID Provider metadata at
+  https://api.up.com.au/.well-known/openid-configuration. They govern the CDR
+  data-sharing flow used by ACCREDITED DATA RECIPIENTS (not the personal
+  developer API, which uses a Personal Access Token). Access follows the CDR /
+  FAPI security profile: pushed authorization requests (required),
+  private_key_jwt client authentication, mTLS-bound access tokens, and the
+  authorization_code + client_credentials grants. The scope semantics are the
+  Australian CDR standard scopes defined by the Data Standards Body.
+schemes:
+  - name: CDR-OIDC
+    type: openIdConnect
+    openIdConnectUrl: https://api.up.com.au/.well-known/openid-configuration
+    issuer: https://api.up.com.au
+    authorizationUrl: https://api.up.com.au/oidc/authorize
+    tokenUrl: https://secure.api.up.com.au/oidc/token
+    grant_types: [authorization_code, refresh_token, client_credentials]
+    source: https://api.up.com.au/.well-known/openid-configuration
+scopes:
+  - scope: openid
+    description: OpenID Connect authentication; issue an ID token.
+    flows: [authorization_code]
+  - scope: profile
+    description: Access to basic OpenID profile claims (name, given_name, etc.).
+    flows: [authorization_code]
+  - scope: bank:accounts.basic:read
+    description: CDR — read basic banking account data (masked account numbers, balances).
+    flows: [authorization_code]
+  - scope: bank:accounts.detail:read
+    description: CDR — read detailed banking account data (full account numbers, features).
+    flows: [authorization_code]
+  - scope: bank:transactions:read
+    description: CDR — read banking transaction data.
+    flows: [authorization_code]
+  - scope: bank:payees:read
+    description: CDR — read saved payees.
+    flows: [authorization_code]
+  - scope: bank:regular_payments:read
+    description: CDR — read direct debits and scheduled/regular payments.
+    flows: [authorization_code]
+  - scope: common:customer.basic:read
+    description: CDR — read basic customer data (name, occupation / organisation basics).
+    flows: [authorization_code]
+  - scope: common:customer.detail:read
+    description: CDR — read detailed customer data (contact details).
+    flows: [authorization_code]
+  - scope: cdr:registration
+    description: CDR dynamic client registration management.
+    flows: [client_credentials]

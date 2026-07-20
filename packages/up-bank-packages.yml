@@ -1,0 +1,24 @@
+generated: '2026-07-20'
+method: searched
+source: https://github.com/up-banking/api, https://pypi.org/project/up-bank-api/
+summary: >-
+  Up does not publish or maintain any first-party client SDK — the official
+  GitHub org (up-banking/api) hosts only the OpenAPI specification, community
+  examples, and integration listings, with curl-only examples in the docs.
+  There is an active community ecosystem; the most prominent library is a fully
+  typed Python client (jcwillox/up-bank-api). No package below is marked
+  official because none is published by Up / Bendigo and Adelaide Bank.
+packages:
+  - language: python
+    registry: pypi
+    name: up-bank-api
+    url: https://pypi.org/project/up-bank-api/
+    install: pip install up-bank-api
+    official: false
+    source: https://github.com/jcwillox/up-bank-api
+    note: Community-maintained, fully typed (a)sync Python client for the Up API.
+notes: >-
+  The official spec repository (https://github.com/up-banking/api) also links a
+  community EXAMPLES.md catalog of third-party libraries across several
+  languages; only the Python client had a first-class package registry presence
+  worth cataloging. Re-run to harvest additional community libs if promoted.
