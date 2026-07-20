@@ -1,0 +1,107 @@
+aid: up-bank
+url: https://raw.githubusercontent.com/api-evangelist/up-bank/refs/heads/main/apis.yml
+name: Up
+kind: company
+description: Up is an Australian digital-only neobank founded in 2018 as a collaboration
+  between Melbourne software company Ferocia and Bendigo and Adelaide Bank. Up is not
+  a mutual and is not separately licensed; it operates as a brand of ASX-listed Bendigo
+  and Adelaide Bank, which holds the Authorised Deposit-taking Institution (ADI) licence,
+  provides the underlying deposit products, and acquired full ownership of Ferocia
+  and Up in 2021. Marketed as Australia's first fully cloud-hosted bank, Up serves
+  more than one million customers through a mobile-first app with no monthly account
+  fees, high-interest savers, and rich transaction categorisation. Up has a strong
+  public API posture for its size - it exposes both a documented personal-banking
+  developer API (accounts, transactions, tags, webhooks) and, as required of every
+  Australian data holder under the Consumer Data Right (CDR / Open Banking), a public,
+  unauthenticated Product Reference Data (PRD) API conforming to the DSB Consumer Data
+  Standards.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Financial
+- Banks
+- Open Banking
+- CDR
+- Consumer Banking
+- Australia
+- Neobank
+- Product Reference Data
+created: '2026-07-20'
+modified: '2026-07-20'
+specificationVersion: '0.19'
+apis:
+- aid: up-bank:up-cdr-product-reference-data-api
+  name: Up CDR Product Reference Data API
+  tags:
+  - CDR
+  - Open Banking
+  - Product Reference Data
+  - Banking
+  - Australia
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+  baseURL: https://api.up.com.au/cds-au/v1/banking/products
+  properties:
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+    type: APIReference
+  - url: openapi/up-bank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Public, unauthenticated Product Reference Data (PRD) API mandated for
+    all Australian data holders under the Consumer Data Right. Confirmed live at
+    https://api.up.com.au/cds-au/v1/banking/products (HTTP 200, x-v 3) returning a
+    data.products array (4 products - Up Everyday, Up Saver, Up Essentials Saver, Up
+    Home Loan) with fees, rates, and eligibility. Conforms to the DSB Consumer Data
+    Standards Banking APIs (Get Products / Get Product Detail); the harvested OpenAPI
+    is the shared CDS standard contract, not an Up-proprietary spec.
+- aid: up-bank:up-personal-banking-api
+  name: Up Personal Banking API
+  tags:
+  - Banking
+  - Transactions
+  - Accounts
+  - Webhooks
+  - Personal Finance
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.up.com.au/
+  baseURL: https://api.up.com.au/api/v1
+  properties:
+  - url: https://developer.up.com.au/
+    type: Documentation
+  - url: https://developer.up.com.au/#welcome
+    type: APIReference
+  - url: openapi/up-bank-openapi.json
+    type: OpenAPI
+  - url: https://github.com/up-banking/api
+    type: SourceCode
+  description: Up's own documented personal-banking developer API (v1, beta), giving
+    account holders programmatic read access to accounts and transaction data plus
+    management of categories, tags, attachments, and webhooks for real-time transaction
+    events. Authenticated with a Personal Access Token (Bearer) obtained in the Up
+    app or at api.up.com.au; currently scoped to personal use. The bank-specific
+    OpenAPI 3.0.3 contract (17 paths) is published at github.com/up-banking/api and
+    harvested verbatim.
+common:
+- type: Website
+  url: https://www.up.com.au/
+- type: DeveloperPortal
+  url: https://developer.up.com.au/
+- type: Documentation
+  url: https://developer.up.com.au/
+- type: GitHubOrganization
+  url: https://github.com/up-banking
+- type: LinkedIn
+  url: https://www.linkedin.com/company/upbanking/
+- type: Blog
+  url: https://up.com.au/blog/
+- type: Pricing
+  url: https://www.up.com.au/pricing/
+- type: TermsOfService
+  url: https://up.com.au/terms-and-information/
+- type: PrivacyPolicy
+  url: https://www.up.com.au/privacy/
+- type: Support
+  url: https://up.com.au/support/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,92 @@
+aid: up-bank
+name: Up
+review:
+  question: Does Up expose a confirmed public CDR Product Reference Data API, and does
+    it run a genuine developer portal for its own banking API?
+  answer: true
+  date: '2026-07-20'
+  reviewer: API Evangelist
+  cdrPrdConfirmed: true
+  cdrBaseURL: https://api.up.com.au/cds-au/v1/banking/products
+  developerPortal: https://developer.up.com.au/
+findings:
+  summary: |
+    Up has an unusually strong public API posture for a neobank of its size,
+    running two distinct public surfaces. First, as a data holder under the
+    Australian Consumer Data Right (CDR / Open Banking), Up exposes the
+    mandatory public, unauthenticated Product Reference Data (PRD) API. This
+    was CONFIRMED LIVE on 2026-07-20: an unauthenticated GET to
+    https://api.up.com.au/cds-au/v1/banking/products with header `x-v: 3`
+    returned HTTP 200 and a JSON body with a `data.products` array of four
+    products (up-everyday, up-saver, up-essentials, up-home) carrying
+    productCategory, fees, rates, and eligibility. No credentials, no ADR
+    accreditation, and no consent flow are required for PRD - it is deliberately
+    open. The PRD contract is the shared DSB Consumer Data Standards Banking API
+    (Get Products / Get Product Detail), NOT an Up-proprietary spec; Up simply
+    hosts the standard endpoints under its own CDR base path.
+
+    Second, and separately from CDR, Up publishes its own bank-specific personal
+    banking developer API at https://developer.up.com.au/ with base URL
+    https://api.up.com.au/api/v1. This is a genuine, documented, Up-authored
+    contract (OpenAPI 3.0.3, 17 paths, published at github.com/up-banking/api)
+    covering accounts, transactions, categories, tags, attachments, and
+    webhooks. Unlike the CDR consumer-data path, this API is NOT the ADR/OAuth2
+    consent model - it uses a simple Personal Access Token (Bearer) that a
+    customer generates for their own account, and it is currently limited to
+    personal (single-user) use rather than third-party data sharing.
+
+    Net: Up is a "built" (not stub) provider - one confirmed live public PRD
+    endpoint on the shared CDS standard, plus one real bank-proprietary
+    developer API with a harvested verbatim spec.
+  authModels:
+    - surface: CDR Product Reference Data
+      model: None (public, unauthenticated by CDS design)
+      note: PRD is intentionally open; consumer data sharing beyond PRD would use
+        the CDR ADR accreditation + OAuth2/OIDC (FAPI) consent model, but that is
+        not part of the public PRD surface probed here.
+    - surface: Up Personal Banking API
+      model: Personal Access Token (Bearer)
+      note: Customer-generated token via the Up app or api.up.com.au; personal-use
+        scope only, not third-party OAuth.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.up.com.au/cds-au/v1/banking/products
+      documented: true
+      confirmedStatus: 'HTTP 200 (x-v: 3), data.products array of 4 products'
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.up.com.au/api/v1
+      documented: true
+      note: Up-proprietary personal banking API; auth required so not fetched anonymously.
+  specProvenance:
+    - path: openapi/up-bank-cds-banking-products-openapi.yml
+      provenance: DSB Consumer Data Standards (shared standard - CDR Banking API 1.36.0,
+        OpenAPI 3.0.3). NOT bank-proprietary; harvested verbatim from
+        ConsumerDataStandardsAustralia/standards.
+    - path: openapi/up-bank-openapi.json
+      provenance: Up-proprietary (Up API v1, OpenAPI 3.0.3, 17 paths). Harvested
+        verbatim from github.com/up-banking/api.
+sources:
+  - url: https://api.up.com.au/cds-au/v1/banking/products
+    type: APIReference
+    note: Live probe 2026-07-20 - HTTP 200, x-v 3, data.products (4 products).
+  - url: https://developer.up.com.au/
+    type: Documentation
+    note: Up's own personal banking API docs; PAT/Bearer auth, v1 beta.
+  - url: https://github.com/up-banking/api
+    type: SourceCode
+    note: Official Up API OpenAPI 3.0.3 specification (up-proprietary), harvested.
+  - url: https://consumerdatastandardsaustralia.github.io/standards/
+    type: Documentation
+    note: DSB Consumer Data Standards - shared PRD Banking API contract.
+  - url: https://en.wikipedia.org/wiki/Up_(Australian_bank)
+    type: Reference
+    note: Ownership - Up is a brand of Bendigo and Adelaide Bank (full owner since 2021,
+      via acquisition of Ferocia); operates under Bendigo's ADI licence, not a mutual.
+actions:
+  openapiHarvested: true
+  openapiPaths:
+    - openapi/up-bank-cds-banking-products-openapi.yml
+    - openapi/up-bank-openapi.json
+  apisYmlUpdated: true
