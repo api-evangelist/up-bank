@@ -26,7 +26,7 @@ tags:
 - Neobank
 - Product Reference Data
 created: '2026-07-20'
-modified: '2026-07-20'
+modified: '2026-07-21'
 specificationVersion: '0.19'
 apis:
 - aid: up-bank:up-cdr-product-reference-data-api
@@ -38,7 +38,7 @@ apis:
   - Banking
   - Australia
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+  humanURL: https://up.com.au/cdr-policy/
   baseURL: https://api.up.com.au/cds-au/v1/banking/products
   properties:
   - url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
@@ -53,9 +53,110 @@ apis:
     all Australian data holders under the Consumer Data Right. Confirmed live at
     https://api.up.com.au/cds-au/v1/banking/products (HTTP 200, x-v 3) returning a
     data.products array (4 products - Up Everyday, Up Saver, Up Essentials Saver, Up
-    Home Loan) with fees, rates, and eligibility. Conforms to the DSB Consumer Data
-    Standards Banking APIs (Get Products / Get Product Detail); the harvested OpenAPI
-    is the shared CDS standard contract, not an Up-proprietary spec.
+    Home Loan) with fees, rates, and eligibility. Covers the DSB CDS Banking Get
+    Products and Get Product Detail operations; the harvested OpenAPI is the shared
+    DSB Consumer Data Standards Banking API v1.36.0 contract, not an Up-proprietary
+    spec.
+- aid: up-bank:up-cdr-accounts-balances-api
+  name: Up CDR Accounts & Balances API
+  tags:
+  - CDR
+  - Open Banking
+  - Accounts
+  - Balances
+  - Banking
+  - Australia
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://up.com.au/cdr-policy/
+  baseURL: https://api.up.com.au/cds-au/v1/banking/accounts
+  properties:
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+    type: APIReference
+  - url: openapi/up-bank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-authorized CDR Banking surface covering Get Accounts, Get
+    Bulk Balances, Get Account Balance, and Get Account Detail. Reached only through
+    the accredited data recipient (ADR) model with an active customer consent and
+    FAPI/mTLS - not public; probing https://api.up.com.au/cds-au/v1/banking/accounts
+    without CDR auth returns HTTP 400. Up confirms account balances and detail are
+    shareable per its CDR policy. Contract is the shared DSB Consumer Data Standards
+    Banking API v1.36.0 (accounts and balances paths), not an Up-proprietary spec.
+- aid: up-bank:up-cdr-transactions-api
+  name: Up CDR Transactions API
+  tags:
+  - CDR
+  - Open Banking
+  - Transactions
+  - Banking
+  - Australia
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://up.com.au/cdr-policy/
+  baseURL: https://api.up.com.au/cds-au/v1/banking/accounts/{accountId}/transactions
+  properties:
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+    type: APIReference
+  - url: openapi/up-bank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-authorized CDR Banking surface covering Get Transactions For
+    Account and Get Transaction Detail. Accessed only via the CDR accredited data
+    recipient model under active customer consent (FAPI/mTLS) - not public. Up's CDR
+    policy states shared transaction history dates back to account creation. Contract
+    is the shared DSB Consumer Data Standards Banking API v1.36.0 (transaction paths),
+    not an Up-proprietary spec, and is distinct from Up's own personal-banking
+    transactions API.
+- aid: up-bank:up-cdr-direct-debits-scheduled-payments-api
+  name: Up CDR Direct Debits & Scheduled Payments API
+  tags:
+  - CDR
+  - Open Banking
+  - Direct Debits
+  - Scheduled Payments
+  - Banking
+  - Australia
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://up.com.au/cdr-policy/
+  baseURL: https://api.up.com.au/cds-au/v1/banking/accounts/direct-debits
+  properties:
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+    type: APIReference
+  - url: openapi/up-bank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-authorized CDR Banking surface covering Get Direct Debits For
+    Account, Get Bulk Direct Debits, Get Scheduled Payments For Account, Get Scheduled
+    Payments Bulk, and the payments scheduled/plans endpoints. Reached only through
+    the CDR accredited data recipient model under active customer consent (FAPI/mTLS)
+    - not public. Up's CDR policy lists scheduled payments among shareable data.
+    Contract is the shared DSB Consumer Data Standards Banking API v1.36.0 (direct
+    debits and scheduled payments paths), not an Up-proprietary spec.
+- aid: up-bank:up-cdr-payees-api
+  name: Up CDR Payees API
+  tags:
+  - CDR
+  - Open Banking
+  - Payees
+  - Banking
+  - Australia
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://up.com.au/cdr-policy/
+  baseURL: https://api.up.com.au/cds-au/v1/banking/payees
+  properties:
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+    type: APIReference
+  - url: openapi/up-bank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-authorized CDR Banking surface covering Get Payees and Get
+    Payee Detail (saved payee lists). Accessed only via the CDR accredited data
+    recipient model under active customer consent (FAPI/mTLS) - not public. Contract
+    is the shared DSB Consumer Data Standards Banking API v1.36.0 (payees paths), not
+    an Up-proprietary spec.
 - aid: up-bank:up-personal-banking-api
   name: Up Personal Banking API
   tags:
