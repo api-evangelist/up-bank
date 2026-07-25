@@ -1,0 +1,176 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: contact@dsb.gov.au
+    name: Data Standards Body
+    url: https://dsb.gov.au/
+  description: Specifications for resource endpoints applicable to data holders in the Banking sector.
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+  title: CDR Banking Accounts Utility endpoints API
+  version: 1.36.0
+servers:
+- description: MTLS
+  url: https://mtls.dh.example.com/cds-au/v1
+tags:
+- name: Utility endpoints
+  description: 'Some endpoints exist not to expose data, but to test the API
+
+    itself. Currently there is only one endpoint in this group: ping!
+
+    '
+paths:
+  /util/ping:
+    get:
+      tags:
+      - Utility endpoints
+      summary: Ping
+      description: 'Make a basic ping request to the API. This is useful to verify that
+
+        authentication is functioning correctly. On authentication success an
+
+        HTTP `200` status is returned. On failure an HTTP `401` error response
+
+        is returned.
+
+        '
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PingResponse'
+          x-up:example:
+            type: exampleRequestResponse
+            request:
+              headers:
+                Authorization: Bearer up:demo:qrwv9tQgS76mnS9G
+              pathParameters: {}
+              queryParameters: {}
+              payload: null
+            response:
+              meta:
+                id: f8178615-7fd7-47a6-9a6e-cf62b3313848
+                statusEmoji: ⚡️
+        '401':
+          description: Not Authorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          x-up:example:
+            type: exampleRequestResponse
+            request:
+              headers: {}
+              pathParameters: {}
+              queryParameters: {}
+              payload: null
+            response:
+              errors:
+              - status: '401'
+                title: Not Authorized
+                detail: The request was not authenticated because no valid credential was found in the Authorization header, or the Authorization header was not present.
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      description: 'Generic error response that returns one or more errors.
+
+        '
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+          description: 'The list of errors returned in this response.
+
+            '
+      required:
+      - errors
+    PingResponse:
+      type: object
+      description: 'Basic ping response to verify authentication.
+
+        '
+      properties:
+        meta:
+          type: object
+          properties:
+            id:
+              type: string
+              description: 'The unique identifier of the authenticated customer.
+
+                '
+            statusEmoji:
+              type: string
+              description: 'A cute emoji that represents the response status.
+
+                '
+          required:
+          - id
+          - statusEmoji
+      required:
+      - meta
+    ErrorObject:
+      type: object
+      description: 'Provides information about an error processing a request.
+
+        '
+      properties:
+        status:
+          type: string
+          description: 'The HTTP status code associated with this error. This can also be
+
+            obtained from the response headers. The status indicates the broad type
+
+            of error according to HTTP semantics.
+
+            '
+        title:
+          type: string
+          description: 'A short description of this error. This should be stable across
+
+            multiple occurrences of this type of error and typically expands on the
+
+            reason for the status code.
+
+            '
+        detail:
+          type: string
+          description: 'A detailed description of this error. This should be considered unique
+
+            to individual occurrences of an error and subject to change. It is
+
+            useful for debugging purposes.
+
+            '
+        source:
+          type: object
+          properties:
+            parameter:
+              type: string
+              description: 'If this error relates to a query parameter, the name of the
+
+                parameter.
+
+                '
+            pointer:
+              type: string
+              description: 'If this error relates to an attribute in the request body, a
+
+                rfc-6901 JSON pointer to the attribute.
+
+                '
+          description: 'If applicable, location in the request that this error relates to. This
+
+            may be a parameter in the query string, or a an attribute in the
+
+            request body.
+
+            '
+      required:
+      - status
+      - title
+      - detail

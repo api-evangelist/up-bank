@@ -1,0 +1,296 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: contact@dsb.gov.au
+    name: Data Standards Body
+    url: https://dsb.gov.au/
+  description: Specifications for resource endpoints applicable to data holders in the Banking sector.
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+  title: CDR Banking Accounts Attachments API
+  version: 1.36.0
+servers:
+- description: MTLS
+  url: https://mtls.dh.example.com/cds-au/v1
+tags:
+- name: Attachments
+  description: 'Attachments represent uploaded files that are attached to transactions, these are commonly receipts.
+
+    '
+paths:
+  /attachments:
+    get:
+      tags:
+      - Attachments
+      summary: List attachments
+      description: 'Retrieve a list of all attachments. The returned list is [paginated](#pagination) and can
+
+        be scrolled by following the `next` and `prev` links where present.
+
+        '
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAttachmentsResponse'
+          x-up:example:
+            type: exampleRequestResponse
+            request:
+              headers:
+                Authorization: Bearer up:demo:cV5W9g033vq1tYZ4
+              pathParameters: {}
+              queryParameters: {}
+              payload: null
+            response:
+              data:
+              - type: attachments
+                id: 23bc06a0-cff4-40ae-bcb3-463fac19b5b0
+                attributes:
+                  createdAt: '2024-08-06T12:18:31+10:00'
+                  fileURL: http://localhost:8080/asset/customer_transaction_attachment.jpg?filename=uploads%2Fcustomer_transaction_attachments%2Fmodels%2Fattachment%2Ffile%2F1%2Fattachment.jpg&timestamp=1722910712&token=881b77d17579aa98214271fc29a3e4b4438b937e0e818b0f543fdb5bd921822c
+                  fileURLExpiresAt: '2024-08-06T12:33:32+10:00'
+                  fileExtension: jpg
+                  fileContentType: image/jpeg
+                relationships:
+                  transaction:
+                    data:
+                      type: transactions
+                      id: 9dd0a25a-c5ca-46c6-8e07-420274d5e8fe
+                    links:
+                      related: https://api.up.com.au/api/v1/transactions/9dd0a25a-c5ca-46c6-8e07-420274d5e8fe
+                links:
+                  self: https://api.up.com.au/api/v1/attachments/23bc06a0-cff4-40ae-bcb3-463fac19b5b0
+              - type: attachments
+                id: 86f6e316-691e-48a6-b896-331362bb9b52
+                attributes:
+                  createdAt: '2024-08-06T12:18:31+10:00'
+                  fileURL: http://localhost:8080/asset/customer_transaction_attachment.jpg?filename=uploads%2Fcustomer_transaction_attachments%2Fmodels%2Fattachment%2Ffile%2F2%2Fattachment.jpg&timestamp=1722910712&token=a775955e0ae11f61b453dbdc9bd6d06b303a3aa4e6abacdcd1def8e4f8351559
+                  fileURLExpiresAt: '2024-08-06T12:33:32+10:00'
+                  fileExtension: jpg
+                  fileContentType: image/jpeg
+                relationships:
+                  transaction:
+                    data:
+                      type: transactions
+                      id: 40390cc7-8c76-422f-b2a0-7a22c7d1c915
+                    links:
+                      related: https://api.up.com.au/api/v1/transactions/40390cc7-8c76-422f-b2a0-7a22c7d1c915
+                links:
+                  self: https://api.up.com.au/api/v1/attachments/86f6e316-691e-48a6-b896-331362bb9b52
+              links:
+                prev: null
+                next: null
+  /attachments/{id}:
+    get:
+      tags:
+      - Attachments
+      summary: Retrieve attachment
+      description: 'Retrieve a specific attachment by providing its unique identifier.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: 3672d7fb-e56d-4c4a-b546-7c11ddb5e5e7
+        description: 'The unique identifier for the attachment.
+
+          '
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAttachmentResponse'
+          x-up:example:
+            type: exampleRequestResponse
+            request:
+              headers:
+                Authorization: Bearer up:demo:lfQuAyww8UOTKTD4
+              pathParameters:
+                id: 4fcb7c00-5332-41bb-ae5a-26b66dda316b
+              queryParameters: {}
+              payload: null
+            response:
+              data:
+                type: attachments
+                id: 4fcb7c00-5332-41bb-ae5a-26b66dda316b
+                attributes:
+                  createdAt: '2024-08-06T12:18:33+10:00'
+                  fileURL: http://localhost:8080/asset/customer_transaction_attachment.jpg?filename=uploads%2Fcustomer_transaction_attachments%2Fmodels%2Fattachment%2Ffile%2F5%2Fattachment.jpg&timestamp=1722910713&token=3abc7139ebfbcaee1dc8a37d5bf0bc7d02334857919d7ce6695629bf340afbad
+                  fileURLExpiresAt: '2024-08-06T12:33:33+10:00'
+                  fileExtension: jpg
+                  fileContentType: image/jpeg
+                relationships:
+                  transaction:
+                    data:
+                      type: transactions
+                      id: b416028a-9c12-4716-a759-94913fe4dd49
+                    links:
+                      related: https://api.up.com.au/api/v1/transactions/b416028a-9c12-4716-a759-94913fe4dd49
+                links:
+                  self: https://api.up.com.au/api/v1/attachments/4fcb7c00-5332-41bb-ae5a-26b66dda316b
+components:
+  schemas:
+    ListAttachmentsResponse:
+      type: object
+      description: 'Successful response to get all attachments. This returns a paginated list of
+
+        attachments, which can be scrolled by following the `prev` and `next` links if
+
+        present.
+
+        '
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          description: 'The list of attachments returned in this response.
+
+            '
+        links:
+          type: object
+          properties:
+            prev:
+              type: string
+              nullable: true
+              description: 'The link to the previous page in the results. If this value is `null`
+
+                there is no previous page.
+
+                '
+            next:
+              type: string
+              nullable: true
+              description: 'The link to the next page in the results. If this value is `null`
+
+                there is no next page.
+
+                '
+          required:
+          - prev
+          - next
+      required:
+      - data
+      - links
+    AttachmentResource:
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'The type of this resource: `attachments`'
+        id:
+          type: string
+          description: 'The unique identifier for this attachment.
+
+            '
+        attributes:
+          type: object
+          properties:
+            createdAt:
+              type: string
+              format: date-time
+              nullable: true
+              description: 'The date-time when the file was created.
+
+                '
+            fileURL:
+              type: string
+              nullable: true
+              description: 'A temporary link to download the file.
+
+                '
+            fileURLExpiresAt:
+              type: string
+              format: date-time
+              description: 'The date-time at which the `fileURL` link expires.
+
+                '
+            fileExtension:
+              type: string
+              nullable: true
+              description: 'File extension for the uploaded attachment.
+
+                '
+            fileContentType:
+              type: string
+              nullable: true
+              description: 'Content type for the uploaded attachment.
+
+                '
+          required:
+          - createdAt
+          - fileURL
+          - fileURLExpiresAt
+          - fileExtension
+          - fileContentType
+        relationships:
+          type: object
+          properties:
+            transaction:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      description: 'The type of this resource: `transactions`'
+                    id:
+                      type: string
+                      description: 'The unique identifier of the resource within its type.
+
+                        '
+                  required:
+                  - type
+                  - id
+                links:
+                  type: object
+                  properties:
+                    related:
+                      type: string
+                      description: 'The link to retrieve the related resource(s) in this relationship.
+
+                        '
+                  required:
+                  - related
+              required:
+              - data
+          required:
+          - transaction
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              description: 'The canonical link to this resource within the API.
+
+                '
+          required:
+          - self
+      required:
+      - type
+      - id
+      - attributes
+      - relationships
+    GetAttachmentResponse:
+      type: object
+      description: 'Successful response to get a single attachment.
+
+        '
+      properties:
+        data:
+          description: 'The attachment returned in this response.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/AttachmentResource'
+      required:
+      - data

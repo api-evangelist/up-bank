@@ -1,0 +1,308 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: contact@dsb.gov.au
+    name: Data Standards Body
+    url: https://dsb.gov.au/
+  description: Specifications for resource endpoints applicable to data holders in the Banking sector.
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+  title: CDR Banking Accounts Tags API
+  version: 1.36.0
+servers:
+- description: MTLS
+  url: https://mtls.dh.example.com/cds-au/v1
+tags:
+- name: Tags
+  description: 'Tags are custom labels that can be associated with transactions
+
+    on Up. Within the Up application, tags provide additional insight
+
+    into spending. For example, you could have a "Take Away" tag that
+
+    you apply to purchases from food delivery services. The Up API
+
+    allows you to manage the tags associated with transactions. Each
+
+    transaction may have up to 6 tags.
+
+
+    Tags are identified by their labels, which are unique strings,
+
+    so the tag "Holiday" has also the `id` `"Holiday"`.
+
+    '
+paths:
+  /tags:
+    get:
+      tags:
+      - Tags
+      summary: List tags
+      description: 'Retrieve a list of all tags currently in use. The returned list is
+
+        [paginated](#pagination) and can be scrolled by following the `next`
+
+        and `prev` links where present. Results are ordered lexicographically.
+
+        The `transactions` relationship for each tag exposes a link
+
+        to get the transactions with the given tag.
+
+        '
+      parameters:
+      - name: page[size]
+        in: query
+        schema:
+          type: integer
+        required: false
+        example: 50
+        description: 'The number of records to return in each page.
+
+          '
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTagsResponse'
+          x-up:example:
+            type: exampleRequestResponse
+            request:
+              headers:
+                Authorization: Bearer up:demo:bXd8NjT6vO5gfMvG
+              pathParameters: {}
+              queryParameters:
+                page[size]: 2
+              payload: null
+            response:
+              data:
+              - type: tags
+                id: Holiday
+                relationships:
+                  transactions:
+                    links:
+                      related: https://api.up.com.au/api/v1/transactions?filter%5Btag%5D=Holiday
+              - type: tags
+                id: Pizza Night
+                relationships:
+                  transactions:
+                    links:
+                      related: https://api.up.com.au/api/v1/transactions?filter%5Btag%5D=Pizza+Night
+              links:
+                prev: null
+                next: https://api.up.com.au/api/v1/tags?page%5Bafter%5D=WyJQaXp6YSBOaWdodCJd&page%5Bsize%5D=2
+  /transactions/{transactionId}/relationships/tags:
+    post:
+      tags:
+      - Tags
+      summary: Add tags to transaction
+      description: 'Associates one or more tags with a specific transaction. No more than 6
+
+        tags may be present on any single transaction. Duplicate tags are
+
+        silently ignored. An HTTP `204` is returned on success. The associated
+
+        tags, along with this request URL, are also exposed via the `tags`
+
+        relationship on the transaction resource returned from
+
+        `/transactions/{id}`.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTransactionTagsRequest'
+      parameters:
+      - name: transactionId
+        in: path
+        schema:
+          type: string
+        required: true
+        example: 6259eac2-feac-417d-893e-84876c575913
+        description: 'The unique identifier for the transaction.
+
+          '
+      responses:
+        '204':
+          description: Successful Response
+          x-up:example:
+            type: exampleRequestResponse
+            request:
+              headers:
+                Authorization: Bearer up:demo:UvlljHmCb9A9P78m
+                Content-Type: application/json
+              pathParameters:
+                transactionId: 667fd9d3-05d7-4eb4-b496-a406ca7da08d
+              queryParameters: {}
+              payload:
+                data:
+                - type: tags
+                  id: Holiday
+                - type: tags
+                  id: Queensland
+            response: null
+    delete:
+      tags:
+      - Tags
+      summary: Remove tags from transaction
+      description: 'Disassociates one or more tags from a specific transaction. Tags that are
+
+        not associated are silently ignored. An HTTP `204` is returned on
+
+        success. The associated tags, along with this request URL, are also
+
+        exposed via the `tags` relationship on the transaction resource returned
+
+        from `/transactions/{id}`.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTransactionTagsRequest'
+      parameters:
+      - name: transactionId
+        in: path
+        schema:
+          type: string
+        required: true
+        example: 86aacb90-a718-43f2-bb06-c1e32542ab26
+        description: 'The unique identifier for the transaction.
+
+          '
+      responses:
+        '204':
+          description: Successful Response
+          x-up:example:
+            type: exampleRequestResponse
+            request:
+              headers:
+                Authorization: Bearer up:demo:RFntp7VQQkErMliU
+                Content-Type: application/json
+              pathParameters:
+                transactionId: 8f3bd8ef-8d89-4e86-8d10-aa3e61c4afd6
+              queryParameters: {}
+              payload:
+                data:
+                - type: tags
+                  id: Holiday
+                - type: tags
+                  id: Queensland
+            response: null
+components:
+  schemas:
+    TagResource:
+      type: object
+      description: 'Provides information about a tag.
+
+        '
+      properties:
+        type:
+          type: string
+          description: 'The type of this resource: `tags`'
+        id:
+          type: string
+          description: 'The label of the tag, which also acts as the tag’s unique identifier.
+
+            '
+        relationships:
+          type: object
+          properties:
+            transactions:
+              type: object
+              properties:
+                links:
+                  type: object
+                  properties:
+                    related:
+                      type: string
+                      description: 'The link to retrieve the related resource(s) in this relationship.
+
+                        '
+                  required:
+                  - related
+          required:
+          - transactions
+      required:
+      - type
+      - id
+      - relationships
+    TagInputResourceIdentifier:
+      type: object
+      description: 'Uniquely identifies a single tag in the API.
+
+        '
+      properties:
+        type:
+          type: string
+          description: 'The type of this resource: `tags`'
+        id:
+          type: string
+          description: 'The label of the tag, which also acts as the tag’s unique identifier.
+
+            '
+      required:
+      - type
+      - id
+    UpdateTransactionTagsRequest:
+      type: object
+      description: 'Request to add or remove tags associated with a transaction.
+
+        '
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagInputResourceIdentifier'
+          description: 'The tags to add to or remove from the transaction.
+
+            '
+      required:
+      - data
+    ListTagsResponse:
+      type: object
+      description: 'Successful response to get all tags. This returns a paginated list of
+
+        tags, which can be scrolled by following the `prev` and `next` links if
+
+        present.
+
+        '
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagResource'
+          description: 'The list of tags returned in this response.
+
+            '
+        links:
+          type: object
+          properties:
+            prev:
+              type: string
+              nullable: true
+              description: 'The link to the previous page in the results. If this value is `null`
+
+                there is no previous page.
+
+                '
+            next:
+              type: string
+              nullable: true
+              description: 'The link to the next page in the results. If this value is `null`
+
+                there is no next page.
+
+                '
+          required:
+          - prev
+          - next
+      required:
+      - data
+      - links

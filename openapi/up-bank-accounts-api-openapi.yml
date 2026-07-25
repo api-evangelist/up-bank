@@ -1,0 +1,363 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: contact@dsb.gov.au
+    name: Data Standards Body
+    url: https://dsb.gov.au/
+  description: Specifications for resource endpoints applicable to data holders in the Banking sector.
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+  title: CDR Banking Accounts API
+  version: 1.36.0
+servers:
+- description: MTLS
+  url: https://mtls.dh.example.com/cds-au/v1
+tags:
+- name: Accounts
+  description: 'Accounts represent the underlying store used to track balances
+
+    and the transactions that have occurred to modify those balances
+
+    over time. Up currently has three types of account: `SAVER`—used to
+
+    earn interest and to hit savings goals, `TRANSACTIONAL`—used
+
+    for everyday spending, and `HOME_LOAN`-for those with an Up Home loan.
+
+    '
+paths:
+  /accounts:
+    get:
+      tags:
+      - Accounts
+      summary: List accounts
+      description: 'Retrieve a paginated list of all accounts for the currently
+
+        authenticated user. The returned list is paginated and can be scrolled
+
+        by following the `prev` and `next` links where present.
+
+        '
+      parameters:
+      - name: page[size]
+        in: query
+        schema:
+          type: integer
+        required: false
+        example: 30
+        description: 'The number of records to return in each page.
+
+          '
+      - name: filter[accountType]
+        in: query
+        schema:
+          $ref: '#/components/schemas/AccountTypeEnum'
+        required: false
+        example: SAVER
+        description: 'The type of account for which to return records. This
+
+          can be used to filter Savers from spending accounts.
+
+          '
+      - name: filter[ownershipType]
+        in: query
+        schema:
+          $ref: '#/components/schemas/OwnershipTypeEnum'
+        required: false
+        example: INDIVIDUAL
+        description: 'The account ownership structure for which to return
+
+          records. This can be used to filter 2Up accounts from Up
+
+          accounts.
+
+          '
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAccountsResponse'
+          x-up:example:
+            type: exampleRequestResponse
+            request:
+              headers:
+                Authorization: Bearer up:demo:z4qtHErGAZuuouwl
+              pathParameters: {}
+              queryParameters:
+                page[size]: 1
+              payload: null
+            response:
+              data:
+              - type: accounts
+                id: 5b54e6ef-ecf1-4c49-aa03-2104a490c849
+                attributes:
+                  displayName: Spending
+                  accountType: TRANSACTIONAL
+                  ownershipType: INDIVIDUAL
+                  balance:
+                    currencyCode: AUD
+                    value: '1.00'
+                    valueInBaseUnits: 100
+                  createdAt: '2024-08-06T12:18:29+10:00'
+                relationships:
+                  transactions:
+                    links:
+                      related: https://api.up.com.au/api/v1/accounts/5b54e6ef-ecf1-4c49-aa03-2104a490c849/transactions
+                links:
+                  self: https://api.up.com.au/api/v1/accounts/5b54e6ef-ecf1-4c49-aa03-2104a490c849
+              links:
+                prev: null
+                next: https://api.up.com.au/api/v1/accounts?page%5Bafter%5D=WyIyMDI0LTA4LTA2VDAyOjE4OjI5LjMwMzgzOTAwMFoiLCI1YjU0ZTZlZi1lY2YxLTRjNDktYWEwMy0yMTA0YTQ5MGM4NDkiXQ%3D%3D&page%5Bsize%5D=1
+  /accounts/{id}:
+    get:
+      tags:
+      - Accounts
+      summary: Retrieve account
+      description: 'Retrieve a specific account by providing its unique identifier.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: 7699cfe5-eabd-4855-bbe7-9dfe3f70cebf
+        description: 'The unique identifier for the account.
+
+          '
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAccountResponse'
+          x-up:example:
+            type: exampleRequestResponse
+            request:
+              headers:
+                Authorization: Bearer up:demo:dvJloDOxw0NWMnzk
+              pathParameters:
+                id: e647dd54-4d10-41d0-8071-21eb0a3f6214
+              queryParameters: {}
+              payload: null
+            response:
+              data:
+                type: accounts
+                id: e647dd54-4d10-41d0-8071-21eb0a3f6214
+                attributes:
+                  displayName: 🐷 Savings
+                  accountType: SAVER
+                  ownershipType: INDIVIDUAL
+                  balance:
+                    currencyCode: AUD
+                    value: '125.36'
+                    valueInBaseUnits: 12536
+                  createdAt: '2024-08-06T12:18:30+10:00'
+                relationships:
+                  transactions:
+                    links:
+                      related: https://api.up.com.au/api/v1/accounts/e647dd54-4d10-41d0-8071-21eb0a3f6214/transactions
+                links:
+                  self: https://api.up.com.au/api/v1/accounts/e647dd54-4d10-41d0-8071-21eb0a3f6214
+components:
+  schemas:
+    ListAccountsResponse:
+      type: object
+      description: 'Successful response to get all accounts. This returns a paginated list of
+
+        accounts, which can be scrolled by following the `prev` and `next` links
+
+        if present.
+
+        '
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountResource'
+          description: 'The list of accounts returned in this response.
+
+            '
+        links:
+          type: object
+          properties:
+            prev:
+              type: string
+              nullable: true
+              description: 'The link to the previous page in the results. If this value is `null`
+
+                there is no previous page.
+
+                '
+            next:
+              type: string
+              nullable: true
+              description: 'The link to the next page in the results. If this value is `null`
+
+                there is no next page.
+
+                '
+          required:
+          - prev
+          - next
+      required:
+      - data
+      - links
+    AccountTypeEnum:
+      enum:
+      - SAVER
+      - TRANSACTIONAL
+      - HOME_LOAN
+      description: 'Specifies the type of bank account. Currently returned values are
+
+        `SAVER`, `TRANSACTIONAL` and `HOME_LOAN`.
+
+        '
+    GetAccountResponse:
+      type: object
+      description: 'Successful response to get a single account.
+
+        '
+      properties:
+        data:
+          description: 'The account returned in this response.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/AccountResource'
+      required:
+      - data
+    MoneyObject:
+      type: object
+      description: 'Provides information about a value of money.
+
+        '
+      properties:
+        currencyCode:
+          type: string
+          description: 'The ISO 4217 currency code.
+
+            '
+        value:
+          type: string
+          description: 'The amount of money, formatted as a string in the relevant currency.
+
+            For example, for an Australian dollar value of $10.56, this field will
+
+            be `"10.56"`. The currency symbol is not included in the string.
+
+            '
+        valueInBaseUnits:
+          type: integer
+          description: 'The amount of money in the smallest denomination for the currency, as a
+
+            64-bit integer.  For example, for an Australian dollar value of $10.56,
+
+            this field will be `1056`.
+
+            '
+      required:
+      - currencyCode
+      - value
+      - valueInBaseUnits
+    OwnershipTypeEnum:
+      enum:
+      - INDIVIDUAL
+      - JOINT
+      description: 'Specifies the structure under which a bank account is owned. Currently
+
+        returned values are `INDIVIDUAL` and `JOINT`.
+
+        '
+    AccountResource:
+      type: object
+      description: 'Provides information about an Up bank account.
+
+        '
+      properties:
+        type:
+          type: string
+          description: 'The type of this resource: `accounts`'
+        id:
+          type: string
+          description: 'The unique identifier for this account.
+
+            '
+        attributes:
+          type: object
+          properties:
+            displayName:
+              type: string
+              description: 'The name associated with the account in the Up application.
+
+                '
+            accountType:
+              description: 'The bank account type of this account.
+
+                '
+              allOf:
+              - $ref: '#/components/schemas/AccountTypeEnum'
+            ownershipType:
+              description: 'The ownership structure for this account.
+
+                '
+              allOf:
+              - $ref: '#/components/schemas/OwnershipTypeEnum'
+            balance:
+              description: 'The available balance of the account, taking into account any amounts
+
+                that are currently on hold.
+
+                '
+              allOf:
+              - $ref: '#/components/schemas/MoneyObject'
+            createdAt:
+              type: string
+              format: date-time
+              description: 'The date-time at which this account was first opened.
+
+                '
+          required:
+          - displayName
+          - accountType
+          - ownershipType
+          - balance
+          - createdAt
+        relationships:
+          type: object
+          properties:
+            transactions:
+              type: object
+              properties:
+                links:
+                  type: object
+                  properties:
+                    related:
+                      type: string
+                      description: 'The link to retrieve the related resource(s) in this relationship.
+
+                        '
+                  required:
+                  - related
+          required:
+          - transactions
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              description: 'The canonical link to this resource within the API.
+
+                '
+          required:
+          - self
+      required:
+      - type
+      - id
+      - attributes
+      - relationships

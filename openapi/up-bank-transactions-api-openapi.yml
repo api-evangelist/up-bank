@@ -1,0 +1,1122 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: contact@dsb.gov.au
+    name: Data Standards Body
+    url: https://dsb.gov.au/
+  description: Specifications for resource endpoints applicable to data holders in the Banking sector.
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+  title: CDR Banking Accounts Transactions API
+  version: 1.36.0
+servers:
+- description: MTLS
+  url: https://mtls.dh.example.com/cds-au/v1
+tags:
+- name: Transactions
+  description: 'Transactions represent the movement of money into and out of an
+
+    account. They have many characteristics that vary depending on
+
+    the kind of transaction. Transactions may be temporarily `HELD`
+
+    (pending) or `SETTLED`, typically depending on which payment
+
+    method was used at the point of sale.
+
+    '
+paths:
+  /transactions:
+    get:
+      tags:
+      - Transactions
+      summary: List transactions
+      description: 'Retrieve a list of all transactions across all accounts for the currently
+
+        authenticated user. The returned list is [paginated](#pagination) and can
+
+        be scrolled by following the `next` and `prev` links where present. To
+
+        narrow the results to a specific date range pass one or both of
+
+        `filter[since]` and `filter[until]` in the query string. These filter
+
+        parameters **should not** be used for pagination. Results are ordered
+
+        newest first to oldest last.
+
+        '
+      parameters:
+      - name: page[size]
+        in: query
+        schema:
+          type: integer
+        required: false
+        example: 30
+        description: 'The number of records to return in each page.
+
+          '
+      - name: filter[status]
+        in: query
+        schema:
+          $ref: '#/components/schemas/TransactionStatusEnum'
+        required: false
+        example: HELD
+        description: 'The transaction status for which to return records. This
+
+          can be used to filter `HELD` transactions from those
+
+          that are `SETTLED`.
+
+          '
+      - name: filter[since]
+        in: query
+        schema:
+          type: string
+          format: date-time
+        required: false
+        example: '2020-01-01T01:02:03+10:00'
+        description: 'The start date-time from which to return records,
+
+          formatted according to rfc-3339. Not to be used for
+
+          pagination purposes.
+
+          '
+      - name: filter[until]
+        in: query
+        schema:
+          type: string
+          format: date-time
+        required: false
+        example: '2020-02-01T01:02:03+10:00'
+        description: 'The end date-time up to which to return records,
+
+          formatted according to rfc-3339. Not to be used for
+
+          pagination purposes.
+
+          '
+      - name: filter[category]
+        in: query
+        schema:
+          type: string
+        required: false
+        example: good-life
+        description: 'The category identifier for which to filter transactions.
+
+          Both parent and child categories can be filtered through
+
+          this parameter. Providing an invalid category identifier
+
+          results in a `404` response.
+
+          '
+      - name: filter[tag]
+        in: query
+        schema:
+          type: string
+        required: false
+        example: Holiday
+        description: 'A transaction tag to filter for which to return records.
+
+          If the tag does not exist, zero records are returned and
+
+          a success response is given.
+
+          '
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTransactionsResponse'
+          x-up:example:
+            type: exampleRequestResponse
+            request:
+              headers:
+                Authorization: Bearer up:demo:x2IN1pBWVKpwYQ1C
+              pathParameters: {}
+              queryParameters:
+                page[size]: 1
+                filter[tag]: Pizza Night
+                filter[status]: SETTLED
+              payload: null
+            response:
+              data:
+              - type: transactions
+                id: e38f484c-276e-4e87-9031-224564067d83
+                attributes:
+                  status: SETTLED
+                  rawText: null
+                  description: David Taylor
+                  message: Money for the pizzas last night.
+                  isCategorizable: true
+                  holdInfo: null
+                  roundUp: null
+                  cashback: null
+                  amount:
+                    currencyCode: AUD
+                    value: '-59.98'
+                    valueInBaseUnits: -5998
+                  foreignAmount: null
+                  cardPurchaseMethod: null
+                  settledAt: '2024-08-05T05:16:50+10:00'
+                  createdAt: '2024-08-05T05:16:50+10:00'
+                  transactionType: null
+                  note: null
+                  performingCustomer:
+                    displayName: Bobby
+                relationships:
+                  account:
+                    data:
+                      type: accounts
+                      id: b47aa85f-0b67-46b2-a8d4-902f8e8b9d97
+                    links:
+                      related: https://api.up.com.au/api/v1/accounts/b47aa85f-0b67-46b2-a8d4-902f8e8b9d97
+                  transferAccount:
+                    data: null
+                  category:
+                    data: null
+                    links:
+                      self: https://api.up.com.au/api/v1/transactions/e38f484c-276e-4e87-9031-224564067d83/relationships/category
+                  parentCategory:
+                    data: null
+                  tags:
+                    data:
+                    - type: tags
+                      id: Pizza Night
+                    links:
+                      self: https://api.up.com.au/api/v1/transactions/e38f484c-276e-4e87-9031-224564067d83/relationships/tags
+                  attachment:
+                    data: null
+                links:
+                  self: https://api.up.com.au/api/v1/transactions/e38f484c-276e-4e87-9031-224564067d83
+              links:
+                prev: null
+                next: null
+  /transactions/{id}:
+    get:
+      tags:
+      - Transactions
+      summary: Retrieve transaction
+      description: 'Retrieve a specific transaction by providing its unique identifier.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: 57a749fd-4fc9-40da-a8d9-ec9cf1d8c9ff
+        description: 'The unique identifier for the transaction.
+
+          '
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTransactionResponse'
+          x-up:example:
+            type: exampleRequestResponse
+            request:
+              headers:
+                Authorization: Bearer up:demo:zaoUoVWJiy1FHOQ5
+              pathParameters:
+                id: 20f1a541-356b-4363-aeba-18e21661b8e5
+              queryParameters: {}
+              payload: null
+            response:
+              data:
+                type: transactions
+                id: 20f1a541-356b-4363-aeba-18e21661b8e5
+                attributes:
+                  status: SETTLED
+                  rawText: WARUNG BEBEK, UBUD INDONES
+                  description: Warung Bebek Bengil
+                  message: null
+                  isCategorizable: true
+                  holdInfo:
+                    amount:
+                      currencyCode: AUD
+                      value: '-107.92'
+                      valueInBaseUnits: -10792
+                    foreignAmount: null
+                  roundUp:
+                    amount:
+                      currencyCode: AUD
+                      value: '-0.08'
+                      valueInBaseUnits: -8
+                    boostPortion: null
+                  cashback: null
+                  amount:
+                    currencyCode: AUD
+                    value: '-107.92'
+                    valueInBaseUnits: -10792
+                  foreignAmount:
+                    currencyCode: IDR
+                    value: '-1053698.77'
+                    valueInBaseUnits: -105369877
+                  cardPurchaseMethod:
+                    method: CARD_ON_FILE
+                    cardNumberSuffix: '0001'
+                  settledAt: '2024-08-03T04:00:00+10:00'
+                  createdAt: '2024-08-03T04:00:00+10:00'
+                  transactionType: null
+                  note: null
+                  performingCustomer:
+                    displayName: Bobby
+                relationships:
+                  account:
+                    data:
+                      type: accounts
+                      id: 20388753-0ba8-46ab-92f8-d186a9b3e2a8
+                    links:
+                      related: https://api.up.com.au/api/v1/accounts/20388753-0ba8-46ab-92f8-d186a9b3e2a8
+                  transferAccount:
+                    data: null
+                  category:
+                    data: null
+                    links:
+                      self: https://api.up.com.au/api/v1/transactions/20f1a541-356b-4363-aeba-18e21661b8e5/relationships/category
+                  parentCategory:
+                    data: null
+                  tags:
+                    data: []
+                    links:
+                      self: https://api.up.com.au/api/v1/transactions/20f1a541-356b-4363-aeba-18e21661b8e5/relationships/tags
+                  attachment:
+                    data: null
+                links:
+                  self: https://api.up.com.au/api/v1/transactions/20f1a541-356b-4363-aeba-18e21661b8e5
+  /accounts/{accountId}/transactions:
+    get:
+      tags:
+      - Transactions
+      summary: List transactions by account
+      description: 'Retrieve a list of all transactions for a specific account. The returned
+
+        list is [paginated](#pagination) and can be scrolled by following the
+
+        `next` and `prev` links where present. To narrow the results to a
+
+        specific date range pass one or both of `filter[since]` and
+
+        `filter[until]` in the query string. These filter parameters
+
+        **should not** be used for pagination. Results are ordered newest first
+
+        to oldest last.
+
+        '
+      parameters:
+      - name: accountId
+        in: path
+        schema:
+          type: string
+        required: true
+        example: 689a08de-fa65-4f2d-8b58-e49b17117dc7
+        description: 'The unique identifier for the account.
+
+          '
+      - name: page[size]
+        in: query
+        schema:
+          type: integer
+        required: false
+        example: 30
+        description: 'The number of records to return in each page.
+
+          '
+      - name: filter[status]
+        in: query
+        schema:
+          $ref: '#/components/schemas/TransactionStatusEnum'
+        required: false
+        example: HELD
+        description: 'The transaction status for which to return records. This
+
+          can be used to filter `HELD` transactions from those
+
+          that are `SETTLED`.
+
+          '
+      - name: filter[since]
+        in: query
+        schema:
+          type: string
+          format: date-time
+        required: false
+        example: '2020-01-01T01:02:03+10:00'
+        description: 'The start date-time from which to return records,
+
+          formatted according to rfc-3339. Not to be used for
+
+          pagination purposes.
+
+          '
+      - name: filter[until]
+        in: query
+        schema:
+          type: string
+          format: date-time
+        required: false
+        example: '2020-02-01T01:02:03+10:00'
+        description: 'The end date-time up to which to return records,
+
+          formatted according to rfc-3339. Not to be used for
+
+          pagination purposes.
+
+          '
+      - name: filter[category]
+        in: query
+        schema:
+          type: string
+        required: false
+        example: good-life
+        description: 'The category identifier for which to filter transactions.
+
+          Both parent and child categories can be filtered through
+
+          this parameter. Providing an invalid category identifier
+
+          results in a `404` response.
+
+          '
+      - name: filter[tag]
+        in: query
+        schema:
+          type: string
+        required: false
+        example: Holiday
+        description: 'A transaction tag to filter for which to return records.
+
+          If the tag does not exist, zero records are returned and
+
+          a success response is given.
+
+          '
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTransactionsResponse'
+          x-up:example:
+            type: exampleRequestResponse
+            request:
+              headers:
+                Authorization: Bearer up:demo:k6Zc7WP5K3WuBcLc
+              pathParameters:
+                accountId: bccfbe8a-8d06-415d-b6fb-9f4e4507a3c2
+              queryParameters:
+                page[size]: 1
+                filter[status]: HELD
+                filter[category]: good-life
+              payload: null
+            response:
+              data:
+              - type: transactions
+                id: 08e78dd1-539c-40cc-a124-2af02e078d20
+                attributes:
+                  status: HELD
+                  rawText: Spotify 0123456789
+                  description: Spotify
+                  message: null
+                  isCategorizable: true
+                  holdInfo:
+                    amount:
+                      currencyCode: AUD
+                      value: '-11.95'
+                      valueInBaseUnits: -1195
+                    foreignAmount: null
+                  roundUp: null
+                  cashback: null
+                  amount:
+                    currencyCode: AUD
+                    value: '-11.95'
+                    valueInBaseUnits: -1195
+                  foreignAmount: null
+                  cardPurchaseMethod: null
+                  settledAt: null
+                  createdAt: '2024-08-03T08:09:59+10:00'
+                  transactionType: null
+                  note: null
+                  performingCustomer:
+                    displayName: Bobby
+                relationships:
+                  account:
+                    data:
+                      type: accounts
+                      id: bccfbe8a-8d06-415d-b6fb-9f4e4507a3c2
+                    links:
+                      related: https://api.up.com.au/api/v1/accounts/bccfbe8a-8d06-415d-b6fb-9f4e4507a3c2
+                  transferAccount:
+                    data: null
+                  category:
+                    data:
+                      type: categories
+                      id: tv-and-music
+                    links:
+                      self: https://api.up.com.au/api/v1/transactions/08e78dd1-539c-40cc-a124-2af02e078d20/relationships/category
+                      related: https://api.up.com.au/api/v1/categories/tv-and-music
+                  parentCategory:
+                    data:
+                      type: categories
+                      id: good-life
+                    links:
+                      related: https://api.up.com.au/api/v1/categories/good-life
+                  tags:
+                    data: []
+                    links:
+                      self: https://api.up.com.au/api/v1/transactions/08e78dd1-539c-40cc-a124-2af02e078d20/relationships/tags
+                  attachment:
+                    data: null
+                links:
+                  self: https://api.up.com.au/api/v1/transactions/08e78dd1-539c-40cc-a124-2af02e078d20
+              links:
+                prev: null
+                next: null
+components:
+  schemas:
+    CardPurchaseMethodEnum:
+      enum:
+      - BAR_CODE
+      - OCR
+      - CARD_PIN
+      - CARD_DETAILS
+      - CARD_ON_FILE
+      - ECOMMERCE
+      - MAGNETIC_STRIPE
+      - CONTACTLESS
+      description: 'Specifies the type of card charge.
+
+        '
+    NoteObject:
+      type: object
+      description: 'Provides information about the note and attachement.
+
+        '
+      properties:
+        text:
+          type: string
+          description: 'A text note about the transaction.
+
+            '
+      required:
+      - text
+    HoldInfoObject:
+      type: object
+      description: 'Provides information about the amount at which a transaction was in the
+
+        `HELD` status.
+
+        '
+      properties:
+        amount:
+          description: 'The amount of this transaction while in the `HELD` status, in
+
+            Australian dollars.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/MoneyObject'
+        foreignAmount:
+          nullable: true
+          description: 'The foreign currency amount of this transaction while in the `HELD`
+
+            status. This field will be `null` for domestic transactions. The amount
+
+            was converted to the AUD amount reflected in the `amount` field.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/MoneyObject'
+      required:
+      - amount
+      - foreignAmount
+    ListTransactionsResponse:
+      type: object
+      description: 'Successful response to get all transactions. This returns a paginated
+
+        list of transactions, which can be scrolled by following the `prev` and
+
+        `next` links if present.
+
+        '
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionResource'
+          description: 'The list of transactions returned in this response.
+
+            '
+        links:
+          type: object
+          properties:
+            prev:
+              type: string
+              nullable: true
+              description: 'The link to the previous page in the results. If this value is `null`
+
+                there is no previous page.
+
+                '
+            next:
+              type: string
+              nullable: true
+              description: 'The link to the next page in the results. If this value is `null`
+
+                there is no next page.
+
+                '
+          required:
+          - prev
+          - next
+      required:
+      - data
+      - links
+    GetTransactionResponse:
+      type: object
+      description: 'Successful response to get a single transaction.
+
+        '
+      properties:
+        data:
+          description: 'The transaction returned in this response.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/TransactionResource'
+      required:
+      - data
+    CardPurchaseMethodObject:
+      type: object
+      description: 'Provides information about the card used for a transaction.
+
+        '
+      properties:
+        method:
+          description: 'The type of card purchase.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/CardPurchaseMethodEnum'
+        cardNumberSuffix:
+          type: string
+          nullable: true
+          description: 'The last four digits of the card used for the purchase, if applicable.
+
+            '
+      required:
+      - method
+      - cardNumberSuffix
+    MoneyObject:
+      type: object
+      description: 'Provides information about a value of money.
+
+        '
+      properties:
+        currencyCode:
+          type: string
+          description: 'The ISO 4217 currency code.
+
+            '
+        value:
+          type: string
+          description: 'The amount of money, formatted as a string in the relevant currency.
+
+            For example, for an Australian dollar value of $10.56, this field will
+
+            be `"10.56"`. The currency symbol is not included in the string.
+
+            '
+        valueInBaseUnits:
+          type: integer
+          description: 'The amount of money in the smallest denomination for the currency, as a
+
+            64-bit integer.  For example, for an Australian dollar value of $10.56,
+
+            this field will be `1056`.
+
+            '
+      required:
+      - currencyCode
+      - value
+      - valueInBaseUnits
+    TransactionResource:
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'The type of this resource: `transactions`'
+        id:
+          type: string
+          description: 'The unique identifier for this transaction.
+
+            '
+        attributes:
+          type: object
+          properties:
+            status:
+              description: 'The current processing status of this transaction, according to
+
+                whether or not this transaction has settled or is still held.
+
+                '
+              allOf:
+              - $ref: '#/components/schemas/TransactionStatusEnum'
+            rawText:
+              type: string
+              nullable: true
+              description: 'The original, unprocessed text of the transaction. This is often not
+
+                a perfect indicator of the actual merchant, but it is useful for
+
+                reconciliation purposes in some cases.
+
+                '
+            description:
+              type: string
+              description: 'A short description for this transaction. Usually the merchant name
+
+                for purchases.
+
+                '
+            message:
+              type: string
+              nullable: true
+              description: 'Attached message for this transaction, such as a payment message, or a
+
+                transfer note.
+
+                '
+            isCategorizable:
+              type: boolean
+              description: 'Boolean flag set to true on transactions that support the use of
+
+                categories.
+
+                '
+            holdInfo:
+              nullable: true
+              description: 'If this transaction is currently in the `HELD` status, or was ever in
+
+                the `HELD` status, the `amount` and `foreignAmount` of the
+
+                transaction while `HELD`.
+
+                '
+              allOf:
+              - $ref: '#/components/schemas/HoldInfoObject'
+            roundUp:
+              nullable: true
+              description: 'Details of how this transaction was rounded-up. If no Round Up was
+
+                applied this field will be `null`.
+
+                '
+              allOf:
+              - $ref: '#/components/schemas/RoundUpObject'
+            cashback:
+              nullable: true
+              description: 'If all or part of this transaction was instantly reimbursed in the
+
+                form of cashback, details of the reimbursement.
+
+                '
+              allOf:
+              - $ref: '#/components/schemas/CashbackObject'
+            amount:
+              description: 'The amount of this transaction in Australian dollars. For
+
+                transactions that were once `HELD` but are now `SETTLED`, refer to
+
+                the `holdInfo` field for the original `amount` the transaction was
+
+                `HELD` at.
+
+                '
+              allOf:
+              - $ref: '#/components/schemas/MoneyObject'
+            foreignAmount:
+              nullable: true
+              description: 'The foreign currency amount of this transaction. This field will be
+
+                `null` for domestic transactions. The amount was converted to the AUD
+
+                amount reflected in the `amount` of this transaction. Refer to the
+
+                `holdInfo` field for the original `foreignAmount` the transaction was
+
+                `HELD` at.
+
+                '
+              allOf:
+              - $ref: '#/components/schemas/MoneyObject'
+            cardPurchaseMethod:
+              nullable: true
+              description: 'Information about the card used for this transaction, if applicable.
+
+                '
+              allOf:
+              - $ref: '#/components/schemas/CardPurchaseMethodObject'
+            settledAt:
+              type: string
+              format: date-time
+              nullable: true
+              description: 'The date-time at which this transaction settled. This field will be
+
+                `null` for transactions that are currently in the `HELD` status.
+
+                '
+            createdAt:
+              type: string
+              format: date-time
+              description: 'The date-time at which this transaction was first encountered.
+
+                '
+            transactionType:
+              type: string
+              nullable: true
+              description: 'A description of the transaction method used e.g. Purchase, BPAY Payment.
+
+                '
+            note:
+              nullable: true
+              description: 'A customer provided note about the transaction.  Can only be provided by Up High subscribers.
+
+                '
+              allOf:
+              - $ref: '#/components/schemas/NoteObject'
+            performingCustomer:
+              nullable: true
+              description: 'The customer who initated the transaction.  For 2Up accounts this could be the customer who''s card was used.
+
+                '
+              allOf:
+              - $ref: '#/components/schemas/CustomerObject'
+          required:
+          - status
+          - rawText
+          - description
+          - message
+          - isCategorizable
+          - holdInfo
+          - roundUp
+          - cashback
+          - amount
+          - foreignAmount
+          - cardPurchaseMethod
+          - settledAt
+          - createdAt
+          - transactionType
+          - note
+          - performingCustomer
+        relationships:
+          type: object
+          properties:
+            account:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      description: 'The type of this resource: `accounts`'
+                    id:
+                      type: string
+                      description: 'The unique identifier of the resource within its type.
+
+                        '
+                  required:
+                  - type
+                  - id
+                links:
+                  type: object
+                  properties:
+                    related:
+                      type: string
+                      description: 'The link to retrieve the related resource(s) in this relationship.
+
+                        '
+                  required:
+                  - related
+              required:
+              - data
+            transferAccount:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      description: 'The type of this resource: `accounts`'
+                    id:
+                      type: string
+                      description: 'The unique identifier of the resource within its type.
+
+                        '
+                  required:
+                  - type
+                  - id
+                  nullable: true
+                links:
+                  type: object
+                  properties:
+                    related:
+                      type: string
+                      description: 'The link to retrieve the related resource(s) in this relationship.
+
+                        '
+                  required:
+                  - related
+              required:
+              - data
+              description: 'If this transaction is a transfer between accounts, this relationship
+
+                will contain the account the transaction went to/came from. The
+
+                `amount` field can be used to determine the direction of the transfer.
+
+                '
+            category:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      description: 'The type of this resource: `categories`'
+                    id:
+                      type: string
+                      description: 'The unique identifier of the resource within its type.
+
+                        '
+                  required:
+                  - type
+                  - id
+                  nullable: true
+                links:
+                  type: object
+                  properties:
+                    self:
+                      type: string
+                      description: 'The link to retrieve or modify linkage between this resources and the
+
+                        related resource(s) in this relationship.
+
+                        '
+                    related:
+                      type: string
+                      description: 'The link to retrieve the related resource(s) in this relationship.
+
+                        '
+                  required:
+                  - self
+              required:
+              - data
+            parentCategory:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      description: 'The type of this resource: `categories`'
+                    id:
+                      type: string
+                      description: 'The unique identifier of the resource within its type.
+
+                        '
+                  required:
+                  - type
+                  - id
+                  nullable: true
+                links:
+                  type: object
+                  properties:
+                    related:
+                      type: string
+                      description: 'The link to retrieve the related resource(s) in this relationship.
+
+                        '
+                  required:
+                  - related
+              required:
+              - data
+            tags:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        description: 'The type of this resource: `tags`'
+                      id:
+                        type: string
+                        description: 'The label of the tag, which also acts as the tag’s unique identifier.
+
+                          '
+                    required:
+                    - type
+                    - id
+                links:
+                  type: object
+                  properties:
+                    self:
+                      type: string
+                      description: 'The link to retrieve or modify linkage between this resources and the
+
+                        related resource(s) in this relationship.
+
+                        '
+                  required:
+                  - self
+              required:
+              - data
+            attachment:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      description: 'The type of this resource: `attachments`'
+                    id:
+                      type: string
+                      description: 'The unique identifier of the resource within its type.
+
+                        '
+                  required:
+                  - type
+                  - id
+                  nullable: true
+                links:
+                  type: object
+                  properties:
+                    related:
+                      type: string
+                      description: 'The link to retrieve the related resource(s) in this relationship.
+
+                        '
+                  required:
+                  - related
+              required:
+              - data
+          required:
+          - account
+          - transferAccount
+          - category
+          - parentCategory
+          - tags
+          - attachment
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              description: 'The canonical link to this resource within the API.
+
+                '
+          required:
+          - self
+      required:
+      - type
+      - id
+      - attributes
+      - relationships
+    CashbackObject:
+      type: object
+      description: 'Provides information about an instant reimbursement in the form of
+
+        cashback.
+
+        '
+      properties:
+        description:
+          type: string
+          description: 'A brief description of why this cashback was paid.
+
+            '
+        amount:
+          description: 'The total amount of cashback paid, represented as a positive value.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/MoneyObject'
+      required:
+      - description
+      - amount
+    RoundUpObject:
+      type: object
+      description: 'Provides information about how a Round Up was applied, such as whether or
+
+        not a boost was included in the Round Up.
+
+        '
+      properties:
+        amount:
+          description: 'The total amount of this Round Up, including any boosts, represented as
+
+            a negative value.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/MoneyObject'
+        boostPortion:
+          nullable: true
+          description: 'The portion of the Round Up `amount` owing to boosted Round Ups,
+
+            represented as a negative value. If no boost was added to the Round Up
+
+            this field will be `null`.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/MoneyObject'
+      required:
+      - amount
+      - boostPortion
+    CustomerObject:
+      type: object
+      description: 'Provides information about the customer who initiated a transaction
+
+        '
+      properties:
+        displayName:
+          type: string
+          description: 'The Upname or preferred name of the customer
+
+            '
+      required:
+      - displayName
+    TransactionStatusEnum:
+      enum:
+      - HELD
+      - SETTLED
+      description: 'Specifies which stage of processing a transaction is currently at.
+
+        Currently returned values are `HELD` and `SETTLED`. When a transaction is
+
+        held, its account’s `availableBalance` is affected. When a transaction is
+
+        settled, its account’s `currentBalance` is affected.
+
+        '
