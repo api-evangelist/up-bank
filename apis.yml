@@ -15,7 +15,19 @@ description: Up is an Australian digital-only neobank founded in 2018 as a colla
   Australian data holder under the Consumer Data Right (CDR / Open Banking), a public,
   unauthenticated Product Reference Data (PRD) API conforming to the DSB Consumer Data
   Standards.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/up-bank.png
 tags:
 - Financial
 - Banks
@@ -29,165 +41,510 @@ created: '2026-07-20'
 modified: '2026-07-22'
 specificationVersion: '0.19'
 apis:
-- aid: up-bank:up-cdr-product-reference-data-api
-  name: Up CDR Product Reference Data API
-  tags:
-  - CDR
-  - Open Banking
-  - Product Reference Data
-  - Banking
-  - Australia
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: up-bank:up-bank-accounts-api
+  name: Up Accounts API
+  description: >-
+    Accounts represent the underlying store used to track balances
+
+    and the transactions that have occurred to modify those balances
+
+    over time. Up currently has three types of account: `SAVER`—used to
+
+    earn interest and to hit savings goals, `TRANSACTIONAL`—used
+
+    for everyday spending, and `HOME_LOAN`-for those with an Up Home loan.
   humanURL: https://up.com.au/cdr-policy/
   baseURL: https://api.up.com.au/cds-au/v1/banking/products
-  properties:
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
-    type: APIReference
-  - url: openapi/up-bank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  - url: overlays/up-bank-cds-banking-products-overlay.yaml
-    type: Overlay
-  description: Public, unauthenticated Product Reference Data (PRD) API mandated for
-    all Australian data holders under the Consumer Data Right. Confirmed live at
-    https://api.up.com.au/cds-au/v1/banking/products (HTTP 200, x-v 3) returning a
-    data.products array (4 products - Up Everyday, Up Saver, Up Essentials Saver, Up
-    Home Loan) with fees, rates, and eligibility. Covers the DSB CDS Banking Get
-    Products and Get Product Detail operations; the harvested OpenAPI is the shared
-    DSB Consumer Data Standards Banking API v1.36.0 contract, not an Up-proprietary
-    spec.
-- aid: up-bank:up-cdr-accounts-balances-api
-  name: Up CDR Accounts & Balances API
   tags:
-  - CDR
-  - Open Banking
   - Accounts
-  - Balances
-  - Banking
-  - Australia
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://up.com.au/cdr-policy/
-  baseURL: https://api.up.com.au/cds-au/v1/banking/accounts
   properties:
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
-    type: APIReference
-  - url: openapi/up-bank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-authorized CDR Banking surface covering Get Accounts, Get
-    Bulk Balances, Get Account Balance, and Get Account Detail. Reached only through
-    the accredited data recipient (ADR) model with an active customer consent and
-    FAPI/mTLS - not public; probing https://api.up.com.au/cds-au/v1/banking/accounts
-    without CDR auth returns HTTP 400. Up confirms account balances and detail are
-    shareable per its CDR policy. Contract is the shared DSB Consumer Data Standards
-    Banking API v1.36.0 (accounts and balances paths), not an Up-proprietary spec.
-- aid: up-bank:up-cdr-transactions-api
-  name: Up CDR Transactions API
+  - type: OpenAPI
+    url: openapi/up-bank-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: Documentation
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+  - type: Documentation
+    url: https://developer.up.com.au/
+  - type: APIReference
+    url: https://developer.up.com.au/#welcome
+  - type: SourceCode
+    url: https://github.com/up-banking/api
+  - type: AsyncAPI
+    url: asyncapi/up-bank-webhooks-asyncapi.yml
+- aid: up-bank:up-bank-attachments-api
+  name: Up Attachments API
+  description: >-
+    Attachments represent uploaded files that are attached to transactions, these are commonly receipts.
+  humanURL: https://up.com.au/cdr-policy/
+  baseURL: https://api.up.com.au/cds-au/v1/banking/products
   tags:
-  - CDR
-  - Open Banking
+  - Attachments
+  properties:
+  - type: OpenAPI
+    url: openapi/up-bank-attachments-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: Documentation
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+  - type: Documentation
+    url: https://developer.up.com.au/
+  - type: APIReference
+    url: https://developer.up.com.au/#welcome
+  - type: SourceCode
+    url: https://github.com/up-banking/api
+  - type: AsyncAPI
+    url: asyncapi/up-bank-webhooks-asyncapi.yml
+- aid: up-bank:up-bank-banking-account-balances-api
+  name: Up Banking Account Balances API
+  description: Banking Account Balance endpoints
+  humanURL: https://up.com.au/cdr-policy/
+  baseURL: https://api.up.com.au/cds-au/v1/banking/products
+  tags:
+  - Banking Account Balances
+  properties:
+  - type: OpenAPI
+    url: openapi/up-bank-banking-account-balances-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: Documentation
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+  - type: Documentation
+    url: https://developer.up.com.au/
+  - type: APIReference
+    url: https://developer.up.com.au/#welcome
+  - type: SourceCode
+    url: https://github.com/up-banking/api
+  - type: AsyncAPI
+    url: asyncapi/up-bank-webhooks-asyncapi.yml
+- aid: up-bank:up-bank-banking-account-direct-debits-api
+  name: Up Banking Account Direct Debits API
+  description: Banking Account Direct Debit endpoints
+  humanURL: https://up.com.au/cdr-policy/
+  baseURL: https://api.up.com.au/cds-au/v1/banking/products
+  tags:
+  - Banking Account Direct Debits
+  properties:
+  - type: OpenAPI
+    url: openapi/up-bank-banking-account-direct-debits-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: Documentation
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+  - type: Documentation
+    url: https://developer.up.com.au/
+  - type: APIReference
+    url: https://developer.up.com.au/#welcome
+  - type: SourceCode
+    url: https://github.com/up-banking/api
+  - type: AsyncAPI
+    url: asyncapi/up-bank-webhooks-asyncapi.yml
+- aid: up-bank:up-bank-banking-account-scheduled-payments-api
+  name: Up Banking Account Scheduled Payments API
+  description: Banking Account Scheduled Payment endpoints
+  humanURL: https://up.com.au/cdr-policy/
+  baseURL: https://api.up.com.au/cds-au/v1/banking/products
+  tags:
+  - Banking Account Scheduled Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/up-bank-banking-account-scheduled-payments-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: Documentation
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+  - type: Documentation
+    url: https://developer.up.com.au/
+  - type: APIReference
+    url: https://developer.up.com.au/#welcome
+  - type: SourceCode
+    url: https://github.com/up-banking/api
+  - type: AsyncAPI
+    url: asyncapi/up-bank-webhooks-asyncapi.yml
+- aid: up-bank:up-bank-banking-account-transactions-api
+  name: Up Banking Account Transactions API
+  description: Banking Account Transaction endpoints
+  humanURL: https://up.com.au/cdr-policy/
+  baseURL: https://api.up.com.au/cds-au/v1/banking/products
+  tags:
+  - Banking Account Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/up-bank-banking-account-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: Documentation
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+  - type: Documentation
+    url: https://developer.up.com.au/
+  - type: APIReference
+    url: https://developer.up.com.au/#welcome
+  - type: SourceCode
+    url: https://github.com/up-banking/api
+  - type: AsyncAPI
+    url: asyncapi/up-bank-webhooks-asyncapi.yml
+- aid: up-bank:up-bank-banking-accounts-api
+  name: Up Banking Accounts API
+  description: Banking Account endpoints
+  humanURL: https://up.com.au/cdr-policy/
+  baseURL: https://api.up.com.au/cds-au/v1/banking/products
+  tags:
+  - Banking Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/up-bank-banking-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: Documentation
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+  - type: Documentation
+    url: https://developer.up.com.au/
+  - type: APIReference
+    url: https://developer.up.com.au/#welcome
+  - type: SourceCode
+    url: https://github.com/up-banking/api
+  - type: AsyncAPI
+    url: asyncapi/up-bank-webhooks-asyncapi.yml
+- aid: up-bank:up-bank-banking-payees-api
+  name: Up Banking Payees API
+  description: Banking Payee endpoints
+  humanURL: https://up.com.au/cdr-policy/
+  baseURL: https://api.up.com.au/cds-au/v1/banking/products
+  tags:
+  - Banking Payees
+  properties:
+  - type: OpenAPI
+    url: openapi/up-bank-banking-payees-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: Documentation
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+  - type: Documentation
+    url: https://developer.up.com.au/
+  - type: APIReference
+    url: https://developer.up.com.au/#welcome
+  - type: SourceCode
+    url: https://github.com/up-banking/api
+  - type: AsyncAPI
+    url: asyncapi/up-bank-webhooks-asyncapi.yml
+- aid: up-bank:up-bank-banking-products-api
+  name: Up Banking Products API
+  description: Banking Product endpoints
+  humanURL: https://up.com.au/cdr-policy/
+  baseURL: https://api.up.com.au/cds-au/v1/banking/products
+  tags:
+  - Banking Products
+  properties:
+  - type: OpenAPI
+    url: openapi/up-bank-banking-products-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: Documentation
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+  - type: Documentation
+    url: https://developer.up.com.au/
+  - type: APIReference
+    url: https://developer.up.com.au/#welcome
+  - type: SourceCode
+    url: https://github.com/up-banking/api
+  - type: AsyncAPI
+    url: asyncapi/up-bank-webhooks-asyncapi.yml
+- aid: up-bank:up-bank-categories-api
+  name: Up Categories API
+  description: >-
+    Categories enable understanding where your money goes by driving
+
+    powerful insights in Up. All categories in Up are pre-defined
+
+    and are automatically assigned to new purchases in most cases. A
+
+    parent-child relationship is used to represent categories,
+
+    however parent categories cannot be directly assigned to
+
+    transactions.
+  humanURL: https://up.com.au/cdr-policy/
+  baseURL: https://api.up.com.au/cds-au/v1/banking/products
+  tags:
+  - Categories
+  properties:
+  - type: OpenAPI
+    url: openapi/up-bank-categories-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: Documentation
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+  - type: Documentation
+    url: https://developer.up.com.au/
+  - type: APIReference
+    url: https://developer.up.com.au/#welcome
+  - type: SourceCode
+    url: https://github.com/up-banking/api
+  - type: AsyncAPI
+    url: asyncapi/up-bank-webhooks-asyncapi.yml
+- aid: up-bank:up-bank-tags-api
+  name: Up Tags API
+  description: >-
+    Tags are custom labels that can be associated with transactions
+
+    on Up. Within the Up application, tags provide additional insight
+
+    into spending. For example, you could have a "Take Away" tag that
+
+    you apply to purchases from food delivery services. The Up API
+
+    allows you to manage the tags associated with transactions. Each
+
+    transaction may have up to 6 tags.
+
+
+    Tags are identified by their labels, which are unique strings,
+
+    so the tag "Holiday" has also the `id` `"Holiday"`.
+  humanURL: https://up.com.au/cdr-policy/
+  baseURL: https://api.up.com.au/cds-au/v1/banking/products
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/up-bank-tags-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: Documentation
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+  - type: Documentation
+    url: https://developer.up.com.au/
+  - type: APIReference
+    url: https://developer.up.com.au/#welcome
+  - type: SourceCode
+    url: https://github.com/up-banking/api
+  - type: AsyncAPI
+    url: asyncapi/up-bank-webhooks-asyncapi.yml
+- aid: up-bank:up-bank-transactions-api
+  name: Up Transactions API
+  description: >-
+    Transactions represent the movement of money into and out of an
+
+    account. They have many characteristics that vary depending on
+
+    the kind of transaction. Transactions may be temporarily `HELD`
+
+    (pending) or `SETTLED`, typically depending on which payment
+
+    method was used at the point of sale.
+  humanURL: https://up.com.au/cdr-policy/
+  baseURL: https://api.up.com.au/cds-au/v1/banking/products
+  tags:
   - Transactions
-  - Banking
-  - Australia
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://up.com.au/cdr-policy/
-  baseURL: https://api.up.com.au/cds-au/v1/banking/accounts/{accountId}/transactions
   properties:
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
-    type: APIReference
-  - url: openapi/up-bank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-authorized CDR Banking surface covering Get Transactions For
-    Account and Get Transaction Detail. Accessed only via the CDR accredited data
-    recipient model under active customer consent (FAPI/mTLS) - not public. Up's CDR
-    policy states shared transaction history dates back to account creation. Contract
-    is the shared DSB Consumer Data Standards Banking API v1.36.0 (transaction paths),
-    not an Up-proprietary spec, and is distinct from Up's own personal-banking
-    transactions API.
-- aid: up-bank:up-cdr-direct-debits-scheduled-payments-api
-  name: Up CDR Direct Debits & Scheduled Payments API
-  tags:
-  - CDR
-  - Open Banking
-  - Direct Debits
-  - Scheduled Payments
-  - Banking
-  - Australia
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  - type: OpenAPI
+    url: openapi/up-bank-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: Documentation
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+  - type: Documentation
+    url: https://developer.up.com.au/
+  - type: APIReference
+    url: https://developer.up.com.au/#welcome
+  - type: SourceCode
+    url: https://github.com/up-banking/api
+  - type: AsyncAPI
+    url: asyncapi/up-bank-webhooks-asyncapi.yml
+- aid: up-bank:up-bank-utility-endpoints-api
+  name: Up Utility endpoints API
+  description: >-
+    Some endpoints exist not to expose data, but to test the API
+
+    itself. Currently there is only one endpoint in this group: ping!
   humanURL: https://up.com.au/cdr-policy/
-  baseURL: https://api.up.com.au/cds-au/v1/banking/accounts/direct-debits
-  properties:
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
-    type: APIReference
-  - url: openapi/up-bank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-authorized CDR Banking surface covering Get Direct Debits For
-    Account, Get Bulk Direct Debits, Get Scheduled Payments For Account, Get Scheduled
-    Payments Bulk, and the payments scheduled/plans endpoints. Reached only through
-    the CDR accredited data recipient model under active customer consent (FAPI/mTLS)
-    - not public. Up's CDR policy lists scheduled payments among shareable data.
-    Contract is the shared DSB Consumer Data Standards Banking API v1.36.0 (direct
-    debits and scheduled payments paths), not an Up-proprietary spec.
-- aid: up-bank:up-cdr-payees-api
-  name: Up CDR Payees API
+  baseURL: https://api.up.com.au/cds-au/v1/banking/products
   tags:
-  - CDR
-  - Open Banking
-  - Payees
-  - Banking
-  - Australia
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  - Utility endpoints
+  properties:
+  - type: OpenAPI
+    url: openapi/up-bank-utility-endpoints-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: Documentation
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+  - type: Documentation
+    url: https://developer.up.com.au/
+  - type: APIReference
+    url: https://developer.up.com.au/#welcome
+  - type: SourceCode
+    url: https://github.com/up-banking/api
+  - type: AsyncAPI
+    url: asyncapi/up-bank-webhooks-asyncapi.yml
+- aid: up-bank:up-bank-webhooks-api
+  name: Up Webhooks API
+  description: >-
+    Webhooks provide a mechanism for a configured URL to receive
+
+    events when transaction activity occurs on Up. You can think of
+
+    webhooks as being like push notifications for your server-side
+
+    application.
   humanURL: https://up.com.au/cdr-policy/
-  baseURL: https://api.up.com.au/cds-au/v1/banking/payees
-  properties:
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
-    type: APIReference
-  - url: openapi/up-bank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-authorized CDR Banking surface covering Get Payees and Get
-    Payee Detail (saved payee lists). Accessed only via the CDR accredited data
-    recipient model under active customer consent (FAPI/mTLS) - not public. Contract
-    is the shared DSB Consumer Data Standards Banking API v1.36.0 (payees paths), not
-    an Up-proprietary spec.
-- aid: up-bank:up-personal-banking-api
-  name: Up Personal Banking API
+  baseURL: https://api.up.com.au/cds-au/v1/banking/products
   tags:
-  - Banking
-  - Transactions
-  - Accounts
   - Webhooks
-  - Personal Finance
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.up.com.au/
-  baseURL: https://api.up.com.au/api/v1
   properties:
-  - url: https://developer.up.com.au/
-    type: Documentation
-  - url: https://developer.up.com.au/#welcome
-    type: APIReference
-  - url: openapi/up-bank-openapi.json
-    type: OpenAPI
-  - url: https://github.com/up-banking/api
-    type: SourceCode
-  - url: overlays/up-bank-openapi-overlay.yaml
-    type: Overlay
-  - url: asyncapi/up-bank-webhooks-asyncapi.yml
-    type: AsyncAPI
-  description: Up's own documented personal-banking developer API (v1, beta), giving
-    account holders programmatic read access to accounts and transaction data plus
-    management of categories, tags, attachments, and webhooks for real-time transaction
-    events. Authenticated with a Personal Access Token (Bearer) obtained in the Up
-    app or at api.up.com.au; currently scoped to personal use. The bank-specific
-    OpenAPI 3.0.3 contract (17 paths) is published at github.com/up-banking/api and
-    harvested verbatim.
+  - type: OpenAPI
+    url: openapi/up-bank-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: Documentation
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: Documentation
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+  - type: Documentation
+    url: https://developer.up.com.au/
+  - type: APIReference
+    url: https://developer.up.com.au/#welcome
+  - type: SourceCode
+    url: https://github.com/up-banking/api
+  - type: AsyncAPI
+    url: asyncapi/up-bank-webhooks-asyncapi.yml
 common:
 - type: AgenticAccess
   url: agentic-access/up-bank-agentic-access.yml
