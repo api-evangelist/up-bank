@@ -112,3 +112,13 @@ components:
                     and a related link. Absent for PING. Not present for
                     TRANSACTION_DELETED as a resolvable link (resource no longer
                     exists).
+
+# --- API Evangelist provenance -------------------------------------------
+x-superseded-by:
+  reason: >-
+    Provider publishes this event surface themselves in as-published OpenAPI; this document was authored by API Evangelist before that source was harvested.
+  published_spec: all/up-bank/openapi/_original/up-bank-openapi.json
+  published_event_object: callbacks
+  published_events: 1
+  status: superseded
+  reviewed: '2026-07-31'
