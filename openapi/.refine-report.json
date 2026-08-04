@@ -1,0 +1,40 @@
+{
+  "provider": "up-bank",
+  "sources": [
+    "up-bank-accounts-api-openapi.yml",
+    "up-bank-attachments-api-openapi.yml",
+    "up-bank-banking-account-balances-api-openapi.yml",
+    "up-bank-banking-account-direct-debits-api-openapi.yml",
+    "up-bank-banking-account-scheduled-payments-api-openapi.yml",
+    "up-bank-banking-account-transactions-api-openapi.yml",
+    "up-bank-banking-accounts-api-openapi.yml",
+    "up-bank-banking-payees-api-openapi.yml",
+    "up-bank-banking-products-api-openapi.yml",
+    "up-bank-categories-api-openapi.yml",
+    "up-bank-tags-api-openapi.yml",
+    "up-bank-transactions-api-openapi.yml",
+    "up-bank-utility-endpoints-api-openapi.yml",
+    "up-bank-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "up-bank-accounts-api-openapi.yml",
+    "up-bank-attachments-api-openapi.yml",
+    "up-bank-banking-account-balances-api-openapi.yml",
+    "up-bank-banking-account-direct-debits-api-openapi.yml",
+    "up-bank-banking-account-scheduled-payments-api-openapi.yml",
+    "up-bank-banking-account-transactions-api-openapi.yml",
+    "up-bank-banking-accounts-api-openapi.yml",
+    "up-bank-banking-payees-api-openapi.yml",
+    "up-bank-banking-products-api-openapi.yml",
+    "up-bank-categories-api-openapi.yml",
+    "up-bank-tags-api-openapi.yml",
+    "up-bank-transactions-api-openapi.yml",
+    "up-bank-utility-endpoints-api-openapi.yml",
+    "up-bank-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
