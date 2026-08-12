@@ -546,6 +546,11 @@ apis:
   - type: AsyncAPI
     url: asyncapi/up-bank-webhooks-asyncapi.yml
 common:
+- type: Overlay
+  url: overlays/up-bank-cds-banking-products-overlay.yaml
+- type: License
+  name: MIT
+  url: https://github.com/up-banking/api/blob/master/LICENSE
 - type: AgenticAccess
   url: agentic-access/up-bank-agentic-access.yml
 - type: VulnerabilityDisclosure
