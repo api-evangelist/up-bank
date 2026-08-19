@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CDR Banking Accounts Categories API",
+    "version": "1.36.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Categories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mtls.dh.example.com/cds-au/v1/categories",
+            "params": [
+              {
+                "name": "filter[parent]",
+                "value": "good-life",
+                "type": "query",
+                "description": "The unique identifier of a parent category for which to\nreturn only its children. Providing an invalid category\nidentifier results in a `404` response.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all categories and their ancestry. The returned list\nis not paginated.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve category",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mtls.dh.example.com/cds-au/v1/categories/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "restaurants-and-cafes",
+                "type": "path",
+                "description": "The unique identifier for the category.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific category by providing its unique identifier.\n"
+        },
+        {
+          "info": {
+            "name": "Categorize transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://mtls.dh.example.com/cds-au/v1/transactions/:transactionId/relationships/category",
+            "params": [
+              {
+                "name": "transactionId",
+                "value": "88b4ed70-7f15-4b46-a676-46aafad4c183",
+                "type": "path",
+                "description": "The unique identifier for the transaction.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the category associated with a transaction. Only transactions\nfor which `isCategorizable` is set to true support this operation. The\n`id` is taken from the list exposed on `/categories` and cannot be one of\nthe top-level (parent) categories. To de-categorize a transaction, set\nthe entire `data` key to `null`. An HTTP `204` is returned on success.\nThe associated category, along with its request URL is also exposed via\nthe `category` relationship on the transaction resource returned from\n`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

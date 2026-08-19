@@ -1,0 +1,141 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CDR Banking Accounts Transactions API",
+    "version": "1.36.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mtls.dh.example.com/cds-au/v1/transactions",
+            "params": [
+              {
+                "name": "page[size]",
+                "value": "30",
+                "type": "query",
+                "description": "The number of records to return in each page.\n"
+              },
+              {
+                "name": "filter[status]",
+                "value": "HELD",
+                "type": "query",
+                "description": "The transaction status for which to return records. This\ncan be used to filter `HELD` transactions from those\nthat are `SETTLED`.\n"
+              },
+              {
+                "name": "filter[since]",
+                "value": "2020-01-01T01:02:03+10:00",
+                "type": "query",
+                "description": "The start date-time from which to return records,\nformatted according to rfc-3339. Not to be used for\npagination purposes.\n"
+              },
+              {
+                "name": "filter[until]",
+                "value": "2020-02-01T01:02:03+10:00",
+                "type": "query",
+                "description": "The end date-time up to which to return records,\nformatted according to rfc-3339. Not to be used for\npagination purposes.\n"
+              },
+              {
+                "name": "filter[category]",
+                "value": "good-life",
+                "type": "query",
+                "description": "The category identifier for which to filter transactions.\nBoth parent and child categories can be filtered through\nthis parameter. Providing an invalid category identifier\nresults in a `404` response.\n"
+              },
+              {
+                "name": "filter[tag]",
+                "value": "Holiday",
+                "type": "query",
+                "description": "A transaction tag to filter for which to return records.\nIf the tag does not exist, zero records are returned and\na success response is given.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all transactions across all accounts for the currently\nauthenticated user. The returned list is [paginated](#pagination) and can\nbe scrolled by following the `next` and `prev` links where present. To\nnarrow the results to a specific date range pass one or both of\n`filter[since]` and `filter[until]` in the query string. These filter\nparameters **should not** be used for pagination. Results are ordered\nnewest first to oldest last.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mtls.dh.example.com/cds-au/v1/transactions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "57a749fd-4fc9-40da-a8d9-ec9cf1d8c9ff",
+                "type": "path",
+                "description": "The unique identifier for the transaction.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific transaction by providing its unique identifier.\n"
+        },
+        {
+          "info": {
+            "name": "List transactions by account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mtls.dh.example.com/cds-au/v1/accounts/:accountId/transactions",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "689a08de-fa65-4f2d-8b58-e49b17117dc7",
+                "type": "path",
+                "description": "The unique identifier for the account.\n"
+              },
+              {
+                "name": "page[size]",
+                "value": "30",
+                "type": "query",
+                "description": "The number of records to return in each page.\n"
+              },
+              {
+                "name": "filter[status]",
+                "value": "HELD",
+                "type": "query",
+                "description": "The transaction status for which to return records. This\ncan be used to filter `HELD` transactions from those\nthat are `SETTLED`.\n"
+              },
+              {
+                "name": "filter[since]",
+                "value": "2020-01-01T01:02:03+10:00",
+                "type": "query",
+                "description": "The start date-time from which to return records,\nformatted according to rfc-3339. Not to be used for\npagination purposes.\n"
+              },
+              {
+                "name": "filter[until]",
+                "value": "2020-02-01T01:02:03+10:00",
+                "type": "query",
+                "description": "The end date-time up to which to return records,\nformatted according to rfc-3339. Not to be used for\npagination purposes.\n"
+              },
+              {
+                "name": "filter[category]",
+                "value": "good-life",
+                "type": "query",
+                "description": "The category identifier for which to filter transactions.\nBoth parent and child categories can be filtered through\nthis parameter. Providing an invalid category identifier\nresults in a `404` response.\n"
+              },
+              {
+                "name": "filter[tag]",
+                "value": "Holiday",
+                "type": "query",
+                "description": "A transaction tag to filter for which to return records.\nIf the tag does not exist, zero records are returned and\na success response is given.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all transactions for a specific account. The returned\nlist is [paginated](#pagination) and can be scrolled by following the\n`next` and `prev` links where present. To narrow the results to a\nspecific date range pass one or both of `filter[since]` and\n`filter[until]` in the query string. These filter parameters\n**should not** be used for pagination. Results are ordered newest first\nto oldest last.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

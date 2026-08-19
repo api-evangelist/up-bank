@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CDR Banking Accounts API",
+    "version": "1.36.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mtls.dh.example.com/cds-au/v1/accounts",
+            "params": [
+              {
+                "name": "page[size]",
+                "value": "30",
+                "type": "query",
+                "description": "The number of records to return in each page.\n"
+              },
+              {
+                "name": "filter[accountType]",
+                "value": "SAVER",
+                "type": "query",
+                "description": "The type of account for which to return records. This\ncan be used to filter Savers from spending accounts.\n"
+              },
+              {
+                "name": "filter[ownershipType]",
+                "value": "INDIVIDUAL",
+                "type": "query",
+                "description": "The account ownership structure for which to return\nrecords. This can be used to filter 2Up accounts from Up\naccounts.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all accounts for the currently\nauthenticated user. The returned list is paginated and can be scrolled\nby following the `prev` and `next` links where present.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mtls.dh.example.com/cds-au/v1/accounts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "7699cfe5-eabd-4855-bbe7-9dfe3f70cebf",
+                "type": "path",
+                "description": "The unique identifier for the account.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific account by providing its unique identifier.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

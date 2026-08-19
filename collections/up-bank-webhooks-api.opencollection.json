@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CDR Banking Accounts Webhooks API",
+    "version": "1.36.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mtls.dh.example.com/cds-au/v1/webhooks",
+            "params": [
+              {
+                "name": "page[size]",
+                "value": "30",
+                "type": "query",
+                "description": "The number of records to return in each page.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of configured webhooks. The returned list is\n[paginated](#pagination) and can be scrolled by following the `next`\nand `prev` links where present. Results are ordered oldest first to\nnewest last.\n"
+        },
+        {
+          "info": {
+            "name": "Create webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mtls.dh.example.com/cds-au/v1/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new webhook with a given URL. The URL will receive webhook\nevents as JSON-encoded `POST` requests. The URL must respond with a HTTP\n`200` status on success.\n\nThere is currently a limit of 10 webhooks at any given time. Once this\nlimit is reached, existing webhooks will need to be deleted before new\nwebhooks can be created.\n\nEvent delivery is retried with exponential backoff if the URL is\nunreachable or it does not respond with a `200` status. The response\nincludes a `secretKey` attribut"
+        },
+        {
+          "info": {
+            "name": "Retrieve webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mtls.dh.example.com/cds-au/v1/webhooks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "48984142-bb60-4fd9-8db2-ed72cfc2a0ba",
+                "type": "path",
+                "description": "The unique identifier for the webhook.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific webhook by providing its unique identifier.\n"
+        },
+        {
+          "info": {
+            "name": "Delete webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://mtls.dh.example.com/cds-au/v1/webhooks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "be530308-60e2-489b-9c73-ab0db6fd132d",
+                "type": "path",
+                "description": "The unique identifier for the webhook.\n"
+              }
+            ]
+          },
+          "docs": "Delete a specific webhook by providing its unique identifier. Once\ndeleted, webhook events will no longer be sent to the configured URL.\n"
+        },
+        {
+          "info": {
+            "name": "Ping webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mtls.dh.example.com/cds-au/v1/webhooks/:webhookId/ping",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "ca59a175-79fa-4467-867f-b0cf582ee6bd",
+                "type": "path",
+                "description": "The unique identifier for the webhook.\n"
+              }
+            ]
+          },
+          "docs": "Send a `PING` event to a webhook by providing its unique identifier.\nThis is useful for testing and debugging purposes. The event is delivered\nasynchronously and its data is returned in the response to this request.\n"
+        },
+        {
+          "info": {
+            "name": "List webhook logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mtls.dh.example.com/cds-au/v1/webhooks/:webhookId/logs",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "e579c0fe-62e7-47de-b436-4b1dfe110b35",
+                "type": "path",
+                "description": "The unique identifier for the webhook.\n"
+              },
+              {
+                "name": "page[size]",
+                "value": "30",
+                "type": "query",
+                "description": "The number of records to return in each page.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of delivery logs for a webhook by providing its unique\nidentifier. This is useful for analysis and debugging purposes. The\nreturned list is [paginated](#pagination) and can be scrolled by\nfollowing the `next` and `prev` links where present. Results are ordered\nnewest first to oldest last. Logs may be automatically purged after a\nperiod of time.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

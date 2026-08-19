@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CDR Banking Accounts Attachments API",
+    "version": "1.36.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Attachments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List attachments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mtls.dh.example.com/cds-au/v1/attachments"
+          },
+          "docs": "Retrieve a list of all attachments. The returned list is [paginated](#pagination) and can\nbe scrolled by following the `next` and `prev` links where present.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mtls.dh.example.com/cds-au/v1/attachments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3672d7fb-e56d-4c4a-b546-7c11ddb5e5e7",
+                "type": "path",
+                "description": "The unique identifier for the attachment.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific attachment by providing its unique identifier.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

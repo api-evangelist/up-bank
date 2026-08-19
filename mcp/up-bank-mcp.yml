@@ -5,69 +5,73 @@ source: openapi/up-bank-openapi.json
 server:
   name: up-bank
   transport: stdio
-  note: >-
-    No official Up-hosted MCP server was found. This is a candidate tool list
-    derived one-to-one from the Up Personal Banking API operations, suitable for
-    an OpenAPI-to-MCP generator. All tools are read-only except the webhook,
-    tag, and category mutations. Auth is a Personal Access Token (Bearer).
+  note: No official Up-hosted MCP server was found. This is a candidate tool list derived one-to-one from
+    the Up Personal Banking API operations, suitable for an OpenAPI-to-MCP generator. All tools are read-only
+    except the webhook, tag, and category mutations. Auth is a Personal Access Token (Bearer).
 tools:
-  - name: list_accounts
-    description: List the authenticated user's bank accounts (filterable by type/ownership).
-    source_operation: openapi/up-bank-openapi.json#GET /accounts
-  - name: get_account
-    description: Retrieve a single account by id.
-    source_operation: openapi/up-bank-openapi.json#GET /accounts/{id}
-  - name: list_account_transactions
-    description: List transactions for a specific account.
-    source_operation: openapi/up-bank-openapi.json#GET /accounts/{accountId}/transactions
-  - name: list_transactions
-    description: List all transactions across accounts (filter by status/date/category/tag).
-    source_operation: openapi/up-bank-openapi.json#GET /transactions
-  - name: get_transaction
-    description: Retrieve a single transaction by id.
-    source_operation: openapi/up-bank-openapi.json#GET /transactions/{id}
-  - name: categorize_transaction
-    description: Set or clear the category on a categorizable transaction.
-    source_operation: openapi/up-bank-openapi.json#PATCH /transactions/{transactionId}/relationships/category
-  - name: list_categories
-    description: List the pre-defined category taxonomy.
-    source_operation: openapi/up-bank-openapi.json#GET /categories
-  - name: get_category
-    description: Retrieve a single category and its ancestry.
-    source_operation: openapi/up-bank-openapi.json#GET /categories/{id}
-  - name: list_tags
-    description: List all tags currently in use.
-    source_operation: openapi/up-bank-openapi.json#GET /tags
-  - name: add_transaction_tags
-    description: Add up to 6 tags to a transaction.
-    source_operation: openapi/up-bank-openapi.json#POST /transactions/{transactionId}/relationships/tags
-  - name: remove_transaction_tags
-    description: Remove tags from a transaction.
-    source_operation: openapi/up-bank-openapi.json#DELETE /transactions/{transactionId}/relationships/tags
-  - name: list_attachments
-    description: List transaction attachments (receipts).
-    source_operation: openapi/up-bank-openapi.json#GET /attachments
-  - name: get_attachment
-    description: Retrieve a single attachment (temporary download URL).
-    source_operation: openapi/up-bank-openapi.json#GET /attachments/{id}
-  - name: list_webhooks
-    description: List configured webhooks.
-    source_operation: openapi/up-bank-openapi.json#GET /webhooks
-  - name: create_webhook
-    description: Register a webhook URL to receive transaction events.
-    source_operation: openapi/up-bank-openapi.json#POST /webhooks
-  - name: get_webhook
-    description: Retrieve a single webhook by id.
-    source_operation: openapi/up-bank-openapi.json#GET /webhooks/{id}
-  - name: delete_webhook
-    description: Delete a webhook by id.
-    source_operation: openapi/up-bank-openapi.json#DELETE /webhooks/{id}
-  - name: ping_webhook
-    description: Send a test PING event to a webhook.
-    source_operation: openapi/up-bank-openapi.json#POST /webhooks/{webhookId}/ping
-  - name: list_webhook_logs
-    description: List delivery logs for a webhook.
-    source_operation: openapi/up-bank-openapi.json#GET /webhooks/{webhookId}/logs
-  - name: ping
-    description: Verify authentication (returns the authenticated customer id).
-    source_operation: openapi/up-bank-openapi.json#GET /util/ping
+- name: list_accounts
+  description: List the authenticated user's bank accounts (filterable by type/ownership).
+  source_operation: openapi/up-bank-openapi.json#GET /accounts
+- name: get_account
+  description: Retrieve a single account by id.
+  source_operation: openapi/up-bank-openapi.json#GET /accounts/{id}
+- name: list_account_transactions
+  description: List transactions for a specific account.
+  source_operation: openapi/up-bank-openapi.json#GET /accounts/{accountId}/transactions
+- name: list_transactions
+  description: List all transactions across accounts (filter by status/date/category/tag).
+  source_operation: openapi/up-bank-openapi.json#GET /transactions
+- name: get_transaction
+  description: Retrieve a single transaction by id.
+  source_operation: openapi/up-bank-openapi.json#GET /transactions/{id}
+- name: categorize_transaction
+  description: Set or clear the category on a categorizable transaction.
+  source_operation: openapi/up-bank-openapi.json#PATCH /transactions/{transactionId}/relationships/category
+- name: list_categories
+  description: List the pre-defined category taxonomy.
+  source_operation: openapi/up-bank-openapi.json#GET /categories
+- name: get_category
+  description: Retrieve a single category and its ancestry.
+  source_operation: openapi/up-bank-openapi.json#GET /categories/{id}
+- name: list_tags
+  description: List all tags currently in use.
+  source_operation: openapi/up-bank-openapi.json#GET /tags
+- name: add_transaction_tags
+  description: Add up to 6 tags to a transaction.
+  source_operation: openapi/up-bank-openapi.json#POST /transactions/{transactionId}/relationships/tags
+- name: remove_transaction_tags
+  description: Remove tags from a transaction.
+  source_operation: openapi/up-bank-openapi.json#DELETE /transactions/{transactionId}/relationships/tags
+- name: list_attachments
+  description: List transaction attachments (receipts).
+  source_operation: openapi/up-bank-openapi.json#GET /attachments
+- name: get_attachment
+  description: Retrieve a single attachment (temporary download URL).
+  source_operation: openapi/up-bank-openapi.json#GET /attachments/{id}
+- name: list_webhooks
+  description: List configured webhooks.
+  source_operation: openapi/up-bank-openapi.json#GET /webhooks
+- name: create_webhook
+  description: Register a webhook URL to receive transaction events.
+  source_operation: openapi/up-bank-openapi.json#POST /webhooks
+- name: get_webhook
+  description: Retrieve a single webhook by id.
+  source_operation: openapi/up-bank-openapi.json#GET /webhooks/{id}
+- name: delete_webhook
+  description: Delete a webhook by id.
+  source_operation: openapi/up-bank-openapi.json#DELETE /webhooks/{id}
+- name: ping_webhook
+  description: Send a test PING event to a webhook.
+  source_operation: openapi/up-bank-openapi.json#POST /webhooks/{webhookId}/ping
+- name: list_webhook_logs
+  description: List delivery logs for a webhook.
+  source_operation: openapi/up-bank-openapi.json#GET /webhooks/{webhookId}/logs
+- name: ping
+  description: Verify authentication (returns the authenticated customer id).
+  source_operation: openapi/up-bank-openapi.json#GET /util/ping
+deployment:
+  mode: none
+  verified: derived
+  tools: 20
+  checked: '2026-08-12'
+  source: catalog MCP census

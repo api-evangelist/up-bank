@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CDR Banking Accounts Utility endpoints API",
+    "version": "1.36.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Utility endpoints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ping",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mtls.dh.example.com/cds-au/v1/util/ping"
+          },
+          "docs": "Make a basic ping request to the API. This is useful to verify that\nauthentication is functioning correctly. On authentication success an\nHTTP `200` status is returned. On failure an HTTP `401` error response\nis returned.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

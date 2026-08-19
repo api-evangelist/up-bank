@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CDR Banking Accounts Tags API",
+    "version": "1.36.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mtls.dh.example.com/cds-au/v1/tags",
+            "params": [
+              {
+                "name": "page[size]",
+                "value": "50",
+                "type": "query",
+                "description": "The number of records to return in each page.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all tags currently in use. The returned list is\n[paginated](#pagination) and can be scrolled by following the `next`\nand `prev` links where present. Results are ordered lexicographically.\nThe `transactions` relationship for each tag exposes a link\nto get the transactions with the given tag.\n"
+        },
+        {
+          "info": {
+            "name": "Add tags to transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mtls.dh.example.com/cds-au/v1/transactions/:transactionId/relationships/tags",
+            "params": [
+              {
+                "name": "transactionId",
+                "value": "6259eac2-feac-417d-893e-84876c575913",
+                "type": "path",
+                "description": "The unique identifier for the transaction.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Associates one or more tags with a specific transaction. No more than 6\ntags may be present on any single transaction. Duplicate tags are\nsilently ignored. An HTTP `204` is returned on success. The associated\ntags, along with this request URL, are also exposed via the `tags`\nrelationship on the transaction resource returned from\n`/transactions/{id}`.\n"
+        },
+        {
+          "info": {
+            "name": "Remove tags from transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://mtls.dh.example.com/cds-au/v1/transactions/:transactionId/relationships/tags",
+            "params": [
+              {
+                "name": "transactionId",
+                "value": "86aacb90-a718-43f2-bb06-c1e32542ab26",
+                "type": "path",
+                "description": "The unique identifier for the transaction.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Disassociates one or more tags from a specific transaction. Tags that are\nnot associated are silently ignored. An HTTP `204` is returned on\nsuccess. The associated tags, along with this request URL, are also\nexposed via the `tags` relationship on the transaction resource returned\nfrom `/transactions/{id}`.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

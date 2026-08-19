@@ -1,0 +1,222 @@
+{
+  "item": [
+    {
+      "id": "c10776d4-2c02-4691-8f94-f5f1ab1cd4ee",
+      "name": "Accounts",
+      "description": {
+        "content": "Accounts represent the underlying store used to track balances\nand the transactions that have occurred to modify those balances\nover time. Up currently has three types of account: `SAVER`—used to\nearn interest and to hit savings goals, `TRANSACTIONAL`—used\nfor everyday spending, and `HOME_LOAN`-for those with an Up Home loan.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9229cd44-1a03-4cbe-867f-99e30603cdec",
+          "name": "List accounts",
+          "request": {
+            "name": "List accounts",
+            "description": {
+              "content": "Retrieve a paginated list of all accounts for the currently\nauthenticated user. The returned list is paginated and can be scrolled\nby following the `prev` and `next` links where present.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>",
+                  "description": "The number of records to return in each page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[accountType]",
+                  "value": "<string>",
+                  "description": "The type of account for which to return records. This\ncan be used to filter Savers from spending accounts.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[ownershipType]",
+                  "value": "<string>",
+                  "description": "The account ownership structure for which to return\nrecords. This can be used to filter 2Up accounts from Up\naccounts.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "40800c8f-fe4e-410f-88b9-875855e99a04",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "filter[accountType]",
+                      "value": "SAVER"
+                    },
+                    {
+                      "key": "filter[ownershipType]",
+                      "value": "INDIVIDUAL"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"displayName\": \"string\",\n        \"accountType\": \"SAVER\",\n        \"ownershipType\": \"INDIVIDUAL\",\n        \"balance\": {\n          \"currencyCode\": \"string\",\n          \"value\": \"string\",\n          \"valueInBaseUnits\": 7529\n        },\n        \"createdAt\": \"2006-03-10T19:14:30.084Z\"\n      },\n      \"relationships\": {\n        \"transactions\": {\n          \"links\": {\n            \"related\": \"string\"\n          }\n        }\n      },\n      \"links\": {\n        \"self\": \"string\"\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"displayName\": \"string\",\n        \"accountType\": \"SAVER\",\n        \"ownershipType\": \"INDIVIDUAL\",\n        \"balance\": {\n          \"currencyCode\": \"string\",\n          \"value\": \"string\",\n          \"valueInBaseUnits\": 4077\n        },\n        \"createdAt\": \"1963-06-29T21:25:15.646Z\"\n      },\n      \"relationships\": {\n        \"transactions\": {\n          \"links\": {\n            \"related\": \"string\"\n          }\n        }\n      },\n      \"links\": {\n        \"self\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e06325b-e5a1-4195-8146-c2f593eec244",
+          "name": "Retrieve account",
+          "request": {
+            "name": "Retrieve account",
+            "description": {
+              "content": "Retrieve a specific account by providing its unique identifier.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier for the account.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b7658413-f64e-4c5f-a2d2-bb8aaebc8b2e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for the account.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"id\": \"string\",\n    \"attributes\": {\n      \"displayName\": \"string\",\n      \"accountType\": \"SAVER\",\n      \"ownershipType\": \"INDIVIDUAL\",\n      \"balance\": {\n        \"currencyCode\": \"string\",\n        \"value\": \"string\",\n        \"valueInBaseUnits\": 1321\n      },\n      \"createdAt\": \"2010-05-04T09:49:11.281Z\"\n    },\n    \"relationships\": {\n      \"transactions\": {\n        \"links\": {\n          \"related\": \"string\"\n        }\n      }\n    },\n    \"links\": {\n      \"self\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://mtls.dh.example.com/cds-au/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "24828f5c-6f45-486d-b037-f8fbfdae590c",
+    "name": "CDR Banking Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specifications for resource endpoints applicable to data holders in the Banking sector.\n\nContact Support:\n Name: Data Standards Body\n Email: contact@dsb.gov.au",
+      "type": "text/plain"
+    }
+  }
+}
