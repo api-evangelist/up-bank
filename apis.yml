@@ -56,6 +56,8 @@ apis:
   humanURL: https://up.com.au/cdr-policy/
   baseURL: https://api.up.com.au/cds-au/v1/banking/products
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -445,6 +447,8 @@ apis:
   humanURL: https://up.com.au/cdr-policy/
   baseURL: https://api.up.com.au/cds-au/v1/banking/products
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
@@ -519,6 +523,8 @@ apis:
   humanURL: https://up.com.au/cdr-policy/
   baseURL: https://api.up.com.au/cds-au/v1/banking/products
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
