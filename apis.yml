@@ -566,6 +566,9 @@ apis:
   - type: AsyncAPI
     url: asyncapi/up-bank-webhooks-asyncapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/up-bank-capability-edges.yml
+  name: Up Business Capability Map
 - type: IssueTracker
   url: https://github.com/up-banking/api/issues
 - type: Overlay

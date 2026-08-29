@@ -1,0 +1,45 @@
+slug: up-bank
+provider: Up
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Banking Products
+  spec_file: up-bank-banking-products-api-openapi.yml
+  capability_id: BC-1310.10
+  capability_id_l1: BC-1310
+  capability_name: Product Catalogue Management
+  confidence: 0.85
+  evidence: GET /banking/products  listBankingProducts  Get Products; schemas BankingProductDetailV7,
+    BankingProductFeeV2, BankingProductDepositRateV2, BankingProductBundle
+  reason: Publishes the bank's product catalogue with features, fees, rates and bundles — the banking
+    product master exposed for CDR product reference data.
+- tag: Banking Account Scheduled Payments
+  spec_file: up-bank-banking-account-scheduled-payments-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.7
+  evidence: GET /banking/payments/scheduled  listScheduledPaymentsBulk  Get Scheduled Payments Bulk; schemas
+    BankingScheduledPaymentRecurrence, BankingScheduledPaymentToV2, BankingInstalmentPlan
+  reason: Scheduled/recurring payment instructions and instalment plans are captured payment instructions
+    with payee, recurrence and amount — payment initiation data, though the API only reads them.
+- tag: Banking Payees
+  spec_file: up-bank-banking-payees-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.7
+  evidence: GET /banking/payees  listBankingPayees  Get Payees; schemas BankingDomesticPayeeAccount, BankingInternationalPayee,
+    BankingBillerPayee, BankingDigitalWalletPayee
+  reason: Payee registry (domestic, international, biller, digital wallet) is the beneficiary data underpinning
+    payment instruction capture and validation.
