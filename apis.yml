@@ -15,6 +15,20 @@ description: Up is an Australian digital-only neobank founded in 2018 as a colla
   Australian data holder under the Consumer Data Right (CDR / Open Banking), a public,
   unauthenticated Product Reference Data (PRD) API conforming to the DSB Consumer Data
   Standards.
+deliveryModel:
+  model: open-core
+  license: MIT
+  open_source: true
+  commercial: true
+  callable_host: false
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: high
+  source:
+  - license
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
@@ -552,6 +566,8 @@ apis:
   - type: AsyncAPI
     url: asyncapi/up-bank-webhooks-asyncapi.yml
 common:
+- type: IssueTracker
+  url: https://github.com/up-banking/api/issues
 - type: Overlay
   url: overlays/up-bank-cds-banking-products-overlay.yaml
 - type: License
