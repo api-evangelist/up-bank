@@ -2,15 +2,16 @@
 kin_checks:
   slug: up-bank
   schema_version: 0.22.0
-  scored_at: '2026-09-15'
-  run_ts: 2026-09-15T230249
-  note: Actionable checks only (missed + partial). earned/na are every other check
-    in rubric/scoring-0.22.0.yml; counts below let you verify that.
+  scored_at: '2026-09-18'
+  run_ts: 2026-09-18T205255
+  note: Actionable checks (missed + partial) in `checks`, plus the ids that did not
+    apply in `na`. Everything else in rubric/scoring-0.22.0.yml was earned; counts
+    below let you verify that.
   counts:
     total: 136
-    earned: 50
-    partial: 14
-    missed: 56
+    earned: 51
+    partial: 16
+    missed: 53
     na: 16
   checks:
   - id: multiple_apis
@@ -25,14 +26,8 @@ kin_checks:
   - id: openapi_3_1
     status: missed
     detail: 0 of 14 openapi documents pass
-  - id: servers_resolvable
+  - id: inbound_contract_published
     status: missed
-  - id: security_schemes_defined
-    status: missed
-    detail: 0 of 14 openapi documents pass
-  - id: security_applied
-    status: missed
-    detail: 0 of 14 openapi documents pass
   - id: json_schema_present
     status: missed
   - id: json_schema_per_resource
@@ -93,8 +88,6 @@ kin_checks:
     status: missed
   - id: reg_write_surface
     status: missed
-  - id: reg_mandate_verified
-    status: missed
   - id: os_security_policy
     status: missed
   - id: os_contribution_guide
@@ -129,10 +122,9 @@ kin_checks:
     status: missed
   - id: agentic_commerce
     status: missed
-  - id: operations_operation_ids
+  - id: servers_resolvable
     status: partial
-    earned: 2.0
-    detail: 7 of 14 openapi documents pass
+    earned: 2.5
   - id: error_responses_documented
     status: partial
     earned: 2.29
@@ -144,6 +136,14 @@ kin_checks:
     status: partial
     earned: 2.36
     detail: 11 of 14 openapi documents pass
+  - id: security_schemes_defined
+    status: partial
+    earned: 2.0
+    detail: 7 of 14 openapi documents pass
+  - id: security_applied
+    status: partial
+    earned: 1.5
+    detail: 7 of 14 openapi documents pass
   - id: webhooks_or_callbacks
     status: partial
     earned: 0.14
@@ -182,3 +182,20 @@ kin_checks:
     status: partial
     earned: 1.25
     detail: 'authorship: derived'
+  na:
+  - asyncapi_3_x
+  - channels_defined
+  - contract_self_operated
+  - fhir_capability_statement
+  - fhir_resource_coverage
+  - graphql_descriptions
+  - graphql_sdl_present
+  - graphql_type_depth
+  - messages_with_schema
+  - reg_camara_conformance
+  - reg_certification_signal
+  - reg_entitlement_terms
+  - reg_pci_sca
+  - reg_smart_configuration
+  - security_schemes
+  - server_bindings
