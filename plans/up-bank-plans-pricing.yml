@@ -1,0 +1,47 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://up.com.au/pricing/
+sources:
+- https://up.com.au/pricing/
+- https://www.up.com.au/pricing/
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T120546
+  grounding: every price_text was found verbatim in the fetched page text
+audience: consumer
+pricing_basis: free
+published: true
+note: Consumer bank fee schedule for Up accounts; no API pricing shown (only a 'Developer API' footer
+  link). Most items free; savings interest rates (Grow/Flow) not numerically shown in text.
+plan_count: 6
+currency: AUD
+plans:
+- name: Monthly Service Fee
+  price_text: Free
+  period: month
+  unit: account
+- name: International transaction fees
+  price_text: 0%
+  price: 0
+  period: per-use
+  unit: transaction
+- name: Overdrawn interest rate
+  price_text: 11.23% p.a.
+  price: 11.23
+  period: year
+  unit: overdrawn balance
+- name: Up Debit Card
+  price_text: Free
+  period: none
+  unit: card
+- name: 2Up Digital Debit Card
+  price_text: Free
+  period: none
+  unit: card
+- name: 2Up Plastic Debit Card
+  price_text: $10.00
+  price: 10
+  currency: AUD
+  period: one-time
+  unit: card

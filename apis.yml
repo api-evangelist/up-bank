@@ -568,6 +568,8 @@ apis:
   - type: AsyncAPI
     url: asyncapi/up-bank-webhooks-asyncapi.yml
 common:
+- type: Plans
+  url: plans/up-bank-plans-pricing.yml
 - type: CapabilityMap
   url: capabilities/up-bank-capability-edges.yml
   name: Up Business Capability Map
