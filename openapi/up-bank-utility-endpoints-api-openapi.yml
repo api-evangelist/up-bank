@@ -1,30 +1,31 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
+  title: Up Utility endpoints API
+  version: v1
+  description: 'The Up API gives you programmatic access to your balances and
+
+    transaction data. You can request past transactions or set up
+
+    webhooks to receive real-time events when new transactions hit your
+
+    account. It’s new, it’s exciting and it’s just the beginning.'
   contact:
-    email: contact@dsb.gov.au
-    name: Data Standards Body
-    url: https://dsb.gov.au/
-  description: Specifications for resource endpoints applicable to data holders in the Banking sector.
-  license:
-    name: MIT License
-    url: https://opensource.org/licenses/MIT
-  title: CDR Banking Accounts Utility endpoints API
-  version: 1.36.0
+    name: API Specification and Support
+    url: https://github.com/up-banking/api
 servers:
-- description: MTLS
-  url: https://mtls.dh.example.com/cds-au/v1
+- url: https://api.up.com.au/api/v1
+security:
+- bearer_auth: []
 tags:
-- name: Utility endpoints
+- name: Utility Endpoints
   description: 'Some endpoints exist not to expose data, but to test the API
 
-    itself. Currently there is only one endpoint in this group: ping!
-
-    '
+    itself. Currently there is only one endpoint in this group: ping!'
 paths:
   /util/ping:
     get:
       tags:
-      - Utility endpoints
+      - Utility Endpoints
       summary: Ping
       description: 'Make a basic ping request to the API. This is useful to verify that
 
@@ -32,9 +33,7 @@ paths:
 
         HTTP `200` status is returned. On failure an HTTP `401` error response
 
-        is returned.
-
-        '
+        is returned.'
       responses:
         '200':
           description: Successful Response
@@ -72,47 +71,10 @@ paths:
               - status: '401'
                 title: Not Authorized
                 detail: The request was not authenticated because no valid credential was found in the Authorization header, or the Authorization header was not present.
+      operationId: getUtilPing
+      x-operation-id-source: derived
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      description: 'Generic error response that returns one or more errors.
-
-        '
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorObject'
-          description: 'The list of errors returned in this response.
-
-            '
-      required:
-      - errors
-    PingResponse:
-      type: object
-      description: 'Basic ping response to verify authentication.
-
-        '
-      properties:
-        meta:
-          type: object
-          properties:
-            id:
-              type: string
-              description: 'The unique identifier of the authenticated customer.
-
-                '
-            statusEmoji:
-              type: string
-              description: 'A cute emoji that represents the response status.
-
-                '
-          required:
-          - id
-          - statusEmoji
-      required:
-      - meta
     ErrorObject:
       type: object
       description: 'Provides information about an error processing a request.
@@ -174,3 +136,46 @@ components:
       - status
       - title
       - detail
+    ErrorResponse:
+      type: object
+      description: 'Generic error response that returns one or more errors.
+
+        '
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorObject'
+          description: 'The list of errors returned in this response.
+
+            '
+      required:
+      - errors
+    PingResponse:
+      type: object
+      description: 'Basic ping response to verify authentication.
+
+        '
+      properties:
+        meta:
+          type: object
+          properties:
+            id:
+              type: string
+              description: 'The unique identifier of the authenticated customer.
+
+                '
+            statusEmoji:
+              type: string
+              description: 'A cute emoji that represents the response status.
+
+                '
+          required:
+          - id
+          - statusEmoji
+      required:
+      - meta
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer

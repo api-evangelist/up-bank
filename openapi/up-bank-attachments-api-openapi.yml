@@ -1,34 +1,33 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
+  title: Up Attachments API
+  version: v1
+  description: 'The Up API gives you programmatic access to your balances and
+
+    transaction data. You can request past transactions or set up
+
+    webhooks to receive real-time events when new transactions hit your
+
+    account. It’s new, it’s exciting and it’s just the beginning.'
   contact:
-    email: contact@dsb.gov.au
-    name: Data Standards Body
-    url: https://dsb.gov.au/
-  description: Specifications for resource endpoints applicable to data holders in the Banking sector.
-  license:
-    name: MIT License
-    url: https://opensource.org/licenses/MIT
-  title: CDR Banking Accounts Attachments API
-  version: 1.36.0
+    name: API Specification and Support
+    url: https://github.com/up-banking/api
 servers:
-- description: MTLS
-  url: https://mtls.dh.example.com/cds-au/v1
+- url: https://api.up.com.au/api/v1
+security:
+- bearer_auth: []
 tags:
 - name: Attachments
-  description: 'Attachments represent uploaded files that are attached to transactions, these are commonly receipts.
-
-    '
+  description: Attachments represent uploaded files that are attached to transactions, these are commonly receipts.
 paths:
   /attachments:
     get:
       tags:
       - Attachments
       summary: List attachments
-      description: 'Retrieve a list of all attachments. The returned list is [paginated](#pagination) and can
+      description: 'Retrieve a list of all attachments. The returned list is paginated and can
 
-        be scrolled by following the `next` and `prev` links where present.
-
-        '
+        be scrolled by following the `next` and `prev` links where present.'
       responses:
         '200':
           description: Successful Response
@@ -83,14 +82,14 @@ paths:
               links:
                 prev: null
                 next: null
+      operationId: getAttachments
+      x-operation-id-source: derived
   /attachments/{id}:
     get:
       tags:
       - Attachments
       summary: Retrieve attachment
-      description: 'Retrieve a specific attachment by providing its unique identifier.
-
-        '
+      description: Retrieve a specific attachment by providing its unique identifier.
       parameters:
       - name: id
         in: path
@@ -136,50 +135,10 @@ paths:
                       related: https://api.up.com.au/api/v1/transactions/b416028a-9c12-4716-a759-94913fe4dd49
                 links:
                   self: https://api.up.com.au/api/v1/attachments/4fcb7c00-5332-41bb-ae5a-26b66dda316b
+      operationId: getAttachmentsById
+      x-operation-id-source: derived
 components:
   schemas:
-    ListAttachmentsResponse:
-      type: object
-      description: 'Successful response to get all attachments. This returns a paginated list of
-
-        attachments, which can be scrolled by following the `prev` and `next` links if
-
-        present.
-
-        '
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttachmentResource'
-          description: 'The list of attachments returned in this response.
-
-            '
-        links:
-          type: object
-          properties:
-            prev:
-              type: string
-              nullable: true
-              description: 'The link to the previous page in the results. If this value is `null`
-
-                there is no previous page.
-
-                '
-            next:
-              type: string
-              nullable: true
-              description: 'The link to the next page in the results. If this value is `null`
-
-                there is no next page.
-
-                '
-          required:
-          - prev
-          - next
-      required:
-      - data
-      - links
     AttachmentResource:
       type: object
       properties:
@@ -195,15 +154,17 @@ components:
           type: object
           properties:
             createdAt:
-              type: string
+              type:
+              - string
+              - 'null'
               format: date-time
-              nullable: true
               description: 'The date-time when the file was created.
 
                 '
             fileURL:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
               description: 'A temporary link to download the file.
 
                 '
@@ -214,14 +175,16 @@ components:
 
                 '
             fileExtension:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
               description: 'File extension for the uploaded attachment.
 
                 '
             fileContentType:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
               description: 'Content type for the uploaded attachment.
 
                 '
@@ -294,3 +257,51 @@ components:
           - $ref: '#/components/schemas/AttachmentResource'
       required:
       - data
+    ListAttachmentsResponse:
+      type: object
+      description: 'Successful response to get all attachments. This returns a paginated list of
+
+        attachments, which can be scrolled by following the `prev` and `next` links if
+
+        present.
+
+        '
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          description: 'The list of attachments returned in this response.
+
+            '
+        links:
+          type: object
+          properties:
+            prev:
+              type:
+              - string
+              - 'null'
+              description: 'The link to the previous page in the results. If this value is `null`
+
+                there is no previous page.
+
+                '
+            next:
+              type:
+              - string
+              - 'null'
+              description: 'The link to the next page in the results. If this value is `null`
+
+                there is no next page.
+
+                '
+          required:
+          - prev
+          - next
+      required:
+      - data
+      - links
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer

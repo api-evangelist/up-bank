@@ -1,24 +1,10 @@
 {
   "provider": "up-bank",
   "sources": [
-    "up-bank-accounts-api-openapi.yml",
-    "up-bank-attachments-api-openapi.yml",
-    "up-bank-banking-account-balances-api-openapi.yml",
-    "up-bank-banking-account-direct-debits-api-openapi.yml",
-    "up-bank-banking-account-scheduled-payments-api-openapi.yml",
-    "up-bank-banking-account-transactions-api-openapi.yml",
-    "up-bank-banking-accounts-api-openapi.yml",
-    "up-bank-banking-payees-api-openapi.yml",
-    "up-bank-banking-products-api-openapi.yml",
-    "up-bank-categories-api-openapi.yml",
-    "up-bank-tags-api-openapi.yml",
-    "up-bank-transactions-api-openapi.yml",
-    "up-bank-utility-endpoints-api-openapi.yml",
-    "up-bank-webhooks-api-openapi.yml"
+    "_original/up-bank-cds-banking-products-openapi.yml",
+    "_original/up-bank-openapi.json"
   ],
   "outputs": [
-    "up-bank-accounts-api-openapi.yml",
-    "up-bank-attachments-api-openapi.yml",
     "up-bank-banking-account-balances-api-openapi.yml",
     "up-bank-banking-account-direct-debits-api-openapi.yml",
     "up-bank-banking-account-scheduled-payments-api-openapi.yml",
@@ -26,6 +12,8 @@
     "up-bank-banking-accounts-api-openapi.yml",
     "up-bank-banking-payees-api-openapi.yml",
     "up-bank-banking-products-api-openapi.yml",
+    "up-bank-accounts-api-openapi.yml",
+    "up-bank-attachments-api-openapi.yml",
     "up-bank-categories-api-openapi.yml",
     "up-bank-tags-api-openapi.yml",
     "up-bank-transactions-api-openapi.yml",
@@ -35,6 +23,26 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "up-bank-cds-banking-products-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "up-bank-openapi.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "up-bank-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "up-bank-attachments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "up-bank-banking-account-balances-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "up-bank-banking-account-direct-debits-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "up-bank-banking-account-scheduled-payments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "up-bank-banking-account-transactions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "up-bank-banking-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "up-bank-banking-payees-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "up-bank-banking-products-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "up-bank-categories-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "up-bank-tags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "up-bank-transactions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "up-bank-utility-endpoints-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "up-bank-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
