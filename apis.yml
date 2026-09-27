@@ -43,6 +43,15 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/up-bank.png
 tags:
+- Finance
+- Banks
+- Open Banking
+- CDR
+- Consumer Banking
+- Australia
+- Neobank
+- Product Reference Data
+tags_raw:
 - Financial
 - Banks
 - Open Banking

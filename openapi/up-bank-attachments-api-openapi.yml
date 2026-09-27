@@ -139,6 +139,20 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    GetAttachmentResponse:
+      type: object
+      description: 'Successful response to get a single attachment.
+
+        '
+      properties:
+        data:
+          description: 'The attachment returned in this response.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/AttachmentResource'
+      required:
+      - data
     AttachmentResource:
       type: object
       properties:
@@ -243,20 +257,6 @@ components:
       - id
       - attributes
       - relationships
-    GetAttachmentResponse:
-      type: object
-      description: 'Successful response to get a single attachment.
-
-        '
-      properties:
-        data:
-          description: 'The attachment returned in this response.
-
-            '
-          allOf:
-          - $ref: '#/components/schemas/AttachmentResource'
-      required:
-      - data
     ListAttachmentsResponse:
       type: object
       description: 'Successful response to get all attachments. This returns a paginated list of
