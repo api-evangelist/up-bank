@@ -487,70 +487,19 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    CashbackObject:
-      type: object
-      description: 'Provides information about an instant reimbursement in the form of
+    TransactionStatusEnum:
+      enum:
+      - HELD
+      - SETTLED
+      description: 'Specifies which stage of processing a transaction is currently at.
 
-        cashback.
+        Currently returned values are `HELD` and `SETTLED`. When a transaction is
 
-        '
-      properties:
-        description:
-          type: string
-          description: 'A brief description of why this cashback was paid.
+        held, its account’s `availableBalance` is affected. When a transaction is
 
-            '
-        amount:
-          description: 'The total amount of cashback paid, represented as a positive value.
-
-            '
-          allOf:
-          - $ref: '#/components/schemas/MoneyObject'
-      required:
-      - description
-      - amount
-    RoundUpObject:
-      type: object
-      description: 'Provides information about how a Round Up was applied, such as whether or
-
-        not a boost was included in the Round Up.
+        settled, its account’s `currentBalance` is affected.
 
         '
-      properties:
-        amount:
-          description: 'The total amount of this Round Up, including any boosts, represented as
-
-            a negative value.
-
-            '
-          allOf:
-          - $ref: '#/components/schemas/MoneyObject'
-        boostPortion:
-          description: 'The portion of the Round Up `amount` owing to boosted Round Ups,
-
-            represented as a negative value. If no boost was added to the Round Up
-
-            this field will be `null`.
-
-            '
-          allOf:
-          - $ref: '#/components/schemas/MoneyObject'
-      required:
-      - amount
-      - boostPortion
-    CustomerObject:
-      type: object
-      description: 'Provides information about the customer who initiated a transaction
-
-        '
-      properties:
-        displayName:
-          type: string
-          description: 'The Upname or preferred name of the customer
-
-            '
-      required:
-      - displayName
     MoneyObject:
       type: object
       description: 'Provides information about a value of money.
@@ -584,55 +533,6 @@ components:
       - currencyCode
       - value
       - valueInBaseUnits
-    NoteObject:
-      type: object
-      description: 'Provides information about the note and attachement.
-
-        '
-      properties:
-        text:
-          type: string
-          description: 'A text note about the transaction.
-
-            '
-      required:
-      - text
-    GetTransactionResponse:
-      type: object
-      description: 'Successful response to get a single transaction.
-
-        '
-      properties:
-        data:
-          description: 'The transaction returned in this response.
-
-            '
-          allOf:
-          - $ref: '#/components/schemas/TransactionResource'
-      required:
-      - data
-    CardPurchaseMethodObject:
-      type: object
-      description: 'Provides information about the card used for a transaction.
-
-        '
-      properties:
-        method:
-          description: 'The type of card purchase.
-
-            '
-          allOf:
-          - $ref: '#/components/schemas/CardPurchaseMethodEnum'
-        cardNumberSuffix:
-          type:
-          - string
-          - 'null'
-          description: 'The last four digits of the card used for the purchase, if applicable.
-
-            '
-      required:
-      - method
-      - cardNumberSuffix
     TransactionResource:
       type: object
       properties:
@@ -1024,19 +924,97 @@ components:
       - id
       - attributes
       - relationships
-    TransactionStatusEnum:
-      enum:
-      - HELD
-      - SETTLED
-      description: 'Specifies which stage of processing a transaction is currently at.
-
-        Currently returned values are `HELD` and `SETTLED`. When a transaction is
-
-        held, its account’s `availableBalance` is affected. When a transaction is
-
-        settled, its account’s `currentBalance` is affected.
+    CustomerObject:
+      type: object
+      description: 'Provides information about the customer who initiated a transaction
 
         '
+      properties:
+        displayName:
+          type: string
+          description: 'The Upname or preferred name of the customer
+
+            '
+      required:
+      - displayName
+    NoteObject:
+      type: object
+      description: 'Provides information about the note and attachement.
+
+        '
+      properties:
+        text:
+          type: string
+          description: 'A text note about the transaction.
+
+            '
+      required:
+      - text
+    CashbackObject:
+      type: object
+      description: 'Provides information about an instant reimbursement in the form of
+
+        cashback.
+
+        '
+      properties:
+        description:
+          type: string
+          description: 'A brief description of why this cashback was paid.
+
+            '
+        amount:
+          description: 'The total amount of cashback paid, represented as a positive value.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/MoneyObject'
+      required:
+      - description
+      - amount
+    RoundUpObject:
+      type: object
+      description: 'Provides information about how a Round Up was applied, such as whether or
+
+        not a boost was included in the Round Up.
+
+        '
+      properties:
+        amount:
+          description: 'The total amount of this Round Up, including any boosts, represented as
+
+            a negative value.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/MoneyObject'
+        boostPortion:
+          description: 'The portion of the Round Up `amount` owing to boosted Round Ups,
+
+            represented as a negative value. If no boost was added to the Round Up
+
+            this field will be `null`.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/MoneyObject'
+      required:
+      - amount
+      - boostPortion
+    GetTransactionResponse:
+      type: object
+      description: 'Successful response to get a single transaction.
+
+        '
+      properties:
+        data:
+          description: 'The transaction returned in this response.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/TransactionResource'
+      required:
+      - data
     CardPurchaseMethodEnum:
       enum:
       - BAR_CODE
@@ -1079,6 +1057,28 @@ components:
       required:
       - amount
       - foreignAmount
+    CardPurchaseMethodObject:
+      type: object
+      description: 'Provides information about the card used for a transaction.
+
+        '
+      properties:
+        method:
+          description: 'The type of card purchase.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/CardPurchaseMethodEnum'
+        cardNumberSuffix:
+          type:
+          - string
+          - 'null'
+          description: 'The last four digits of the card used for the purchase, if applicable.
+
+            '
+      required:
+      - method
+      - cardNumberSuffix
     ListTransactionsResponse:
       type: object
       description: 'Successful response to get all transactions. This returns a paginated

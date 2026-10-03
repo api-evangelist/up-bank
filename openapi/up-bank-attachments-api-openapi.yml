@@ -139,20 +139,50 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    GetAttachmentResponse:
+    ListAttachmentsResponse:
       type: object
-      description: 'Successful response to get a single attachment.
+      description: 'Successful response to get all attachments. This returns a paginated list of
+
+        attachments, which can be scrolled by following the `prev` and `next` links if
+
+        present.
 
         '
       properties:
         data:
-          description: 'The attachment returned in this response.
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentResource'
+          description: 'The list of attachments returned in this response.
 
             '
-          allOf:
-          - $ref: '#/components/schemas/AttachmentResource'
+        links:
+          type: object
+          properties:
+            prev:
+              type:
+              - string
+              - 'null'
+              description: 'The link to the previous page in the results. If this value is `null`
+
+                there is no previous page.
+
+                '
+            next:
+              type:
+              - string
+              - 'null'
+              description: 'The link to the next page in the results. If this value is `null`
+
+                there is no next page.
+
+                '
+          required:
+          - prev
+          - next
       required:
       - data
+      - links
     AttachmentResource:
       type: object
       properties:
@@ -257,50 +287,20 @@ components:
       - id
       - attributes
       - relationships
-    ListAttachmentsResponse:
+    GetAttachmentResponse:
       type: object
-      description: 'Successful response to get all attachments. This returns a paginated list of
-
-        attachments, which can be scrolled by following the `prev` and `next` links if
-
-        present.
+      description: 'Successful response to get a single attachment.
 
         '
       properties:
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttachmentResource'
-          description: 'The list of attachments returned in this response.
+          description: 'The attachment returned in this response.
 
             '
-        links:
-          type: object
-          properties:
-            prev:
-              type:
-              - string
-              - 'null'
-              description: 'The link to the previous page in the results. If this value is `null`
-
-                there is no previous page.
-
-                '
-            next:
-              type:
-              - string
-              - 'null'
-              description: 'The link to the next page in the results. If this value is `null`
-
-                there is no next page.
-
-                '
-          required:
-          - prev
-          - next
+          allOf:
+          - $ref: '#/components/schemas/AttachmentResource'
       required:
       - data
-      - links
   securitySchemes:
     bearer_auth:
       type: http

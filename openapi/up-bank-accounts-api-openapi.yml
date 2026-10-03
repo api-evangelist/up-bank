@@ -263,6 +263,20 @@ components:
       required:
       - data
       - links
+    GetAccountResponse:
+      type: object
+      description: 'Successful response to get a single account.
+
+        '
+      properties:
+        data:
+          description: 'The account returned in this response.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/AccountResource'
+      required:
+      - data
     AccountResource:
       type: object
       description: 'Provides information about an Up bank account.
@@ -350,20 +364,6 @@ components:
       - id
       - attributes
       - relationships
-    GetAccountResponse:
-      type: object
-      description: 'Successful response to get a single account.
-
-        '
-      properties:
-        data:
-          description: 'The account returned in this response.
-
-            '
-          allOf:
-          - $ref: '#/components/schemas/AccountResource'
-      required:
-      - data
   securitySchemes:
     bearer_auth:
       type: http

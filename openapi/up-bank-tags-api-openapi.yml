@@ -197,50 +197,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ListTagsResponse:
-      type: object
-      description: 'Successful response to get all tags. This returns a paginated list of
-
-        tags, which can be scrolled by following the `prev` and `next` links if
-
-        present.
-
-        '
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagResource'
-          description: 'The list of tags returned in this response.
-
-            '
-        links:
-          type: object
-          properties:
-            prev:
-              type:
-              - string
-              - 'null'
-              description: 'The link to the previous page in the results. If this value is `null`
-
-                there is no previous page.
-
-                '
-            next:
-              type:
-              - string
-              - 'null'
-              description: 'The link to the next page in the results. If this value is `null`
-
-                there is no next page.
-
-                '
-          required:
-          - prev
-          - next
-      required:
-      - data
-      - links
     TagResource:
       type: object
       description: 'Provides information about a tag.
@@ -309,6 +265,50 @@ components:
       required:
       - type
       - id
+    ListTagsResponse:
+      type: object
+      description: 'Successful response to get all tags. This returns a paginated list of
+
+        tags, which can be scrolled by following the `prev` and `next` links if
+
+        present.
+
+        '
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagResource'
+          description: 'The list of tags returned in this response.
+
+            '
+        links:
+          type: object
+          properties:
+            prev:
+              type:
+              - string
+              - 'null'
+              description: 'The link to the previous page in the results. If this value is `null`
+
+                there is no previous page.
+
+                '
+            next:
+              type:
+              - string
+              - 'null'
+              description: 'The link to the next page in the results. If this value is `null`
+
+                there is no next page.
+
+                '
+          required:
+          - prev
+          - next
+      required:
+      - data
+      - links
   securitySchemes:
     bearer_auth:
       type: http

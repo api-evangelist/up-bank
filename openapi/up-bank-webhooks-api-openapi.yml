@@ -422,6 +422,50 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ListWebhooksResponse:
+      type: object
+      description: 'Successful response to get all webhooks. This returns a paginated list of
+
+        webhooks, which can be scrolled by following the `prev` and `next` links
+
+        if present.
+
+        '
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookResource'
+          description: 'The list of webhooks returned in this response.
+
+            '
+        links:
+          type: object
+          properties:
+            prev:
+              type:
+              - string
+              - 'null'
+              description: 'The link to the previous page in the results. If this value is `null`
+
+                there is no previous page.
+
+                '
+            next:
+              type:
+              - string
+              - 'null'
+              description: 'The link to the next page in the results. If this value is `null`
+
+                there is no next page.
+
+                '
+          required:
+          - prev
+          - next
+      required:
+      - data
+      - links
     CreateWebhookResponse:
       type: object
       description: 'Successful response after creating a webhook.
@@ -436,6 +480,106 @@ components:
           - $ref: '#/components/schemas/WebhookResource'
       required:
       - data
+    WebhookResource:
+      type: object
+      description: 'Provides information about a webhook.
+
+        '
+      properties:
+        type:
+          type: string
+          description: 'The type of this resource: `webhooks`'
+        id:
+          type: string
+          description: 'The unique identifier for this webhook.
+
+            '
+        attributes:
+          type: object
+          properties:
+            url:
+              type: string
+              description: 'The URL that this webhook is configured to `POST` events to.
+
+                '
+            description:
+              type:
+              - string
+              - 'null'
+              description: 'An optional description that was provided at the time the webhook was
+
+                created.
+
+                '
+            secretKey:
+              type: string
+              description: 'A shared secret key used to sign all webhook events sent to the
+
+                configured webhook URL. This field is returned only once, upon the
+
+                initial creation of the webhook. If lost, create a new webhook and
+
+                delete this webhook.
+
+
+                The webhook URL receives a request with a
+
+                `X-Up-Authenticity-Signature` header, which is the SHA-256 HMAC of
+
+                the entire raw request body signed using this `secretKey`. It is
+
+                advised to compute and check this signature to verify the
+
+                authenticity of requests sent to the webhook URL. See
+
+                [Handling webhook events](#callback_post_webhookURL) for full
+
+                details.
+
+                '
+            createdAt:
+              type: string
+              format: date-time
+              description: 'The date-time at which this webhook was created.
+
+                '
+          required:
+          - url
+          - description
+          - createdAt
+        relationships:
+          type: object
+          properties:
+            logs:
+              type: object
+              properties:
+                links:
+                  type: object
+                  properties:
+                    related:
+                      type: string
+                      description: 'The link to retrieve the related resource(s) in this relationship.
+
+                        '
+                  required:
+                  - related
+          required:
+          - logs
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              description: 'The canonical link to this resource within the API.
+
+                '
+          required:
+          - self
+      required:
+      - type
+      - id
+      - attributes
+      - relationships
     WebhookEventResource:
       type: object
       description: 'Provides the event data used in asynchronous webhook event callbacks to
@@ -544,80 +688,6 @@ components:
       - id
       - attributes
       - relationships
-    WebhookInputResource:
-      type: object
-      description: 'Represents a webhook specified as request input.
-
-        '
-      properties:
-        attributes:
-          type: object
-          properties:
-            url:
-              type: string
-              format: uri
-              description: 'The URL that this webhook should post events to. This must be a valid
-
-                HTTP or HTTPS URL that does not exceed 300 characters in length.
-
-                '
-            description:
-              type:
-              - string
-              - 'null'
-              description: 'An optional description for this webhook, up to 64 characters in
-
-                length.
-
-                '
-          required:
-          - url
-      required:
-      - attributes
-    ListWebhooksResponse:
-      type: object
-      description: 'Successful response to get all webhooks. This returns a paginated list of
-
-        webhooks, which can be scrolled by following the `prev` and `next` links
-
-        if present.
-
-        '
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebhookResource'
-          description: 'The list of webhooks returned in this response.
-
-            '
-        links:
-          type: object
-          properties:
-            prev:
-              type:
-              - string
-              - 'null'
-              description: 'The link to the previous page in the results. If this value is `null`
-
-                there is no previous page.
-
-                '
-            next:
-              type:
-              - string
-              - 'null'
-              description: 'The link to the next page in the results. If this value is `null`
-
-                there is no next page.
-
-                '
-          required:
-          - prev
-          - next
-      required:
-      - data
-      - links
     GetWebhookResponse:
       type: object
       description: 'Successful response to get a single webhook.
@@ -632,36 +702,19 @@ components:
           - $ref: '#/components/schemas/WebhookResource'
       required:
       - data
-    CreateWebhookRequest:
-      type: object
-      description: 'Request to create a new webhook. This currently only requires a `url`
+    WebhookEventTypeEnum:
+      enum:
+      - TRANSACTION_CREATED
+      - TRANSACTION_SETTLED
+      - TRANSACTION_DELETED
+      - PING
+      description: 'Specifies the type of a webhook event. This can be used to determine what
 
-        attribute.
+        action to take in response to the event, such as which relationships to
 
-        '
-      properties:
-        data:
-          description: 'The webhook resource to create.
-
-            '
-          allOf:
-          - $ref: '#/components/schemas/WebhookInputResource'
-      required:
-      - data
-    WebhookEventCallback:
-      type: object
-      description: 'Asynchronous callback request used for webhook event delivery.
+        expect.
 
         '
-      properties:
-        data:
-          description: 'The webhook event data sent to the subscribed webhook.
-
-            '
-          allOf:
-          - $ref: '#/components/schemas/WebhookEventResource'
-      required:
-      - data
     WebhookDeliveryLogResource:
       type: object
       description: 'Provides historical webhook event delivery information for analysis and
@@ -761,6 +814,28 @@ components:
       - id
       - attributes
       - relationships
+    WebhookDeliveryStatusEnum:
+      enum:
+      - DELIVERED
+      - UNDELIVERABLE
+      - BAD_RESPONSE_CODE
+      description: "Specifies the nature of the success or failure of a webhook delivery\nattempt to the subscribed webhook URL. The currently returned values are\ndescribed below:\n\n- **`DELIVERED`**: The event was delivered to the webhook URL\n  successfully and a `200` response was received.\n- **`UNDELIVERABLE`**: The webhook URL was not reachable, or timed out.\n- **`BAD_RESPONSE_CODE`**: The event was delivered to the webhook URL\n  but a non-`200` response was received.\n"
+    CreateWebhookRequest:
+      type: object
+      description: 'Request to create a new webhook. This currently only requires a `url`
+
+        attribute.
+
+        '
+      properties:
+        data:
+          description: 'The webhook resource to create.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/WebhookInputResource'
+      required:
+      - data
     ListWebhookDeliveryLogsResponse:
       type: object
       description: 'Successful response to get all delivery logs for a webhook. This returns
@@ -805,125 +880,50 @@ components:
       required:
       - data
       - links
-    WebhookDeliveryStatusEnum:
-      enum:
-      - DELIVERED
-      - UNDELIVERABLE
-      - BAD_RESPONSE_CODE
-      description: "Specifies the nature of the success or failure of a webhook delivery\nattempt to the subscribed webhook URL. The currently returned values are\ndescribed below:\n\n- **`DELIVERED`**: The event was delivered to the webhook URL\n  successfully and a `200` response was received.\n- **`UNDELIVERABLE`**: The webhook URL was not reachable, or timed out.\n- **`BAD_RESPONSE_CODE`**: The event was delivered to the webhook URL\n  but a non-`200` response was received.\n"
-    WebhookEventTypeEnum:
-      enum:
-      - TRANSACTION_CREATED
-      - TRANSACTION_SETTLED
-      - TRANSACTION_DELETED
-      - PING
-      description: 'Specifies the type of a webhook event. This can be used to determine what
-
-        action to take in response to the event, such as which relationships to
-
-        expect.
-
-        '
-    WebhookResource:
+    WebhookInputResource:
       type: object
-      description: 'Provides information about a webhook.
+      description: 'Represents a webhook specified as request input.
 
         '
       properties:
-        type:
-          type: string
-          description: 'The type of this resource: `webhooks`'
-        id:
-          type: string
-          description: 'The unique identifier for this webhook.
-
-            '
         attributes:
           type: object
           properties:
             url:
               type: string
-              description: 'The URL that this webhook is configured to `POST` events to.
+              format: uri
+              description: 'The URL that this webhook should post events to. This must be a valid
+
+                HTTP or HTTPS URL that does not exceed 300 characters in length.
 
                 '
             description:
               type:
               - string
               - 'null'
-              description: 'An optional description that was provided at the time the webhook was
+              description: 'An optional description for this webhook, up to 64 characters in
 
-                created.
-
-                '
-            secretKey:
-              type: string
-              description: 'A shared secret key used to sign all webhook events sent to the
-
-                configured webhook URL. This field is returned only once, upon the
-
-                initial creation of the webhook. If lost, create a new webhook and
-
-                delete this webhook.
-
-
-                The webhook URL receives a request with a
-
-                `X-Up-Authenticity-Signature` header, which is the SHA-256 HMAC of
-
-                the entire raw request body signed using this `secretKey`. It is
-
-                advised to compute and check this signature to verify the
-
-                authenticity of requests sent to the webhook URL. See
-
-                [Handling webhook events](#callback_post_webhookURL) for full
-
-                details.
-
-                '
-            createdAt:
-              type: string
-              format: date-time
-              description: 'The date-time at which this webhook was created.
+                length.
 
                 '
           required:
           - url
-          - description
-          - createdAt
-        relationships:
-          type: object
-          properties:
-            logs:
-              type: object
-              properties:
-                links:
-                  type: object
-                  properties:
-                    related:
-                      type: string
-                      description: 'The link to retrieve the related resource(s) in this relationship.
-
-                        '
-                  required:
-                  - related
-          required:
-          - logs
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-              description: 'The canonical link to this resource within the API.
-
-                '
-          required:
-          - self
       required:
-      - type
-      - id
       - attributes
-      - relationships
+    WebhookEventCallback:
+      type: object
+      description: 'Asynchronous callback request used for webhook event delivery.
+
+        '
+      properties:
+        data:
+          description: 'The webhook event data sent to the subscribed webhook.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/WebhookEventResource'
+      required:
+      - data
   securitySchemes:
     bearer_auth:
       type: http
