@@ -233,38 +233,6 @@ components:
       - type
       - id
       - relationships
-    UpdateTransactionTagsRequest:
-      type: object
-      description: 'Request to add or remove tags associated with a transaction.
-
-        '
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagInputResourceIdentifier'
-          description: 'The tags to add to or remove from the transaction.
-
-            '
-      required:
-      - data
-    TagInputResourceIdentifier:
-      type: object
-      description: 'Uniquely identifies a single tag in the API.
-
-        '
-      properties:
-        type:
-          type: string
-          description: 'The type of this resource: `tags`'
-        id:
-          type: string
-          description: 'The label of the tag, which also acts as the tag’s unique identifier.
-
-            '
-      required:
-      - type
-      - id
     ListTagsResponse:
       type: object
       description: 'Successful response to get all tags. This returns a paginated list of
@@ -309,6 +277,38 @@ components:
       required:
       - data
       - links
+    TagInputResourceIdentifier:
+      type: object
+      description: 'Uniquely identifies a single tag in the API.
+
+        '
+      properties:
+        type:
+          type: string
+          description: 'The type of this resource: `tags`'
+        id:
+          type: string
+          description: 'The label of the tag, which also acts as the tag’s unique identifier.
+
+            '
+      required:
+      - type
+      - id
+    UpdateTransactionTagsRequest:
+      type: object
+      description: 'Request to add or remove tags associated with a transaction.
+
+        '
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagInputResourceIdentifier'
+          description: 'The tags to add to or remove from the transaction.
+
+            '
+      required:
+      - data
   securitySchemes:
     bearer_auth:
       type: http
