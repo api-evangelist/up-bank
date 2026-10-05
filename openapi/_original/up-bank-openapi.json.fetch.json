@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/up-banking/api/master/v1/openapi.json",
+ "requested_url": "https://raw.githubusercontent.com/up-banking/api/master/v1/openapi.json",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 135723,
+ "sha256": "cc6a5e6d809d01ec5fc50d03314e99255a255d6d67e5347e53d3d1d760a2a729",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
