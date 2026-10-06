@@ -61,7 +61,7 @@ tags_raw:
 - Neobank
 - Product Reference Data
 created: '2026-07-20'
-modified: '2026-07-22'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: up-bank:up-bank-accounts-api
@@ -577,6 +577,8 @@ apis:
   - type: AsyncAPI
     url: asyncapi/up-bank-webhooks-asyncapi.yml
 common:
+- url: https://up.com.au/blog/feed.xml
+  type: BlogRSS
 - type: Plans
   url: plans/up-bank-plans-pricing.yml
 - type: CapabilityMap
