@@ -45,3 +45,61 @@ plans:
   currency: AUD
   period: one-time
   unit: card
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - metered
+  - subscription
+  units:
+  - object
+  - transaction
+  plans:
+  - name: Monthly Service Fee
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - object
+    periods:
+    - month
+  - name: International transaction fees
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - transaction
+    periods:
+    - other
+  - name: Overdrawn interest rate
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - year
+  - name: Up Debit Card
+    access: other
+    model: unstated
+    model_how: derived
+    units:
+    - other
+    periods:
+    - none
+  - name: 2Up Digital Debit Card
+    access: other
+    model: unstated
+    model_how: derived
+    units:
+    - other
+    periods:
+    - none
+  - name: 2Up Plastic Debit Card
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - one-time
