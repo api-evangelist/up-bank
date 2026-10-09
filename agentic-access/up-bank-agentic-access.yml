@@ -1,23 +1,59 @@
-generated: '2026-07-20'
+generated: '2026-09-23'
 method: generated
-source: openapi/up-bank-cds-banking-products-openapi.yml, openapi/up-bank-openapi.json
+source: openapi/up-bank-accounts-api-openapi.yml, openapi/up-bank-attachments-api-openapi.yml,
+  openapi/up-bank-banking-account-balances-api-openapi.yml, openapi/up-bank-banking-account-direct-debits-api-openapi.yml,
+  openapi/up-bank-banking-account-scheduled-payments-api-openapi.yml, openapi/up-bank-banking-account-transactions-api-openapi.yml,
+  openapi/up-bank-banking-accounts-api-openapi.yml, openapi/up-bank-banking-payees-api-openapi.yml,
+  openapi/up-bank-banking-products-api-openapi.yml, openapi/up-bank-categories-api-openapi.yml,
+  openapi/up-bank-tags-api-openapi.yml, openapi/up-bank-transactions-api-openapi.yml, openapi/up-bank-utility-endpoints-api-openapi.yml,
+  openapi/up-bank-webhooks-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 39
   by_action_class:
-    connected: 30
-    acting: 9
+    connected: 33
+    acting: 6
   by_consequence:
-    read: 30
-    write: 5
-    physical: 4
+    read: 33
+    physical: 3
+    write: 3
   human_in_the_loop_required: 0
 operations:
-- path: /banking/accounts
+- path: /accounts
   method: get
-  operationId: listBankingAccounts
+  operationId: getAccounts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /accounts/{id}
+  method: get
+  operationId: getAccountsById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /attachments
+  method: get
+  operationId: getAttachments
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /attachments/{id}
+  method: get
+  operationId: getAttachmentsById
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -39,51 +75,15 @@ operations:
   method: post
   operationId: listBankingBalancesSpecificAccounts
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /banking/accounts/{accountId}/balance
   method: get
   operationId: getBankingBalance
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /banking/accounts/{accountId}
-  method: get
-  operationId: getBankingAccountDetail
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /banking/accounts/{accountId}/transactions
-  method: get
-  operationId: listBankingTransactions
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /banking/accounts/{accountId}/transactions/{transactionId}
-  method: get
-  operationId: getBankingTransactionDetail
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -115,18 +115,12 @@ operations:
   method: post
   operationId: listDirectDebitsSpecificAccounts
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /banking/accounts/{accountId}/payments/scheduled
   method: get
   operationId: listScheduledPayments
@@ -151,20 +145,12 @@ operations:
   method: post
   operationId: listScheduledPaymentsSpecificAccounts
   x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /banking/accounts/{accountId}/payments/plans
   method: get
   operationId: listInstalmentPlans
@@ -178,6 +164,46 @@ operations:
 - path: /banking/accounts/payments/plans
   method: get
   operationId: listInstalmentPlansBulk
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /banking/accounts/{accountId}/transactions
+  method: get
+  operationId: listBankingTransactions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /banking/accounts/{accountId}/transactions/{transactionId}
+  method: get
+  operationId: getBankingTransactionDetail
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /banking/accounts
+  method: get
+  operationId: listBankingAccounts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /banking/accounts/{accountId}
+  method: get
+  operationId: getBankingAccountDetail
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -225,44 +251,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /accounts
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /accounts/{id}
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /attachments
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /attachments/{id}
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /categories
   method: get
+  operationId: getCategories
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -272,6 +263,7 @@ operations:
     audit: none
 - path: /categories/{id}
   method: get
+  operationId: getCategoriesById
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -281,6 +273,7 @@ operations:
     audit: none
 - path: /transactions/{transactionId}/relationships/category
   method: patch
+  operationId: patchTransactionsByTransactionIdRelationshipsCategory
   x-agentic-access:
     action-class: acting
     consequence: physical
@@ -296,17 +289,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /util/ping
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /tags
   method: get
+  operationId: getTags
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -316,6 +301,7 @@ operations:
     audit: none
 - path: /transactions/{transactionId}/relationships/tags
   method: post
+  operationId: postTransactionsByTransactionIdRelationshipsTags
   x-agentic-access:
     action-class: acting
     consequence: physical
@@ -333,6 +319,7 @@ operations:
     audit: required
 - path: /transactions/{transactionId}/relationships/tags
   method: delete
+  operationId: deleteTransactionsByTransactionIdRelationshipsTags
   x-agentic-access:
     action-class: acting
     consequence: physical
@@ -350,6 +337,7 @@ operations:
     audit: required
 - path: /transactions
   method: get
+  operationId: getTransactions
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -359,6 +347,7 @@ operations:
     audit: none
 - path: /transactions/{id}
   method: get
+  operationId: getTransactionsById
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -368,6 +357,17 @@ operations:
     audit: none
 - path: /accounts/{accountId}/transactions
   method: get
+  operationId: getAccountsByAccountIdTransactions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /util/ping
+  method: get
+  operationId: getUtilPing
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -377,6 +377,7 @@ operations:
     audit: none
 - path: /webhooks
   method: get
+  operationId: getWebhooks
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -386,6 +387,7 @@ operations:
     audit: none
 - path: /webhooks
   method: post
+  operationId: postWebhooks
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -401,6 +403,7 @@ operations:
     audit: required
 - path: /webhooks/{id}
   method: get
+  operationId: getWebhooksById
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -410,6 +413,7 @@ operations:
     audit: none
 - path: /webhooks/{id}
   method: delete
+  operationId: deleteWebhooksById
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -425,6 +429,7 @@ operations:
     audit: required
 - path: /webhooks/{webhookId}/ping
   method: post
+  operationId: postWebhooksByWebhookIdPing
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -440,6 +445,7 @@ operations:
     audit: required
 - path: /webhooks/{webhookId}/logs
   method: get
+  operationId: getWebhooksByWebhookIdLogs
   x-agentic-access:
     action-class: connected
     consequence: read
