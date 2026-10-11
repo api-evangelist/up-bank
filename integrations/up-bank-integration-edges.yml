@@ -1,0 +1,18 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/up-bank/integrations
+- https://zapier.com/apps/up/integrations
+- https://n8n.io/integrations/up-bank/
+- https://composio.dev/toolkits/up-bank
+- https://monid.ai/tools/up-bank
+checked:
+- https://composio.dev/toolkits/up-bank
+- https://monid.ai/tools/up-bank
+- https://n8n.io/integrations/up-bank/
+- https://zapier.com/apps/up-bank/integrations
+- https://zapier.com/apps/up/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
