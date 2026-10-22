@@ -1,4 +1,3 @@
-# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
 generated: '2026-09-20'
 method: searched
 source: https://up.com.au/pricing/
@@ -103,3 +102,6 @@ x-canonical:
     - other
     periods:
     - one-time
+name: Up pricing
+delivery:
+  delivery: managed

@@ -1,13 +1,16 @@
 ---
-name: List Up accounts and their transactions
+name: up-bank-list-accounts-and-transactions
 description: Authenticate to the Up Personal Banking API and pull accounts and transaction history, handling cursor pagination and JSON:API responses.
-api: openapi/up-bank-openapi.json
+api:
+- openapi/up-bank-accounts-api-openapi.yml
+- openapi/up-bank-transactions-api-openapi.yml
+- openapi/up-bank-utility-endpoints-api-openapi.yml
 operations:
-  - GET /util/ping
-  - GET /accounts
-  - GET /accounts/{accountId}/transactions
-  - GET /transactions
-  - GET /transactions/{id}
+- getUtilPing
+- getAccounts
+- getAccountsByAccountIdTransactions
+- getTransactions
+- getTransactionsById
 ---
 
 # List Up accounts and their transactions

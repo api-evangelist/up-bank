@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/up-bank/main/json-schema/up-bank-create-webhook-response-schema.json",
+  "title": "CreateWebhookResponse",
+  "description": "Successful response after creating a webhook.\n",
+  "x-generated": "2026-10-21",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/up-bank-webhooks-api-openapi.yml#/components/schemas/CreateWebhookResponse",
+  "type": "object",
+  "properties": {
+    "data": {
+      "description": "The webhook that was created.\n",
+      "allOf": [
+        {
+          "$ref": "#/$defs/WebhookResource"
+        }
+      ]
+    }
+  },
+  "required": [
+    "data"
+  ],
+  "$defs": {
+    "WebhookResource": {
+      "type": "object",
+      "description": "Provides information about a webhook.\n",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of this resource: `webhooks`"
+        },
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for this webhook.\n"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL that this webhook is configured to `POST` events to.\n"
+            },
+            "description": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "An optional description that was provided at the time the webhook was\ncreated.\n"
+            },
+            "secretKey": {
+              "type": "string",
+              "description": "A shared secret key used to sign all webhook events sent to the\nconfigured webhook URL. This field is returned only once, upon the\ninitial creation of the webhook. If lost, create a new webhook and\ndelete this webhook.\n\nThe webhook URL receives a request with a\n`X-Up-Authenticity-Signature` header, which is the SHA-256 HMAC of\nthe entire raw request body signed using this `secretKey`. It is\nadvised to compute and check this signature to verify the\nauthenticity of requests sent to the webhook URL. See\n[Handling webhook events](#callback_post_webhookURL) for full\ndetails.\n"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date-time at which this webhook was created.\n"
+            }
+          },
+          "required": [
+            "url",
+            "description",
+            "createdAt"
+          ]
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "logs": {
+              "type": "object",
+              "properties": {
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "related": {
+                      "type": "string",
+                      "description": "The link to retrieve the related resource(s) in this relationship.\n"
+                    }
+                  },
+                  "required": [
+                    "related"
+                  ]
+                }
+              }
+            }
+          },
+          "required": [
+            "logs"
+          ]
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "self": {
+              "type": "string",
+              "description": "The canonical link to this resource within the API.\n"
+            }
+          },
+          "required": [
+            "self"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "attributes",
+        "relationships"
+      ]
+    }
+  }
+}

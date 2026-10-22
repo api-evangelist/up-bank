@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/up-bank/main/json-schema/up-bank-update-transaction-category-request-schema.json",
+  "title": "UpdateTransactionCategoryRequest",
+  "description": "Request to update the category associated with a transaction.\n",
+  "x-generated": "2026-10-21",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/up-bank-categories-api-openapi.yml#/components/schemas/UpdateTransactionCategoryRequest",
+  "type": "object",
+  "properties": {
+    "data": {
+      "description": "The category to set on the transaction. Set this entire key to `null`\nde-categorize a transaction.\n",
+      "allOf": [
+        {
+          "$ref": "#/$defs/CategoryInputResourceIdentifier"
+        }
+      ]
+    }
+  },
+  "required": [
+    "data"
+  ],
+  "$defs": {
+    "CategoryInputResourceIdentifier": {
+      "type": "object",
+      "description": "Uniquely identifies a category in the API.\n",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of this resource: `categories`"
+        },
+        "id": {
+          "type": "string",
+          "description": "The unique identifier of the category, as returned by the `/categories`\nendpoint.\n"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ]
+    }
+  }
+}

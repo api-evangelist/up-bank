@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/up-bank/main/json-schema/up-bank-ping-response-schema.json",
+  "title": "PingResponse",
+  "description": "Basic ping response to verify authentication.\n",
+  "x-generated": "2026-10-21",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/up-bank-utility-endpoints-api-openapi.yml#/components/schemas/PingResponse",
+  "type": "object",
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier of the authenticated customer.\n"
+        },
+        "statusEmoji": {
+          "type": "string",
+          "description": "A cute emoji that represents the response status.\n"
+        }
+      },
+      "required": [
+        "id",
+        "statusEmoji"
+      ]
+    }
+  },
+  "required": [
+    "meta"
+  ]
+}

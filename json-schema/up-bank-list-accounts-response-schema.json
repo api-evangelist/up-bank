@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/up-bank/main/json-schema/up-bank-list-accounts-response-schema.json",
+  "title": "ListAccountsResponse",
+  "description": "Successful response to get all accounts. This returns a paginated list of\naccounts, which can be scrolled by following the `prev` and `next` links\nif present.\n",
+  "x-generated": "2026-10-21",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/up-bank-accounts-api-openapi.yml#/components/schemas/ListAccountsResponse",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AccountResource"
+      },
+      "description": "The list of accounts returned in this response.\n"
+    },
+    "links": {
+      "type": "object",
+      "properties": {
+        "prev": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The link to the previous page in the results. If this value is `null`\nthere is no previous page.\n"
+        },
+        "next": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The link to the next page in the results. If this value is `null`\nthere is no next page.\n"
+        }
+      },
+      "required": [
+        "prev",
+        "next"
+      ]
+    }
+  },
+  "required": [
+    "data",
+    "links"
+  ],
+  "$defs": {
+    "AccountResource": {
+      "type": "object",
+      "description": "Provides information about an Up bank account.\n",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of this resource: `accounts`"
+        },
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for this account.\n"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "displayName": {
+              "type": "string",
+              "description": "The name associated with the account in the Up application.\n"
+            },
+            "accountType": {
+              "description": "The bank account type of this account.\n",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/AccountTypeEnum"
+                }
+              ]
+            },
+            "ownershipType": {
+              "description": "The ownership structure for this account.\n",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/OwnershipTypeEnum"
+                }
+              ]
+            },
+            "balance": {
+              "description": "The available balance of the account, taking into account any amounts\nthat are currently on hold.\n",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/MoneyObject"
+                }
+              ]
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date-time at which this account was first opened.\n"
+            }
+          },
+          "required": [
+            "displayName",
+            "accountType",
+            "ownershipType",
+            "balance",
+            "createdAt"
+          ]
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "transactions": {
+              "type": "object",
+              "properties": {
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "related": {
+                      "type": "string",
+                      "description": "The link to retrieve the related resource(s) in this relationship.\n"
+                    }
+                  },
+                  "required": [
+                    "related"
+                  ]
+                }
+              }
+            }
+          },
+          "required": [
+            "transactions"
+          ]
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "self": {
+              "type": "string",
+              "description": "The canonical link to this resource within the API.\n"
+            }
+          },
+          "required": [
+            "self"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "attributes",
+        "relationships"
+      ]
+    },
+    "AccountTypeEnum": {
+      "enum": [
+        "SAVER",
+        "TRANSACTIONAL",
+        "HOME_LOAN"
+      ],
+      "description": "Specifies the type of bank account. Currently returned values are\n`SAVER`, `TRANSACTIONAL` and `HOME_LOAN`.\n"
+    },
+    "MoneyObject": {
+      "type": "object",
+      "description": "Provides information about a value of money.\n",
+      "properties": {
+        "currencyCode": {
+          "type": "string",
+          "description": "The ISO 4217 currency code.\n"
+        },
+        "value": {
+          "type": "string",
+          "description": "The amount of money, formatted as a string in the relevant currency.\nFor example, for an Australian dollar value of $10.56, this field will\nbe `\"10.56\"`. The currency symbol is not included in the string.\n"
+        },
+        "valueInBaseUnits": {
+          "type": "integer",
+          "description": "The amount of money in the smallest denomination for the currency, as a\n64-bit integer.  For example, for an Australian dollar value of $10.56,\nthis field will be `1056`.\n"
+        }
+      },
+      "required": [
+        "currencyCode",
+        "value",
+        "valueInBaseUnits"
+      ]
+    },
+    "OwnershipTypeEnum": {
+      "enum": [
+        "INDIVIDUAL",
+        "JOINT"
+      ],
+      "description": "Specifies the structure under which a bank account is owned. Currently\nreturned values are `INDIVIDUAL` and `JOINT`.\n"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for CDR Banking Banking Account Balances API
+  version: 1.0.0
+extends: openapi/up-bank-banking-account-balances-api-openapi.yml
+x-generated: '2026-10-21'
+x-method: generated
+actions:
+- target: $.info
+  update:
+    x-apievangelist-source: DSB Consumer Data Standards Banking API (shared CDR standard; Up hosts Product Reference Data at api.up.com.au/cds-au/v1)
+    x-apievangelist-docs: https://consumerdatastandardsaustralia.github.io/standards/
+- target: $.paths['/banking/accounts/balances'].get
+  update:
+    x-apievangelist-safe: true
+- target: $.paths['/banking/accounts/balances'].post
+  update:
+    x-apievangelist-safe: false
+- target: $.paths['/banking/accounts/{accountId}/balance'].get
+  update:
+    x-apievangelist-safe: true

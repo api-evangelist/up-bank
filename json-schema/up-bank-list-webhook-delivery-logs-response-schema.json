@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/up-bank/main/json-schema/up-bank-list-webhook-delivery-logs-response-schema.json",
+  "title": "ListWebhookDeliveryLogsResponse",
+  "description": "Successful response to get all delivery logs for a webhook. This returns\na paginated list of delivery logs, which can be scrolled by following the\n`next` and `prev` links if present.\n",
+  "x-generated": "2026-10-21",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/up-bank-webhooks-api-openapi.yml#/components/schemas/ListWebhookDeliveryLogsResponse",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/WebhookDeliveryLogResource"
+      },
+      "description": "The list of delivery logs returned in this response.\n"
+    },
+    "links": {
+      "type": "object",
+      "properties": {
+        "prev": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The link to the previous page in the results. If this value is `null`\nthere is no previous page.\n"
+        },
+        "next": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The link to the next page in the results. If this value is `null`\nthere is no next page.\n"
+        }
+      },
+      "required": [
+        "prev",
+        "next"
+      ]
+    }
+  },
+  "required": [
+    "data",
+    "links"
+  ],
+  "$defs": {
+    "WebhookDeliveryLogResource": {
+      "type": "object",
+      "description": "Provides historical webhook event delivery information for analysis and\ndebugging purposes.\n",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of this resource: `webhook-delivery-logs`"
+        },
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for this log entry.\n"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "request": {
+              "type": "object",
+              "properties": {
+                "body": {
+                  "type": "string",
+                  "description": "The payload that was sent in the request body.\n"
+                }
+              },
+              "required": [
+                "body"
+              ],
+              "description": "Information about the request that was sent to the webhook URL.\n"
+            },
+            "response": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "statusCode": {
+                  "type": "integer",
+                  "description": "The HTTP status code received in the response.\n"
+                },
+                "body": {
+                  "type": "string",
+                  "description": "The payload that was received in the response body.\n"
+                }
+              },
+              "required": [
+                "statusCode",
+                "body"
+              ],
+              "description": "Information about the response that was received from the webhook URL.\n"
+            },
+            "deliveryStatus": {
+              "description": "The success or failure status of this delivery attempt.\n",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/WebhookDeliveryStatusEnum"
+                }
+              ]
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date-time at which this log entry was created.\n"
+            }
+          },
+          "required": [
+            "request",
+            "response",
+            "deliveryStatus",
+            "createdAt"
+          ]
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "webhookEvent": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "The type of this resource: `webhook-events`"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "The unique identifier of the resource within its type.\n"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "id"
+                  ]
+                }
+              },
+              "required": [
+                "data"
+              ]
+            }
+          },
+          "required": [
+            "webhookEvent"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "attributes",
+        "relationships"
+      ]
+    },
+    "WebhookDeliveryStatusEnum": {
+      "enum": [
+        "DELIVERED",
+        "UNDELIVERABLE",
+        "BAD_RESPONSE_CODE"
+      ],
+      "description": "Specifies the nature of the success or failure of a webhook delivery\nattempt to the subscribed webhook URL. The currently returned values are\ndescribed below:\n\n- **`DELIVERED`**: The event was delivered to the webhook URL\n  successfully and a `200` response was received.\n- **`UNDELIVERABLE`**: The webhook URL was not reachable, or timed out.\n- **`BAD_RESPONSE_CODE`**: The event was delivered to the webhook URL\n  but a non-`200` response was received.\n"
+    }
+  }
+}

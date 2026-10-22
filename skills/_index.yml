@@ -1,33 +1,41 @@
-generated: '2026-07-20'
+generated: '2026-10-21'
 method: generated
-source: openapi/up-bank-openapi.json
+source: openapi/ (split Up Personal Banking API files)
 skills:
-  - file: up-bank-list-accounts-and-transactions.md
-    name: List Up accounts and their transactions
-    api: openapi/up-bank-openapi.json
-    operations:
-      - GET /util/ping
-      - GET /accounts
-      - GET /accounts/{accountId}/transactions
-      - GET /transactions
-      - GET /transactions/{id}
-  - file: up-bank-categorize-and-tag-transactions.md
-    name: Categorize and tag Up transactions
-    api: openapi/up-bank-openapi.json
-    operations:
-      - GET /categories
-      - GET /transactions/{id}
-      - PATCH /transactions/{transactionId}/relationships/category
-      - GET /tags
-      - POST /transactions/{transactionId}/relationships/tags
-      - DELETE /transactions/{transactionId}/relationships/tags
-  - file: up-bank-realtime-transaction-webhooks.md
-    name: Receive real-time Up transaction webhooks
-    api: openapi/up-bank-openapi.json
-    operations:
-      - POST /webhooks
-      - GET /webhooks
-      - GET /webhooks/{id}
-      - POST /webhooks/{webhookId}/ping
-      - GET /webhooks/{webhookId}/logs
-      - DELETE /webhooks/{id}
+- file: up-bank-list-accounts-and-transactions.md
+  name: up-bank-list-accounts-and-transactions
+  api:
+  - openapi/up-bank-accounts-api-openapi.yml
+  - openapi/up-bank-transactions-api-openapi.yml
+  - openapi/up-bank-utility-endpoints-api-openapi.yml
+  operations:
+  - getUtilPing
+  - getAccounts
+  - getAccountsByAccountIdTransactions
+  - getTransactions
+  - getTransactionsById
+- file: up-bank-categorize-and-tag-transactions.md
+  name: up-bank-categorize-and-tag-transactions
+  api:
+  - openapi/up-bank-categories-api-openapi.yml
+  - openapi/up-bank-tags-api-openapi.yml
+  - openapi/up-bank-transactions-api-openapi.yml
+  operations:
+  - getCategories
+  - getTransactionsById
+  - patchTransactionsByTransactionIdRelationshipsCategory
+  - getTags
+  - postTransactionsByTransactionIdRelationshipsTags
+  - deleteTransactionsByTransactionIdRelationshipsTags
+- file: up-bank-realtime-transaction-webhooks.md
+  name: up-bank-realtime-transaction-webhooks
+  api:
+  - openapi/up-bank-webhooks-api-openapi.yml
+  operations:
+  - postWebhooks
+  - getWebhooks
+  - getWebhooksById
+  - postWebhooksByWebhookIdPing
+  - getWebhooksByWebhookIdLogs
+  - deleteWebhooksById
+name: Up agent skills

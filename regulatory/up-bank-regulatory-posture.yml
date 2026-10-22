@@ -1,0 +1,63 @@
+generated: '2026-10-21'
+method: searched
+source: https://up.com.au/privacy/up-privacy/
+legal_pages_read:
+- url: https://up.com.au/privacy/
+  http_status: 200
+  note: Index of Up privacy documents (Privacy Policy, Privacy Disclosure, Credit Products Privacy Disclosure, Notifiable Matters Statement, Credit Reporting Policy).
+- url: https://up.com.au/privacy/up-privacy/
+  http_status: 200
+- url: https://up.com.au/privacy/up-privacy-disclosure/
+  http_status: 200
+- url: https://up.com.au/terms-and-information/
+  http_status: 200
+  note: Index page of product terms; no regulatory-signal language of its own.
+entity: Up is a brand of Bendigo and Adelaide Bank Limited, ABN 11 068 049 178, AFSL and Australian Credit Licence 237879.
+signals:
+  data_subject_request:
+    url: https://up.com.au/privacy/up-privacy/
+    section: Access and correction
+    channel: in-app "Talk to Us", 1300 002 258, support@up.com.au
+    rights_named: [access, correction, rectification (EEA), objection (EEA), information about processing (EEA), not to be subject to solely automated decisions (EEA)]
+    escalation: Australian Financial Complaints Authority (afca.org.au)
+    evidence:
+    - source: https://up.com.au/privacy/up-privacy/
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "In most cases you can gain access to your personal information held by us. We'll take reasonable steps to amend or correct your personal information to keep it accurate and up-to-date. Please contact us if you would like to access or request a correction of your personal information (see ‘ Contacting us ’ below)."
+    - source: https://up.com.au/privacy/up-privacy/
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "Rectification: You may require us to rectify inaccuracies in personal data held about you. Objection rights: You have the right to object to processing of data for direct marketing, processing based on our legitimate interests, and processing for research or statistical purposes."
+    note: Access and correction are offered to all customers via a contact channel; the GDPR section (EEA data subjects only) adds rectification, objection and information rights. No response SLA is stated in these passages.
+  data_retention:
+    url: https://up.com.au/privacy/up-privacy/
+    evidence:
+    - source: https://up.com.au/privacy/up-privacy/
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "We'll retain data related to your account for 7 years after we cease to provide financial services to you, in accordance with our regulatory obligations. We will delete your data when we are no longer obliged to retain it."
+    retention_period: 7 years after services cease
+    note: A concrete, stated retention period tied to regulatory obligations, followed by deletion.
+  data_residency:
+    url: https://up.com.au/privacy/up-privacy/
+    section: Disclosure to overseas recipients
+    evidence:
+    - source: https://up.com.au/privacy/up-privacy/
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "In some cases, we may need to share some of your information with organisations outside Australia. For example, when you instruct us to carry out a transaction such as a telegraphic transfer to or from an overseas country, or when we use service providers located overseas to perform a function on our behalf."
+    - source: https://up.com.au/privacy/up-privacy/
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "We may share your information with overseas organisations located in the following countries: Austria Belgium Canada Denmark France Germany India Indonesia Ireland Israel Nauru The Netherlands New Zealand Philippines Singapore Spain Sweden Switzerland UK US"
+    note: This is not an in-country residency commitment. It discloses that data may leave Australia and lists the destination countries; overseas service providers are not named, so this does not count as a subprocessor list.
+  incident_notification:
+    url: https://up.com.au/privacy/up-privacy/
+    section: Data breaches (GDPR section)
+    evidence:
+    - source: https://up.com.au/privacy/up-privacy/
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "We will report a personal data breach to the relevant supervisory authority without undue delay unless we are not required to do so under the GDPR, such as when it is unlikely to result in any risk to the rights of individuals. If the personal data breach is likely to result in a high risk to your rights and freedoms, we will communicate the breach to you without undue delay, unless we are not required to do so under the GDPR, such as when we have implemented appropriate measures such as encryption."
+    note: A breach-notification commitment scoped to EEA data subjects under the GDPR Policy section; no fixed notification window (e.g. hours) is stated.

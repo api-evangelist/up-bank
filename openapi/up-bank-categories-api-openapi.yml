@@ -213,25 +213,36 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    CategoryInputResourceIdentifier:
+    GetCategoryResponse:
       type: object
-      description: 'Uniquely identifies a category in the API.
+      description: 'Successful response to get a single category and its ancestry.
 
         '
       properties:
-        type:
-          type: string
-          description: 'The type of this resource: `categories`'
-        id:
-          type: string
-          description: 'The unique identifier of the category, as returned by the `/categories`
-
-            endpoint.
+        data:
+          description: 'The category returned in this response.
 
             '
+          allOf:
+          - $ref: '#/components/schemas/CategoryResource'
       required:
-      - type
-      - id
+      - data
+    UpdateTransactionCategoryRequest:
+      type: object
+      description: 'Request to update the category associated with a transaction.
+
+        '
+      properties:
+        data:
+          description: 'The category to set on the transaction. Set this entire key to `null`
+
+            de-categorize a transaction.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/CategoryInputResourceIdentifier'
+      required:
+      - data
     CategoryResource:
       type: object
       description: 'Provides information about a category and its ancestry.
@@ -341,22 +352,6 @@ components:
       - id
       - attributes
       - relationships
-    UpdateTransactionCategoryRequest:
-      type: object
-      description: 'Request to update the category associated with a transaction.
-
-        '
-      properties:
-        data:
-          description: 'The category to set on the transaction. Set this entire key to `null`
-
-            de-categorize a transaction.
-
-            '
-          allOf:
-          - $ref: '#/components/schemas/CategoryInputResourceIdentifier'
-      required:
-      - data
     ListCategoriesResponse:
       type: object
       description: 'Successful response to get all categories and their ancestry. The
@@ -374,20 +369,25 @@ components:
             '
       required:
       - data
-    GetCategoryResponse:
+    CategoryInputResourceIdentifier:
       type: object
-      description: 'Successful response to get a single category and its ancestry.
+      description: 'Uniquely identifies a category in the API.
 
         '
       properties:
-        data:
-          description: 'The category returned in this response.
+        type:
+          type: string
+          description: 'The type of this resource: `categories`'
+        id:
+          type: string
+          description: 'The unique identifier of the category, as returned by the `/categories`
+
+            endpoint.
 
             '
-          allOf:
-          - $ref: '#/components/schemas/CategoryResource'
       required:
-      - data
+      - type
+      - id
   securitySchemes:
     bearer_auth:
       type: http

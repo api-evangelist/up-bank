@@ -1,20 +1,27 @@
-generated: '2026-07-20'
+generated: '2026-10-21'
 method: searched
-source: https://developer.up.com.au/
-summary: >-
-  The Up Personal Banking API is rate limited. Up documents a 429 "Too many
-  requests" response and an X-RateLimit-Remaining response header that reports
-  how many requests remain in the current window. Specific numeric thresholds
-  and the window length are not published.
+source: https://developer.up.com.au/llms.txt
+summary: The Up Personal Banking API is rate limited. Up documents a 429 "Too many requests" response
+  and an X-RateLimit-Remaining response header that reports how many requests remain in the current window.
+  Specific numeric thresholds and the window length are not published.
 signals:
   status_code: 429
   headers:
-    - name: X-RateLimit-Remaining
-      description: Number of requests remaining in the current rate-limit window.
-  retry_guidance: >-
-    On 429, back off and retry. Watch X-RateLimit-Remaining to pace requests
-    before exhausting the window.
-limits: []
-notes: >-
-  No published limit_count / window duration; only the header + 429 behavior are
-  documented. Re-run to capture numeric limits if Up publishes them.
+  - name: X-RateLimit-Remaining
+    description: Number of requests remaining in the current rate-limit window.
+  retry_guidance: On 429, back off and retry. Watch X-RateLimit-Remaining to pace requests before exhausting
+    the window.
+  limit_text_429: You have been rate limited—try later, ideally with exponential backoff.  The X-RateLimit-Remaining
+    response header shows the number remaining.
+limits:
+- name: Webhook count
+  max: 10
+  scope: per-user (personal access token)
+  endpoint: POST /webhooks
+  kind: quota
+  limit_text: There is currently a limit of 10 webhooks at any given time.
+notes: Request-rate thresholds and window are not published; only the 429 status and X-RateLimit-Remaining
+  header are documented. The single numeric limit Up documents is the 10-webhook cap on POST /webhooks
+  (a resource quota, not a request rate).
+name: Up rate limits
+limit_count: 1

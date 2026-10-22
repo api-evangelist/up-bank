@@ -1,0 +1,21 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Up Attachments API
+  version: 1.0.0
+extends: openapi/up-bank-attachments-api-openapi.yml
+x-generated: '2026-10-21'
+x-method: generated
+actions:
+- target: $.info
+  update:
+    x-apievangelist-source: Up Personal Banking API, developer.up.com.au (split from openapi/_original/up-bank-openapi.json)
+    x-apievangelist-docs: https://developer.up.com.au/
+    x-apievangelist-llms: https://developer.up.com.au/llms.txt
+- target: $.paths['/attachments'].get
+  update:
+    x-apievangelist-safe: true
+    x-apievangelist-auth: Personal Access Token (Bearer)
+- target: $.paths['/attachments/{id}'].get
+  update:
+    x-apievangelist-safe: true
+    x-apievangelist-auth: Personal Access Token (Bearer)

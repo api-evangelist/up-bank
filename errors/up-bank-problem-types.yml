@@ -1,43 +1,56 @@
-generated: '2026-07-20'
-method: derived
-source: openapi/up-bank-openapi.json
+generated: '2026-10-21'
+method: searched
+source: https://developer.up.com.au/llms.txt
 format: json:api
 envelope:
   shape: '{ "errors": [ { "status", "title", "detail", "source": { "parameter", "pointer" } } ] }'
-  description: >-
-    Up returns JSON:API error objects (not RFC 9457 application/problem+json).
-    "status" is the stringified HTTP status code, "title" is a short stable
-    description of the error type, "detail" is a per-occurrence description, and
-    "source" (when present) locates the offending query parameter or request
-    body attribute via source.parameter / source.pointer (RFC 6901 JSON
-    pointer).
+  description: Up returns JSON:API error objects (not RFC 9457 application/problem+json). "status" is
+    the stringified HTTP status code, "title" is a short stable description of the error type, "detail"
+    is a per-occurrence description, and "source" (when present) locates the offending query parameter
+    or request body attribute via source.parameter / source.pointer (RFC 6901 JSON pointer).
 problems:
-  - status: 401
-    title: Not Authorized
-    detail: >-
-      The request was not authenticated because no valid credential was found in
-      the Authorization header, or the Authorization header was not present.
-    remediation: >-
-      Supply a valid Personal Access Token as "Authorization: Bearer <token>".
-      Confirm with GET /util/ping.
-    source_operation: openapi/up-bank-openapi.json#GET /util/ping
-    documented_in_spec: true
-  - status: 404
-    title: Not Found
-    detail: >-
-      A referenced resource does not exist — e.g. an invalid category identifier
-      passed to filter[parent] or filter[category], or a resource id that does
-      not resolve.
-    remediation: Verify the resource id / category id exists before referencing it.
-    source_operation: openapi/up-bank-openapi.json#GET /categories
-    documented_in_spec: false
-    note: >-
-      Described in operation prose ("Providing an invalid category identifier
-      results in a 404 response") but not enumerated as a spec response object.
-notes: >-
-  The published OpenAPI declares an explicit error response only on GET
-  /util/ping (401). Other 4xx conditions (404 for invalid category/tag filters,
-  validation errors on webhook creation and tag/category mutation) are described
-  in operation prose and share the same JSON:API ErrorResponse envelope. This
-  catalog is derived from the spec; a fuller error reference was not published
-  separately by Up at the time of harvest.
+- status: 400
+  title: Bad request
+  documented_text: 'Bad request: Typically a problem with the query string or an encoding error.'
+- status: 401
+  title: Not Authorized
+  detail: The request was not authenticated because no valid credential was found in the Authorization
+    header, or the Authorization header was not present.
+  remediation: 'Supply a valid Personal Access Token as "Authorization: Bearer <token>". Confirm with
+    GET /util/ping.'
+  source_operation: openapi/up-bank-openapi.json#GET /util/ping
+  documented_in_spec: true
+  documented_text: 'Not authorized: The request was not authenticated.'
+- status: 404
+  title: Not Found
+  detail: A referenced resource does not exist — e.g. an invalid category identifier passed to filter[parent]
+    or filter[category], or a resource id that does not resolve.
+  remediation: Verify the resource id / category id exists before referencing it.
+  source_operation: openapi/up-bank-openapi.json#GET /categories
+  documented_in_spec: false
+  note: Described in operation prose ("Providing an invalid category identifier results in a 404 response")
+    but not enumerated as a spec response object.
+  documented_text: 'Not found: Either the endpoint does not exist, or the requested resource does not
+    exist.'
+- status: 422
+  title: Invalid request
+  documented_text: 'Invalid request: The request contains invalid data and was not processed.'
+- status: 429
+  title: Too many requests
+  documented_text: 'Too many requests: You have been rate limited—try later, ideally with exponential
+    backoff.  The X-RateLimit-Remaining response header shows the number remaining.'
+  remediation: Back off exponentially and watch X-RateLimit-Remaining.
+- status: 500
+  title: Server-side errors
+  documented_text: 'Server-side errors: Try again later.'
+  also_applies_to:
+  - 502
+  - 503
+  - 504
+  remediation: Try again later.
+notes: The published OpenAPI declares an explicit error response only on GET /util/ping (401). Other 4xx
+  conditions (404 for invalid category/tag filters, validation errors on webhook creation and tag/category
+  mutation) are described in operation prose and share the same JSON:API ErrorResponse envelope. This
+  catalog is derived from the spec; a fuller error reference was not published separately by Up at the
+  time of harvest.
+derived_from: openapi/up-bank-openapi.json

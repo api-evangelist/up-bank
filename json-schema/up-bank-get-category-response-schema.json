@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/up-bank/main/json-schema/up-bank-get-category-response-schema.json",
+  "title": "GetCategoryResponse",
+  "description": "Successful response to get a single category and its ancestry.\n",
+  "x-generated": "2026-10-21",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/up-bank-categories-api-openapi.yml#/components/schemas/GetCategoryResponse",
+  "type": "object",
+  "properties": {
+    "data": {
+      "description": "The category returned in this response.\n",
+      "allOf": [
+        {
+          "$ref": "#/$defs/CategoryResource"
+        }
+      ]
+    }
+  },
+  "required": [
+    "data"
+  ],
+  "$defs": {
+    "CategoryResource": {
+      "type": "object",
+      "description": "Provides information about a category and its ancestry.\n",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of this resource: `categories`"
+        },
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for this category. This is a human-readable but\nURL-safe value.\n"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The name of this category as seen in the Up application.\n"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "parent": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "The type of this resource: `categories`"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "The unique identifier of the resource within its type.\n"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "id"
+                  ]
+                },
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "related": {
+                      "type": "string",
+                      "description": "The link to retrieve the related resource(s) in this relationship.\n"
+                    }
+                  },
+                  "required": [
+                    "related"
+                  ]
+                }
+              },
+              "required": [
+                "data"
+              ]
+            },
+            "children": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "description": "The type of this resource: `categories`"
+                      },
+                      "id": {
+                        "type": "string",
+                        "description": "The unique identifier of the resource within its type.\n"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "id"
+                    ]
+                  }
+                },
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "related": {
+                      "type": "string",
+                      "description": "The link to retrieve the related resource(s) in this relationship.\n"
+                    }
+                  },
+                  "required": [
+                    "related"
+                  ]
+                }
+              },
+              "required": [
+                "data"
+              ]
+            }
+          },
+          "required": [
+            "parent",
+            "children"
+          ]
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "self": {
+              "type": "string",
+              "description": "The canonical link to this resource within the API.\n"
+            }
+          },
+          "required": [
+            "self"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "attributes",
+        "relationships"
+      ]
+    }
+  }
+}

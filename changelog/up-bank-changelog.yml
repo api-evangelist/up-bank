@@ -1,0 +1,47 @@
+generated: '2026-10-21'
+method: searched
+source: https://github.com/up-banking/api/commits/master/v1
+name: Up Banking API changelog
+scheme: uri-path major version (v1, beta); dated OpenAPI snapshot commits
+current_version: v1
+note: >-
+  Up publishes no standalone API changelog page. The provider's own spec repository
+  (github.com/up-banking/api, file v1/openapi.json) records each published OpenAPI
+  snapshot as a dated commit, and the commit messages describe the change. These
+  entries are copied from those commit messages. Breaking flags are false because
+  the docs state "nothing will be removed within any given version"; the commits do
+  not mark any change as breaking. The up.com.au/blog/release-notes/ page covers
+  the mobile app, not the API.
+entries:
+  - version: v1 snapshot 7fc11add
+    date: '2024-08-06'
+    breaking: false
+    highlights: ["Update openapi.json"]
+  - version: v1 snapshot b173ae0e
+    date: '2024-08-05'
+    breaking: false
+    highlights: ["Update openapi.json"]
+  - version: v1 snapshot e481782e
+    date: '2022-01-13'
+    breaking: false
+    highlights: ["Update to the Latest OAS Spec Snapshot. Includes `PATCH` for categories."]
+  - version: v1 snapshot 3eaf810d
+    date: '2022-01-09'
+    breaking: false
+    highlights: ["Update OAS Spec to latest snapshot."]
+  - version: v1 snapshot d49df20f
+    date: '2020-09-04'
+    breaking: false
+    highlights: ["Adds category filtering and minor copy changes."]
+  - version: v1 snapshot 918be0ac
+    date: '2020-08-24'
+    breaking: false
+    highlights: ["Minor tweaks to code examples for webhook authenticity checks."]
+  - version: v1 snapshot c4237078
+    date: '2020-08-21'
+    breaking: false
+    highlights: ["Adds transaction status filter."]
+  - version: v1 snapshot 92ac370d
+    date: '2020-08-15'
+    breaking: false
+    highlights: ["Adds categories and fixes some copy/paste issues with tags docs."]

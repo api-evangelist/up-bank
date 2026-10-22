@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/up-bank/main/json-schema/up-bank-create-webhook-request-schema.json",
+  "title": "CreateWebhookRequest",
+  "description": "Request to create a new webhook. This currently only requires a `url`\nattribute.\n",
+  "x-generated": "2026-10-21",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/up-bank-webhooks-api-openapi.yml#/components/schemas/CreateWebhookRequest",
+  "type": "object",
+  "properties": {
+    "data": {
+      "description": "The webhook resource to create.\n",
+      "allOf": [
+        {
+          "$ref": "#/$defs/WebhookInputResource"
+        }
+      ]
+    }
+  },
+  "required": [
+    "data"
+  ],
+  "$defs": {
+    "WebhookInputResource": {
+      "type": "object",
+      "description": "Represents a webhook specified as request input.\n",
+      "properties": {
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "description": "The URL that this webhook should post events to. This must be a valid\nHTTP or HTTPS URL that does not exceed 300 characters in length.\n"
+            },
+            "description": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "An optional description for this webhook, up to 64 characters in\nlength.\n"
+            }
+          },
+          "required": [
+            "url"
+          ]
+        }
+      },
+      "required": [
+        "attributes"
+      ]
+    }
+  }
+}

@@ -1,0 +1,18 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for CDR Banking Banking Payees API
+  version: 1.0.0
+extends: openapi/up-bank-banking-payees-api-openapi.yml
+x-generated: '2026-10-21'
+x-method: generated
+actions:
+- target: $.info
+  update:
+    x-apievangelist-source: DSB Consumer Data Standards Banking API (shared CDR standard; Up hosts Product Reference Data at api.up.com.au/cds-au/v1)
+    x-apievangelist-docs: https://consumerdatastandardsaustralia.github.io/standards/
+- target: $.paths['/banking/payees'].get
+  update:
+    x-apievangelist-safe: true
+- target: $.paths['/banking/payees/{payeeId}'].get
+  update:
+    x-apievangelist-safe: true

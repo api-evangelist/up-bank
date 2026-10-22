@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/up-bank/main/json-schema/up-bank-update-transaction-tags-request-schema.json",
+  "title": "UpdateTransactionTagsRequest",
+  "description": "Request to add or remove tags associated with a transaction.\n",
+  "x-generated": "2026-10-21",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/up-bank-tags-api-openapi.yml#/components/schemas/UpdateTransactionTagsRequest",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/TagInputResourceIdentifier"
+      },
+      "description": "The tags to add to or remove from the transaction.\n"
+    }
+  },
+  "required": [
+    "data"
+  ],
+  "$defs": {
+    "TagInputResourceIdentifier": {
+      "type": "object",
+      "description": "Uniquely identifies a single tag in the API.\n",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of this resource: `tags`"
+        },
+        "id": {
+          "type": "string",
+          "description": "The label of the tag, which also acts as the tag’s unique identifier.\n"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ]
+    }
+  }
+}

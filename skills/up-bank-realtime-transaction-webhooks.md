@@ -1,14 +1,15 @@
 ---
-name: Receive real-time Up transaction webhooks
+name: up-bank-realtime-transaction-webhooks
 description: Register an Up webhook, verify its HMAC-SHA256 signature, handle transaction event types, and inspect delivery logs.
-api: openapi/up-bank-openapi.json
+api:
+- openapi/up-bank-webhooks-api-openapi.yml
 operations:
-  - POST /webhooks
-  - GET /webhooks
-  - GET /webhooks/{id}
-  - POST /webhooks/{webhookId}/ping
-  - GET /webhooks/{webhookId}/logs
-  - DELETE /webhooks/{id}
+- postWebhooks
+- getWebhooks
+- getWebhooksById
+- postWebhooksByWebhookIdPing
+- getWebhooksByWebhookIdLogs
+- deleteWebhooksById
 ---
 
 # Receive real-time Up transaction webhooks

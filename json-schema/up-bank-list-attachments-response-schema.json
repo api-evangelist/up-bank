@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/up-bank/main/json-schema/up-bank-list-attachments-response-schema.json",
+  "title": "ListAttachmentsResponse",
+  "description": "Successful response to get all attachments. This returns a paginated list of\nattachments, which can be scrolled by following the `prev` and `next` links if\npresent.\n",
+  "x-generated": "2026-10-21",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/up-bank-attachments-api-openapi.yml#/components/schemas/ListAttachmentsResponse",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AttachmentResource"
+      },
+      "description": "The list of attachments returned in this response.\n"
+    },
+    "links": {
+      "type": "object",
+      "properties": {
+        "prev": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The link to the previous page in the results. If this value is `null`\nthere is no previous page.\n"
+        },
+        "next": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The link to the next page in the results. If this value is `null`\nthere is no next page.\n"
+        }
+      },
+      "required": [
+        "prev",
+        "next"
+      ]
+    }
+  },
+  "required": [
+    "data",
+    "links"
+  ],
+  "$defs": {
+    "AttachmentResource": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of this resource: `attachments`"
+        },
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for this attachment.\n"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "createdAt": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time",
+              "description": "The date-time when the file was created.\n"
+            },
+            "fileURL": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "A temporary link to download the file.\n"
+            },
+            "fileURLExpiresAt": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date-time at which the `fileURL` link expires.\n"
+            },
+            "fileExtension": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "File extension for the uploaded attachment.\n"
+            },
+            "fileContentType": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Content type for the uploaded attachment.\n"
+            }
+          },
+          "required": [
+            "createdAt",
+            "fileURL",
+            "fileURLExpiresAt",
+            "fileExtension",
+            "fileContentType"
+          ]
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "transaction": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "The type of this resource: `transactions`"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "The unique identifier of the resource within its type.\n"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "id"
+                  ]
+                },
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "related": {
+                      "type": "string",
+                      "description": "The link to retrieve the related resource(s) in this relationship.\n"
+                    }
+                  },
+                  "required": [
+                    "related"
+                  ]
+                }
+              },
+              "required": [
+                "data"
+              ]
+            }
+          },
+          "required": [
+            "transaction"
+          ]
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "self": {
+              "type": "string",
+              "description": "The canonical link to this resource within the API.\n"
+            }
+          },
+          "required": [
+            "self"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "attributes",
+        "relationships"
+      ]
+    }
+  }
+}

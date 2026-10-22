@@ -197,6 +197,57 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    TagResource:
+      type: object
+      description: 'Provides information about a tag.
+
+        '
+      properties:
+        type:
+          type: string
+          description: 'The type of this resource: `tags`'
+        id:
+          type: string
+          description: 'The label of the tag, which also acts as the tag’s unique identifier.
+
+            '
+        relationships:
+          type: object
+          properties:
+            transactions:
+              type: object
+              properties:
+                links:
+                  type: object
+                  properties:
+                    related:
+                      type: string
+                      description: 'The link to retrieve the related resource(s) in this relationship.
+
+                        '
+                  required:
+                  - related
+          required:
+          - transactions
+      required:
+      - type
+      - id
+      - relationships
+    UpdateTransactionTagsRequest:
+      type: object
+      description: 'Request to add or remove tags associated with a transaction.
+
+        '
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagInputResourceIdentifier'
+          description: 'The tags to add to or remove from the transaction.
+
+            '
+      required:
+      - data
     ListTagsResponse:
       type: object
       description: 'Successful response to get all tags. This returns a paginated list of
@@ -258,57 +309,6 @@ components:
       required:
       - type
       - id
-    TagResource:
-      type: object
-      description: 'Provides information about a tag.
-
-        '
-      properties:
-        type:
-          type: string
-          description: 'The type of this resource: `tags`'
-        id:
-          type: string
-          description: 'The label of the tag, which also acts as the tag’s unique identifier.
-
-            '
-        relationships:
-          type: object
-          properties:
-            transactions:
-              type: object
-              properties:
-                links:
-                  type: object
-                  properties:
-                    related:
-                      type: string
-                      description: 'The link to retrieve the related resource(s) in this relationship.
-
-                        '
-                  required:
-                  - related
-          required:
-          - transactions
-      required:
-      - type
-      - id
-      - relationships
-    UpdateTransactionTagsRequest:
-      type: object
-      description: 'Request to add or remove tags associated with a transaction.
-
-        '
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagInputResourceIdentifier'
-          description: 'The tags to add to or remove from the transaction.
-
-            '
-      required:
-      - data
   securitySchemes:
     bearer_auth:
       type: http

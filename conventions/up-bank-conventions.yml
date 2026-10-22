@@ -1,13 +1,10 @@
-generated: '2026-07-20'
+generated: '2026-10-21'
 method: derived
 source: openapi/up-bank-openapi.json
 docs: https://developer.up.com.au/
-summary: >-
-  Cross-cutting request/response semantics for the Up Personal Banking API,
-  derived from the published OpenAPI 3.0.3 contract and the developer docs. Up
-  follows the JSON:API 1.0 media conventions: resource objects with
-  type/id/attributes/relationships/links, cursor pagination, and a JSON:API
-  error envelope.
+summary: 'Cross-cutting request/response semantics for the Up Personal Banking API, derived from the published
+  OpenAPI 3.0.3 contract and the developer docs. Up follows the JSON:API 1.0 media conventions: resource
+  objects with type/id/attributes/relationships/links, cursor pagination, and a JSON:API error envelope.'
 authentication:
   style: http-bearer
   header: Authorization
@@ -15,35 +12,33 @@ authentication:
   artifact: authentication/up-bank-authentication.yml
 idempotency:
   supported: false
-  detail: >-
-    Up does not document an Idempotency-Key header or any client-supplied
-    idempotency contract. Write operations are limited to webhook create/delete,
-    tag add/remove, and transaction categorisation; none accept an idempotency
-    key. Retries are not deduplicated by the API.
+  detail: Up does not document an Idempotency-Key header or any client-supplied idempotency contract.
+    Write operations are limited to webhook create/delete, tag add/remove, and transaction categorisation;
+    none accept an idempotency key. Retries are not deduplicated by the API.
+  coverage: none
 pagination:
   style: cursor
-  request_params: ["page[size]", "page[after]", "page[before]"]
-  response_fields: ["links.prev", "links.next"]
-  detail: >-
-    Lists are cursor-paginated. Set page[size] for page length; follow the
-    opaque links.next / links.prev URLs (which carry page[after] / page[before]
-    cursors) to scroll. filter[since] / filter[until] narrow by date range and
-    must NOT be used for pagination.
+  request_params:
+  - page[size]
+  - page[after]
+  - page[before]
+  response_fields:
+  - links.prev
+  - links.next
+  detail: Lists are cursor-paginated. Set page[size] for page length; follow the opaque links.next / links.prev
+    URLs (which carry page[after] / page[before] cursors) to scroll. filter[since] / filter[until] narrow
+    by date range and must NOT be used for pagination.
 filtering:
-  detail: >-
-    JSON:API-style filter[...] query parameters: filter[accountType],
-    filter[ownershipType], filter[status], filter[category], filter[tag],
-    filter[since], filter[until], filter[parent].
+  detail: 'JSON:API-style filter[...] query parameters: filter[accountType], filter[ownershipType], filter[status],
+    filter[category], filter[tag], filter[since], filter[until], filter[parent].'
 field_expansion:
   supported: false
-  detail: >-
-    No sparse-fieldset or include/expand parameter. Related resources are
-    reached by following relationships[].links.related URLs.
+  detail: No sparse-fieldset or include/expand parameter. Related resources are reached by following relationships[].links.related
+    URLs.
 metadata:
-  detail: >-
-    The /util/ping response carries a meta object (authenticated customer id +
-    statusEmoji). Resource payloads do not carry arbitrary user metadata; free
-    text is available via transaction message/note and user-defined tags.
+  detail: The /util/ping response carries a meta object (authenticated customer id + statusEmoji). Resource
+    payloads do not carry arbitrary user metadata; free text is available via transaction message/note
+    and user-defined tags.
 request_tracing:
   supported: false
   detail: No documented request-id / correlation-id response header.
@@ -56,26 +51,53 @@ versioning:
 error_envelope:
   format: json:api
   shape: '{ "errors": [ { "status", "title", "detail", "source": { "parameter", "pointer" } } ] }'
-  detail: >-
-    Errors use the JSON:API error object (NOT RFC 9457 problem+json). status is
-    a stringified HTTP code; title is stable per error type; detail is unique
-    per occurrence; source.parameter / source.pointer locate the offending
-    input.
+  detail: Errors use the JSON:API error object (NOT RFC 9457 problem+json). status is a stringified HTTP
+    code; title is stable per error type; detail is unique per occurrence; source.parameter / source.pointer
+    locate the offending input.
   artifact: errors/up-bank-problem-types.yml
 rate_limit_signaling:
   status_code: 429
-  headers: [X-RateLimit-Remaining]
-  detail: >-
-    Up rate limits the API. A 429 "Too many requests" is returned when the
-    window is exhausted, and the X-RateLimit-Remaining response header reports
-    how many requests remain. Numeric thresholds are not published. Treat 429 as
-    retryable with backoff.
+  headers:
+  - X-RateLimit-Remaining
+  detail: Up rate limits the API. A 429 "Too many requests" is returned when the window is exhausted,
+    and the X-RateLimit-Remaining response header reports how many requests remain. Numeric thresholds
+    are not published. Treat 429 as retryable with backoff.
   artifact: rate-limits/up-bank-rate-limits.yml
 webhooks:
   supported: true
   signature_header: X-Up-Authenticity-Signature
   signature_algorithm: HMAC-SHA256
-  detail: >-
-    Real-time transaction events are delivered by webhook, signed with an
-    HMAC-SHA256 of the raw body using the per-webhook secretKey.
+  detail: Real-time transaction events are delivered by webhook, signed with an HMAC-SHA256 of the raw
+    body using the per-webhook secretKey.
   artifact: asyncapi/up-bank-webhooks-asyncapi.yml
+reversibility:
+  source: https://developer.up.com.au/llms.txt
+  note: The spec declares no operationIds; operations are named by method and path. The docs state no
+    time window for any reversal, so every surface is graded documented, not verified.
+  surfaces:
+  - write: PATCH /transactions/{transactionId}/relationships/category
+    reversal: 'PATCH /transactions/{transactionId}/relationships/category with data: null (or the previous
+      category)'
+    window: null
+    grade: documented
+    evidence: To de-categorize a transaction, set the entire `data` key to `null`.
+  - write: POST /transactions/{transactionId}/relationships/tags
+    reversal: DELETE /transactions/{transactionId}/relationships/tags
+    window: null
+    grade: documented
+    evidence: DELETE /transactions/{transactionId}/relationships/tags - Remove tags from transaction
+  - write: POST /webhooks
+    reversal: DELETE /webhooks/{id}
+    window: null
+    grade: documented
+    evidence: The docs list DELETE /webhooks/{id}. They also say the secretKey "will not be returned from
+      any other endpoints", so a webhook re-created after deletion gets a new signing secret.
+  - write: DELETE /webhooks/{id}
+    reversal: null
+    window: null
+    grade: none
+    evidence: No restore operation is documented.
+  - write: POST /webhooks/{webhookId}/ping
+    reversal: null
+    grade: na
+    evidence: Sends a test PING event; it changes no state.

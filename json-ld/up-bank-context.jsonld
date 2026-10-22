@@ -1,0 +1,1273 @@
+{
+  "@context": {
+    "@vocab": "https://up.com.au/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "up": "https://up.com.au/schema#",
+    "MoneyObject": "up:MoneyObject",
+    "currencyCode": {
+      "@id": "up:currencyCode",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "up:value",
+      "@type": "xsd:string"
+    },
+    "valueInBaseUnits": {
+      "@id": "up:valueInBaseUnits",
+      "@type": "xsd:integer"
+    },
+    "GetAccountResponse": "up:GetAccountResponse",
+    "data": {
+      "@id": "up:data"
+    },
+    "ListAccountsResponse": "up:ListAccountsResponse",
+    "links": {
+      "@id": "up:links"
+    },
+    "AccountResource": "up:AccountResource",
+    "type": {
+      "@id": "up:type",
+      "@type": "xsd:string"
+    },
+    "id": {
+      "@id": "up:id",
+      "@type": "xsd:string"
+    },
+    "attributes": {
+      "@id": "up:attributes"
+    },
+    "relationships": {
+      "@id": "up:relationships"
+    },
+    "AccountTypeEnum": "up:AccountTypeEnum",
+    "OwnershipTypeEnum": "up:OwnershipTypeEnum",
+    "ListAttachmentsResponse": "up:ListAttachmentsResponse",
+    "AttachmentResource": "up:AttachmentResource",
+    "GetAttachmentResponse": "up:GetAttachmentResponse",
+    "RequestAccountIdListV1_data": "up:RequestAccountIdListV1_data",
+    "accountIds": {
+      "@id": "up:accountIds",
+      "@container": "@list"
+    },
+    "ResponseErrorListV2": "up:ResponseErrorListV2",
+    "errors": {
+      "@id": "up:errors",
+      "@container": "@list"
+    },
+    "BankingBalance": "up:BankingBalance",
+    "accountId": {
+      "@id": "up:accountId"
+    },
+    "currentBalance": {
+      "@id": "up:currentBalance",
+      "@type": "xsd:string"
+    },
+    "availableBalance": {
+      "@id": "up:availableBalance",
+      "@type": "xsd:string"
+    },
+    "creditLimit": {
+      "@id": "up:creditLimit",
+      "@type": "xsd:string"
+    },
+    "amortisedLimit": {
+      "@id": "up:amortisedLimit",
+      "@type": "xsd:string"
+    },
+    "currency": {
+      "@id": "up:currency",
+      "@type": "xsd:string"
+    },
+    "purses": {
+      "@id": "up:purses",
+      "@container": "@list"
+    },
+    "ResponseBankingAccountsBalanceList_data": "up:ResponseBankingAccountsBalanceList_data",
+    "balances": {
+      "@id": "up:balances",
+      "@container": "@list"
+    },
+    "ErrorV2": "up:ErrorV2",
+    "code": {
+      "@id": "up:code",
+      "@type": "xsd:string"
+    },
+    "title": {
+      "@id": "up:title",
+      "@type": "xsd:string"
+    },
+    "detail": {
+      "@id": "up:detail",
+      "@type": "xsd:string"
+    },
+    "meta": {
+      "@id": "up:meta",
+      "@type": "@id"
+    },
+    "Links": "up:Links",
+    "self": {
+      "@id": "up:self",
+      "@type": "xsd:string"
+    },
+    "ErrorV2_meta": "up:ErrorV2_meta",
+    "urn": {
+      "@id": "up:urn",
+      "@type": "xsd:string"
+    },
+    "BankingBalancePurse": "up:BankingBalancePurse",
+    "amount": {
+      "@id": "up:amount",
+      "@type": "xsd:string"
+    },
+    "LinksPaginated": "up:LinksPaginated",
+    "first": {
+      "@id": "up:first",
+      "@type": "xsd:string"
+    },
+    "prev": {
+      "@id": "up:prev",
+      "@type": "xsd:string"
+    },
+    "next": {
+      "@id": "up:next",
+      "@type": "xsd:string"
+    },
+    "last": {
+      "@id": "up:last",
+      "@type": "xsd:string"
+    },
+    "ResponseBankingAccountsBalanceById": "up:ResponseBankingAccountsBalanceById",
+    "MetaPaginated": "up:MetaPaginated",
+    "totalRecords": {
+      "@id": "up:totalRecords",
+      "@type": "xsd:integer"
+    },
+    "totalPages": {
+      "@id": "up:totalPages",
+      "@type": "xsd:integer"
+    },
+    "ResponseBankingAccountsBalanceList": "up:ResponseBankingAccountsBalanceList",
+    "BankingProductCategoryV2": "up:BankingProductCategoryV2",
+    "RequestAccountIdListV1": "up:RequestAccountIdListV1",
+    "BankingDirectDebit": "up:BankingDirectDebit",
+    "authorisedEntity": {
+      "@id": "up:authorisedEntity",
+      "@type": "@id"
+    },
+    "lastDebitDateTime": {
+      "@id": "up:lastDebitDateTime",
+      "@type": "xsd:string"
+    },
+    "lastDebitAmount": {
+      "@id": "up:lastDebitAmount",
+      "@type": "xsd:string"
+    },
+    "ResponseBankingDirectDebitAuthorisationList": "up:ResponseBankingDirectDebitAuthorisationList",
+    "ResponseBankingDirectDebitAuthorisationList_data": "up:ResponseBankingDirectDebitAuthorisationList_data",
+    "directDebitAuthorisations": {
+      "@id": "up:directDebitAuthorisations",
+      "@container": "@list"
+    },
+    "BankingAuthorisedEntity": "up:BankingAuthorisedEntity",
+    "description": {
+      "@id": "up:description",
+      "@type": "xsd:string"
+    },
+    "financialInstitution": {
+      "@id": "up:financialInstitution",
+      "@type": "xsd:string"
+    },
+    "abn": {
+      "@id": "up:abn",
+      "@type": "xsd:string"
+    },
+    "acn": {
+      "@id": "up:acn",
+      "@type": "xsd:string"
+    },
+    "arbn": {
+      "@id": "up:arbn",
+      "@type": "xsd:string"
+    },
+    "BankingScheduledPaymentToV2": "up:BankingScheduledPaymentToV2",
+    "toUType": {
+      "@id": "up:toUType",
+      "@type": "xsd:string"
+    },
+    "payeeId": {
+      "@id": "up:payeeId"
+    },
+    "nickname": {
+      "@id": "up:nickname",
+      "@type": "xsd:string"
+    },
+    "payeeReference": {
+      "@id": "up:payeeReference",
+      "@type": "xsd:string"
+    },
+    "digitalWallet": {
+      "@id": "up:digitalWallet",
+      "@type": "@id"
+    },
+    "domestic": {
+      "@id": "up:domestic",
+      "@type": "@id"
+    },
+    "biller": {
+      "@id": "up:biller",
+      "@type": "@id"
+    },
+    "international": {
+      "@id": "up:international",
+      "@type": "@id"
+    },
+    "ResponseBankingScheduledPaymentsListV2": "up:ResponseBankingScheduledPaymentsListV2",
+    "ResponseBankingInstalmentPlanList": "up:ResponseBankingInstalmentPlanList",
+    "BankingScheduledPaymentRecurrenceOnceOff": "up:BankingScheduledPaymentRecurrenceOnceOff",
+    "paymentDate": {
+      "@id": "up:paymentDate",
+      "@type": "xsd:string"
+    },
+    "BankingScheduledPaymentFrom": "up:BankingScheduledPaymentFrom",
+    "BankingDomesticPayeeCard": "up:BankingDomesticPayeeCard",
+    "cardNumber": {
+      "@id": "up:cardNumber",
+      "@type": "xsd:string"
+    },
+    "BankingScheduledPaymentRecurrenceIntervalSchedule": "up:BankingScheduledPaymentRecurrenceIntervalSchedule",
+    "finalPaymentDate": {
+      "@id": "up:finalPaymentDate",
+      "@type": "xsd:string"
+    },
+    "paymentsRemaining": {
+      "@id": "up:paymentsRemaining",
+      "@type": "xsd:integer"
+    },
+    "nonBusinessDayTreatment": {
+      "@id": "up:nonBusinessDayTreatment",
+      "@type": "xsd:string"
+    },
+    "intervals": {
+      "@id": "up:intervals",
+      "@container": "@list"
+    },
+    "BankingBillerPayee": "up:BankingBillerPayee",
+    "billerCode": {
+      "@id": "up:billerCode",
+      "@type": "xsd:string"
+    },
+    "crn": {
+      "@id": "up:crn",
+      "@type": "xsd:string"
+    },
+    "billerName": {
+      "@id": "up:billerName",
+      "@type": "xsd:string"
+    },
+    "BankingDomesticPayee": "up:BankingDomesticPayee",
+    "payeeAccountUType": {
+      "@id": "up:payeeAccountUType",
+      "@type": "xsd:string"
+    },
+    "account": {
+      "@id": "up:account",
+      "@type": "@id"
+    },
+    "card": {
+      "@id": "up:card",
+      "@type": "@id"
+    },
+    "payId": {
+      "@id": "up:payId",
+      "@type": "@id"
+    },
+    "BankingScheduledPaymentSetV2": "up:BankingScheduledPaymentSetV2",
+    "to": {
+      "@id": "up:to",
+      "@type": "@id"
+    },
+    "isAmountCalculated": {
+      "@id": "up:isAmountCalculated",
+      "@type": "xsd:boolean"
+    },
+    "BankingScheduledPaymentInterval": "up:BankingScheduledPaymentInterval",
+    "interval": {
+      "@id": "up:interval",
+      "@type": "xsd:string"
+    },
+    "dayInInterval": {
+      "@id": "up:dayInInterval",
+      "@type": "xsd:string"
+    },
+    "ResponseBankingInstalmentPlanList_data": "up:ResponseBankingInstalmentPlanList_data",
+    "plans": {
+      "@id": "up:plans",
+      "@container": "@list"
+    },
+    "BankingScheduledPaymentRecurrenceLastWeekday": "up:BankingScheduledPaymentRecurrenceLastWeekday",
+    "lastWeekDay": {
+      "@id": "up:lastWeekDay",
+      "@type": "xsd:string"
+    },
+    "BankingInternationalPayee_bankDetails_bankAddress": "up:BankingInternationalPayee_bankDetails_bankAddress",
+    "name": {
+      "@id": "up:name",
+      "@type": "xsd:string"
+    },
+    "address": {
+      "@id": "up:address",
+      "@type": "xsd:string"
+    },
+    "BankingInternationalPayee_beneficiaryDetails": "up:BankingInternationalPayee_beneficiaryDetails",
+    "country": {
+      "@id": "up:country",
+      "@type": "xsd:string"
+    },
+    "message": {
+      "@id": "up:message",
+      "@type": "xsd:string"
+    },
+    "BankingInternationalPayee_bankDetails": "up:BankingInternationalPayee_bankDetails",
+    "accountNumber": {
+      "@id": "up:accountNumber",
+      "@type": "xsd:string"
+    },
+    "bankAddress": {
+      "@id": "up:bankAddress",
+      "@type": "@id"
+    },
+    "beneficiaryBankBIC": {
+      "@id": "up:beneficiaryBankBIC",
+      "@type": "xsd:string"
+    },
+    "fedWireNumber": {
+      "@id": "up:fedWireNumber",
+      "@type": "xsd:string"
+    },
+    "sortCode": {
+      "@id": "up:sortCode",
+      "@type": "xsd:string"
+    },
+    "chipNumber": {
+      "@id": "up:chipNumber",
+      "@type": "xsd:string"
+    },
+    "routingNumber": {
+      "@id": "up:routingNumber",
+      "@type": "xsd:string"
+    },
+    "legalEntityIdentifier": {
+      "@id": "up:legalEntityIdentifier",
+      "@type": "xsd:string"
+    },
+    "BankingDomesticPayeeAccount": "up:BankingDomesticPayeeAccount",
+    "accountName": {
+      "@id": "up:accountName",
+      "@type": "xsd:string"
+    },
+    "bsb": {
+      "@id": "up:bsb",
+      "@type": "xsd:string"
+    },
+    "BankingScheduledPaymentV2": "up:BankingScheduledPaymentV2",
+    "scheduledPaymentId": {
+      "@id": "up:scheduledPaymentId"
+    },
+    "payerReference": {
+      "@id": "up:payerReference",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "up:status",
+      "@type": "xsd:string"
+    },
+    "from": {
+      "@id": "up:from",
+      "@type": "@id"
+    },
+    "paymentSet": {
+      "@id": "up:paymentSet",
+      "@container": "@list"
+    },
+    "recurrence": {
+      "@id": "up:recurrence",
+      "@type": "@id"
+    },
+    "BankingInstalmentPlanSchedule": "up:BankingInstalmentPlanSchedule",
+    "amountDue": {
+      "@id": "up:amountDue",
+      "@type": "xsd:string"
+    },
+    "dueDate": {
+      "@id": "up:dueDate",
+      "@type": "xsd:string"
+    },
+    "isPaid": {
+      "@id": "up:isPaid",
+      "@type": "xsd:boolean"
+    },
+    "BankingInternationalPayee": "up:BankingInternationalPayee",
+    "beneficiaryDetails": {
+      "@id": "up:beneficiaryDetails",
+      "@type": "@id"
+    },
+    "bankDetails": {
+      "@id": "up:bankDetails",
+      "@type": "@id"
+    },
+    "BankingScheduledPaymentRecurrenceEventBased": "up:BankingScheduledPaymentRecurrenceEventBased",
+    "BankingDomesticPayeePayId": "up:BankingDomesticPayeePayId",
+    "identifier": {
+      "@id": "up:identifier",
+      "@type": "xsd:string"
+    },
+    "BankingDigitalWalletPayee": "up:BankingDigitalWalletPayee",
+    "provider": {
+      "@id": "up:provider",
+      "@type": "xsd:string"
+    },
+    "BankingInstalmentPlan": "up:BankingInstalmentPlan",
+    "planId": {
+      "@id": "up:planId"
+    },
+    "planReference": {
+      "@id": "up:planReference",
+      "@type": "xsd:string"
+    },
+    "merchantName": {
+      "@id": "up:merchantName",
+      "@type": "xsd:string"
+    },
+    "merchantCategoryCode": {
+      "@id": "up:merchantCategoryCode",
+      "@type": "xsd:string"
+    },
+    "planNickname": {
+      "@id": "up:planNickname",
+      "@type": "xsd:string"
+    },
+    "creationDate": {
+      "@id": "up:creationDate",
+      "@type": "xsd:string"
+    },
+    "planCurrency": {
+      "@id": "up:planCurrency",
+      "@type": "xsd:string"
+    },
+    "planCharge": {
+      "@id": "up:planCharge",
+      "@type": "xsd:string"
+    },
+    "planRate": {
+      "@id": "up:planRate",
+      "@type": "xsd:string"
+    },
+    "duration": {
+      "@id": "up:duration",
+      "@type": "xsd:string"
+    },
+    "instalmentInterval": {
+      "@id": "up:instalmentInterval",
+      "@type": "xsd:string"
+    },
+    "schedule": {
+      "@id": "up:schedule",
+      "@container": "@list"
+    },
+    "ResponseBankingScheduledPaymentsListV2_data": "up:ResponseBankingScheduledPaymentsListV2_data",
+    "scheduledPayments": {
+      "@id": "up:scheduledPayments",
+      "@container": "@list"
+    },
+    "BankingScheduledPaymentRecurrence": "up:BankingScheduledPaymentRecurrence",
+    "nextPaymentDate": {
+      "@id": "up:nextPaymentDate",
+      "@type": "xsd:string"
+    },
+    "recurrenceUType": {
+      "@id": "up:recurrenceUType",
+      "@type": "xsd:string"
+    },
+    "onceOff": {
+      "@id": "up:onceOff",
+      "@type": "@id"
+    },
+    "intervalSchedule": {
+      "@id": "up:intervalSchedule",
+      "@type": "@id"
+    },
+    "eventBased": {
+      "@id": "up:eventBased",
+      "@type": "@id"
+    },
+    "BankingTransactionDetailV3_allOf_extendedData": "up:BankingTransactionDetailV3_allOf_extendedData",
+    "payer": {
+      "@id": "up:payer",
+      "@type": "xsd:string"
+    },
+    "payee": {
+      "@id": "up:payee",
+      "@type": "xsd:string"
+    },
+    "extensionUType": {
+      "@id": "up:extensionUType",
+      "@type": "xsd:string"
+    },
+    "nppPayload": {
+      "@id": "up:nppPayload",
+      "@type": "@id"
+    },
+    "ResponseBankingTransactionListV2": "up:ResponseBankingTransactionListV2",
+    "NppPaymentService": "up:NppPaymentService",
+    "MetaPaginatedTransaction_allOf": "up:MetaPaginatedTransaction_allOf",
+    "isQueryParamUnsupported": {
+      "@id": "up:isQueryParamUnsupported",
+      "@type": "xsd:boolean"
+    },
+    "ResponseBankingTransactionListV2_data": "up:ResponseBankingTransactionListV2_data",
+    "transactions": {
+      "@id": "up:transactions",
+      "@container": "@list"
+    },
+    "BankingTransactionDetailV3_allOf": "up:BankingTransactionDetailV3_allOf",
+    "extendedData": {
+      "@id": "up:extendedData",
+      "@type": "@id"
+    },
+    "ResponseBankingTransactionByIdV3": "up:ResponseBankingTransactionByIdV3",
+    "BankingTransactionV2": "up:BankingTransactionV2",
+    "transactionId": {
+      "@id": "up:transactionId"
+    },
+    "isDetailAvailable": {
+      "@id": "up:isDetailAvailable",
+      "@type": "xsd:boolean"
+    },
+    "postingDateTime": {
+      "@id": "up:postingDateTime",
+      "@type": "xsd:string"
+    },
+    "valueDateTime": {
+      "@id": "up:valueDateTime",
+      "@type": "xsd:string"
+    },
+    "executionDateTime": {
+      "@id": "up:executionDateTime",
+      "@type": "xsd:string"
+    },
+    "reference": {
+      "@id": "up:reference",
+      "@type": "xsd:string"
+    },
+    "instalmentPlanId": {
+      "@id": "up:instalmentPlanId"
+    },
+    "apcaNumber": {
+      "@id": "up:apcaNumber",
+      "@type": "xsd:string"
+    },
+    "BankingTransactionDetailV3_allOf_extendedData_nppPayload": "up:BankingTransactionDetailV3_allOf_extendedData_nppPayload",
+    "extendedDescription": {
+      "@id": "up:extendedDescription",
+      "@type": "xsd:string"
+    },
+    "endToEndId": {
+      "@id": "up:endToEndId",
+      "@type": "xsd:string"
+    },
+    "purposeCode": {
+      "@id": "up:purposeCode",
+      "@type": "xsd:string"
+    },
+    "service": {
+      "@id": "up:service",
+      "@type": "@id"
+    },
+    "serviceVersion": {
+      "@id": "up:serviceVersion",
+      "@type": "xsd:string"
+    },
+    "BankingFeeDiscountRate": "up:BankingFeeDiscountRate",
+    "rateType": {
+      "@id": "up:rateType",
+      "@type": "xsd:string"
+    },
+    "rate": {
+      "@id": "up:rate",
+      "@type": "xsd:string"
+    },
+    "amountRange": {
+      "@id": "up:amountRange",
+      "@type": "@id"
+    },
+    "BankingLoanAccountV3": "up:BankingLoanAccountV3",
+    "originalStartDate": {
+      "@id": "up:originalStartDate",
+      "@type": "xsd:string"
+    },
+    "originalLoanAmount": {
+      "@id": "up:originalLoanAmount",
+      "@type": "xsd:string"
+    },
+    "originalLoanCurrency": {
+      "@id": "up:originalLoanCurrency",
+      "@type": "xsd:string"
+    },
+    "loanEndDate": {
+      "@id": "up:loanEndDate",
+      "@type": "xsd:string"
+    },
+    "nextInstalmentDate": {
+      "@id": "up:nextInstalmentDate",
+      "@type": "xsd:string"
+    },
+    "minInstalmentAmount": {
+      "@id": "up:minInstalmentAmount",
+      "@type": "xsd:string"
+    },
+    "minInstalmentCurrency": {
+      "@id": "up:minInstalmentCurrency",
+      "@type": "xsd:string"
+    },
+    "maxRedraw": {
+      "@id": "up:maxRedraw",
+      "@type": "xsd:string"
+    },
+    "maxRedrawCurrency": {
+      "@id": "up:maxRedrawCurrency",
+      "@type": "xsd:string"
+    },
+    "minRedraw": {
+      "@id": "up:minRedraw",
+      "@type": "xsd:string"
+    },
+    "minRedrawCurrency": {
+      "@id": "up:minRedrawCurrency",
+      "@type": "xsd:string"
+    },
+    "offsetAccountEnabled": {
+      "@id": "up:offsetAccountEnabled",
+      "@type": "xsd:boolean"
+    },
+    "offsetAccountIds": {
+      "@id": "up:offsetAccountIds",
+      "@container": "@list"
+    },
+    "repaymentType": {
+      "@id": "up:repaymentType",
+      "@type": "xsd:string"
+    },
+    "repaymentFrequency": {
+      "@id": "up:repaymentFrequency",
+      "@type": "xsd:string"
+    },
+    "BankingProductInstalments": "up:BankingProductInstalments",
+    "maximumConcurrentPlans": {
+      "@id": "up:maximumConcurrentPlans",
+      "@type": "xsd:integer"
+    },
+    "instalmentsLimit": {
+      "@id": "up:instalmentsLimit",
+      "@type": "xsd:string"
+    },
+    "minimumPlanValue": {
+      "@id": "up:minimumPlanValue",
+      "@type": "xsd:string"
+    },
+    "maximumPlanValue": {
+      "@id": "up:maximumPlanValue",
+      "@type": "xsd:string"
+    },
+    "minimumSplit": {
+      "@id": "up:minimumSplit",
+      "@type": "xsd:integer"
+    },
+    "maximumSplit": {
+      "@id": "up:maximumSplit",
+      "@type": "xsd:integer"
+    },
+    "CommonPhysicalAddress": "up:CommonPhysicalAddress",
+    "addressUType": {
+      "@id": "up:addressUType",
+      "@type": "xsd:string"
+    },
+    "simple": {
+      "@id": "up:simple",
+      "@type": "@id"
+    },
+    "paf": {
+      "@id": "up:paf",
+      "@type": "@id"
+    },
+    "BankingProductFeatureV4": "up:BankingProductFeatureV4",
+    "featureType": {
+      "@id": "up:featureType",
+      "@type": "xsd:string"
+    },
+    "additionalValue": {
+      "@id": "up:additionalValue",
+      "@type": "xsd:string"
+    },
+    "additionalInfo": {
+      "@id": "up:additionalInfo",
+      "@type": "xsd:string"
+    },
+    "additionalInfoUri": {
+      "@id": "up:additionalInfoUri",
+      "@type": "xsd:string"
+    },
+    "CommonSimpleAddress": "up:CommonSimpleAddress",
+    "mailingName": {
+      "@id": "up:mailingName",
+      "@type": "xsd:string"
+    },
+    "addressLine1": {
+      "@id": "up:addressLine1",
+      "@type": "xsd:string"
+    },
+    "addressLine2": {
+      "@id": "up:addressLine2",
+      "@type": "xsd:string"
+    },
+    "addressLine3": {
+      "@id": "up:addressLine3",
+      "@type": "xsd:string"
+    },
+    "postcode": {
+      "@id": "up:postcode",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "up:city",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "up:state",
+      "@type": "xsd:string"
+    },
+    "CommonPAFAddress": "up:CommonPAFAddress",
+    "dpid": {
+      "@id": "up:dpid",
+      "@type": "xsd:string"
+    },
+    "thoroughfareNumber1": {
+      "@id": "up:thoroughfareNumber1",
+      "@type": "xsd:integer"
+    },
+    "thoroughfareNumber1Suffix": {
+      "@id": "up:thoroughfareNumber1Suffix",
+      "@type": "xsd:string"
+    },
+    "thoroughfareNumber2": {
+      "@id": "up:thoroughfareNumber2",
+      "@type": "xsd:integer"
+    },
+    "thoroughfareNumber2Suffix": {
+      "@id": "up:thoroughfareNumber2Suffix",
+      "@type": "xsd:string"
+    },
+    "flatUnitType": {
+      "@id": "up:flatUnitType",
+      "@type": "xsd:string"
+    },
+    "flatUnitNumber": {
+      "@id": "up:flatUnitNumber",
+      "@type": "xsd:string"
+    },
+    "floorLevelType": {
+      "@id": "up:floorLevelType",
+      "@type": "xsd:string"
+    },
+    "floorLevelNumber": {
+      "@id": "up:floorLevelNumber",
+      "@type": "xsd:string"
+    },
+    "lotNumber": {
+      "@id": "up:lotNumber",
+      "@type": "xsd:string"
+    },
+    "buildingName1": {
+      "@id": "up:buildingName1",
+      "@type": "xsd:string"
+    },
+    "buildingName2": {
+      "@id": "up:buildingName2",
+      "@type": "xsd:string"
+    },
+    "streetName": {
+      "@id": "up:streetName",
+      "@type": "xsd:string"
+    },
+    "streetType": {
+      "@id": "up:streetType",
+      "@type": "xsd:string"
+    },
+    "streetSuffix": {
+      "@id": "up:streetSuffix",
+      "@type": "xsd:string"
+    },
+    "postalDeliveryType": {
+      "@id": "up:postalDeliveryType",
+      "@type": "xsd:string"
+    },
+    "postalDeliveryNumber": {
+      "@id": "up:postalDeliveryNumber",
+      "@type": "xsd:integer"
+    },
+    "postalDeliveryNumberPrefix": {
+      "@id": "up:postalDeliveryNumberPrefix",
+      "@type": "xsd:string"
+    },
+    "postalDeliveryNumberSuffix": {
+      "@id": "up:postalDeliveryNumberSuffix",
+      "@type": "xsd:string"
+    },
+    "localityName": {
+      "@id": "up:localityName",
+      "@type": "xsd:string"
+    },
+    "BankingFeeAmount": "up:BankingFeeAmount",
+    "BankingTermDepositAccount": "up:BankingTermDepositAccount",
+    "lodgementDate": {
+      "@id": "up:lodgementDate",
+      "@type": "xsd:string"
+    },
+    "maturityDate": {
+      "@id": "up:maturityDate",
+      "@type": "xsd:string"
+    },
+    "maturityAmount": {
+      "@id": "up:maturityAmount",
+      "@type": "xsd:string"
+    },
+    "maturityCurrency": {
+      "@id": "up:maturityCurrency",
+      "@type": "xsd:string"
+    },
+    "maturityInstructions": {
+      "@id": "up:maturityInstructions",
+      "@type": "xsd:string"
+    },
+    "ResponseBankingAccountByIdV5": "up:ResponseBankingAccountByIdV5",
+    "BankingFeeDiscountAmount": "up:BankingFeeDiscountAmount",
+    "BankingFeeDiscountRange": "up:BankingFeeDiscountRange",
+    "discountMinimum": {
+      "@id": "up:discountMinimum",
+      "@type": "xsd:string"
+    },
+    "discountMaximum": {
+      "@id": "up:discountMaximum",
+      "@type": "xsd:string"
+    },
+    "BankingProductDepositRateV2": "up:BankingProductDepositRateV2",
+    "depositRateType": {
+      "@id": "up:depositRateType",
+      "@type": "xsd:string"
+    },
+    "calculationFrequency": {
+      "@id": "up:calculationFrequency",
+      "@type": "xsd:string"
+    },
+    "applicationType": {
+      "@id": "up:applicationType",
+      "@type": "xsd:string"
+    },
+    "applicationFrequency": {
+      "@id": "up:applicationFrequency",
+      "@type": "xsd:string"
+    },
+    "tiers": {
+      "@id": "up:tiers",
+      "@container": "@list"
+    },
+    "applicabilityConditions": {
+      "@id": "up:applicabilityConditions",
+      "@container": "@list"
+    },
+    "BankingAccountDetailV5_allOf": "up:BankingAccountDetailV5_allOf",
+    "bundleName": {
+      "@id": "up:bundleName",
+      "@type": "xsd:string"
+    },
+    "instalments": {
+      "@id": "up:instalments",
+      "@type": "@id"
+    },
+    "specificAccountUType": {
+      "@id": "up:specificAccountUType",
+      "@type": "xsd:string"
+    },
+    "termDeposit": {
+      "@id": "up:termDeposit",
+      "@container": "@list"
+    },
+    "creditCard": {
+      "@id": "up:creditCard"
+    },
+    "loan": {
+      "@id": "up:loan"
+    },
+    "depositRate": {
+      "@id": "up:depositRate",
+      "@type": "xsd:string"
+    },
+    "lendingRate": {
+      "@id": "up:lendingRate",
+      "@type": "xsd:string"
+    },
+    "depositRates": {
+      "@id": "up:depositRates",
+      "@container": "@list"
+    },
+    "lendingRates": {
+      "@id": "up:lendingRates",
+      "@container": "@list"
+    },
+    "features": {
+      "@id": "up:features",
+      "@container": "@list"
+    },
+    "fees": {
+      "@id": "up:fees",
+      "@container": "@list"
+    },
+    "addresses": {
+      "@id": "up:addresses",
+      "@container": "@list"
+    },
+    "ResponseBankingAccountListV3": "up:ResponseBankingAccountListV3",
+    "BankingProductDiscountV2": "up:BankingProductDiscountV2",
+    "discountType": {
+      "@id": "up:discountType",
+      "@type": "xsd:string"
+    },
+    "discountMethodUType": {
+      "@id": "up:discountMethodUType",
+      "@type": "xsd:string"
+    },
+    "fixedAmount": {
+      "@id": "up:fixedAmount"
+    },
+    "rateBased": {
+      "@id": "up:rateBased"
+    },
+    "eligibility": {
+      "@id": "up:eligibility",
+      "@container": "@list"
+    },
+    "BankingFeeRate": "up:BankingFeeRate",
+    "accrualFrequency": {
+      "@id": "up:accrualFrequency",
+      "@type": "xsd:string"
+    },
+    "BankingProductRateConditionV2": "up:BankingProductRateConditionV2",
+    "rateApplicabilityType": {
+      "@id": "up:rateApplicabilityType",
+      "@type": "xsd:string"
+    },
+    "BankingProductLendingRateV3": "up:BankingProductLendingRateV3",
+    "lendingRateType": {
+      "@id": "up:lendingRateType",
+      "@type": "xsd:string"
+    },
+    "comparisonRate": {
+      "@id": "up:comparisonRate",
+      "@type": "xsd:string"
+    },
+    "interestPaymentDue": {
+      "@id": "up:interestPaymentDue",
+      "@type": "xsd:string"
+    },
+    "loanPurpose": {
+      "@id": "up:loanPurpose",
+      "@type": "xsd:string"
+    },
+    "BankingCreditCardAccount": "up:BankingCreditCardAccount",
+    "minPaymentAmount": {
+      "@id": "up:minPaymentAmount",
+      "@type": "xsd:string"
+    },
+    "paymentDueAmount": {
+      "@id": "up:paymentDueAmount",
+      "@type": "xsd:string"
+    },
+    "paymentCurrency": {
+      "@id": "up:paymentCurrency",
+      "@type": "xsd:string"
+    },
+    "paymentDueDate": {
+      "@id": "up:paymentDueDate",
+      "@type": "xsd:string"
+    },
+    "BankingFeeRange": "up:BankingFeeRange",
+    "feeMinimum": {
+      "@id": "up:feeMinimum",
+      "@type": "xsd:string"
+    },
+    "feeMaximum": {
+      "@id": "up:feeMaximum",
+      "@type": "xsd:string"
+    },
+    "ResponseBankingAccountListV3_data": "up:ResponseBankingAccountListV3_data",
+    "accounts": {
+      "@id": "up:accounts",
+      "@container": "@list"
+    },
+    "BankingAccountV3": "up:BankingAccountV3",
+    "displayName": {
+      "@id": "up:displayName",
+      "@type": "xsd:string"
+    },
+    "openStatus": {
+      "@id": "up:openStatus",
+      "@type": "xsd:string"
+    },
+    "isOwned": {
+      "@id": "up:isOwned",
+      "@type": "xsd:boolean"
+    },
+    "accountOwnership": {
+      "@id": "up:accountOwnership",
+      "@type": "xsd:string"
+    },
+    "maskedNumber": {
+      "@id": "up:maskedNumber",
+      "@type": "xsd:string"
+    },
+    "productCategory": {
+      "@id": "up:productCategory",
+      "@type": "@id"
+    },
+    "productName": {
+      "@id": "up:productName",
+      "@type": "xsd:string"
+    },
+    "isInstalmentDetailAvailable": {
+      "@id": "up:isInstalmentDetailAvailable",
+      "@type": "xsd:boolean"
+    },
+    "BankingProductRateTierV4": "up:BankingProductRateTierV4",
+    "unitOfMeasure": {
+      "@id": "up:unitOfMeasure",
+      "@type": "xsd:string"
+    },
+    "minimumValue": {
+      "@id": "up:minimumValue",
+      "@type": "xsd:string"
+    },
+    "maximumValue": {
+      "@id": "up:maximumValue",
+      "@type": "xsd:string"
+    },
+    "rateApplicationMethod": {
+      "@id": "up:rateApplicationMethod",
+      "@type": "xsd:string"
+    },
+    "BankingProductFeeV2": "up:BankingProductFeeV2",
+    "feeType": {
+      "@id": "up:feeType",
+      "@type": "xsd:string"
+    },
+    "feeMethodUType": {
+      "@id": "up:feeMethodUType",
+      "@type": "xsd:string"
+    },
+    "variable": {
+      "@id": "up:variable"
+    },
+    "feeCap": {
+      "@id": "up:feeCap",
+      "@type": "xsd:string"
+    },
+    "feeCapPeriod": {
+      "@id": "up:feeCapPeriod",
+      "@type": "xsd:string"
+    },
+    "discounts": {
+      "@id": "up:discounts",
+      "@container": "@list"
+    },
+    "BankingProductDiscountEligibility": "up:BankingProductDiscountEligibility",
+    "discountEligibilityType": {
+      "@id": "up:discountEligibilityType",
+      "@type": "xsd:string"
+    },
+    "BankingPayeeDetailV2_allOf": "up:BankingPayeeDetailV2_allOf",
+    "payeeUType": {
+      "@id": "up:payeeUType",
+      "@type": "xsd:string"
+    },
+    "ResponseBankingPayeeListV2_data": "up:ResponseBankingPayeeListV2_data",
+    "payees": {
+      "@id": "up:payees",
+      "@container": "@list"
+    },
+    "BankingPayeeV2": "up:BankingPayeeV2",
+    "ResponseBankingPayeeByIdV2": "up:ResponseBankingPayeeByIdV2",
+    "ResponseBankingPayeeListV2": "up:ResponseBankingPayeeListV2",
+    "ResponseBankingProductListV4": "up:ResponseBankingProductListV4",
+    "BankingProductV6": "up:BankingProductV6",
+    "productId": {
+      "@id": "up:productId",
+      "@type": "@id"
+    },
+    "effectiveFrom": {
+      "@id": "up:effectiveFrom",
+      "@type": "xsd:string"
+    },
+    "effectiveTo": {
+      "@id": "up:effectiveTo",
+      "@type": "xsd:string"
+    },
+    "lastUpdated": {
+      "@id": "up:lastUpdated",
+      "@type": "xsd:string"
+    },
+    "brand": {
+      "@id": "up:brand",
+      "@type": "xsd:string"
+    },
+    "brandName": {
+      "@id": "up:brandName",
+      "@type": "xsd:string"
+    },
+    "brandGroup": {
+      "@id": "up:brandGroup",
+      "@type": "xsd:string"
+    },
+    "applicationUri": {
+      "@id": "up:applicationUri",
+      "@type": "xsd:string"
+    },
+    "isTailored": {
+      "@id": "up:isTailored",
+      "@type": "xsd:boolean"
+    },
+    "additionalInformation": {
+      "@id": "up:additionalInformation",
+      "@type": "@id"
+    },
+    "cardArt": {
+      "@id": "up:cardArt",
+      "@container": "@list"
+    },
+    "ResponseBankingProductByIdV7": "up:ResponseBankingProductByIdV7",
+    "BankingProductEligibilityV2": "up:BankingProductEligibilityV2",
+    "eligibilityType": {
+      "@id": "up:eligibilityType",
+      "@type": "xsd:string"
+    },
+    "BankingProductAdditionalInformationV2_additionalInformationUris": "up:BankingProductAdditionalInformationV2_additionalInformationUris",
+    "BankingProductConstraintV3": "up:BankingProductConstraintV3",
+    "constraintType": {
+      "@id": "up:constraintType",
+      "@type": "xsd:string"
+    },
+    "BankingProductDetailV7_allOf": "up:BankingProductDetailV7_allOf",
+    "bundles": {
+      "@id": "up:bundles",
+      "@container": "@list"
+    },
+    "constraints": {
+      "@id": "up:constraints",
+      "@container": "@list"
+    },
+    "BankingProductAdditionalInformationV2": "up:BankingProductAdditionalInformationV2",
+    "overviewUri": {
+      "@id": "up:overviewUri",
+      "@type": "xsd:string"
+    },
+    "termsUri": {
+      "@id": "up:termsUri",
+      "@type": "xsd:string"
+    },
+    "eligibilityUri": {
+      "@id": "up:eligibilityUri",
+      "@type": "xsd:string"
+    },
+    "feesAndPricingUri": {
+      "@id": "up:feesAndPricingUri",
+      "@type": "xsd:string"
+    },
+    "bundleUri": {
+      "@id": "up:bundleUri",
+      "@type": "xsd:string"
+    },
+    "additionalOverviewUris": {
+      "@id": "up:additionalOverviewUris",
+      "@container": "@list"
+    },
+    "additionalTermsUris": {
+      "@id": "up:additionalTermsUris",
+      "@container": "@list"
+    },
+    "additionalEligibilityUris": {
+      "@id": "up:additionalEligibilityUris",
+      "@container": "@list"
+    },
+    "additionalFeesAndPricingUris": {
+      "@id": "up:additionalFeesAndPricingUris",
+      "@container": "@list"
+    },
+    "additionalBundleUris": {
+      "@id": "up:additionalBundleUris",
+      "@container": "@list"
+    },
+    "BankingProductCardArt": "up:BankingProductCardArt",
+    "cardScheme": {
+      "@id": "up:cardScheme",
+      "@type": "xsd:string"
+    },
+    "cardType": {
+      "@id": "up:cardType",
+      "@type": "xsd:string"
+    },
+    "imageUri": {
+      "@id": "up:imageUri",
+      "@type": "xsd:string"
+    },
+    "BankingProductBundle": "up:BankingProductBundle",
+    "productIds": {
+      "@id": "up:productIds",
+      "@container": "@list"
+    },
+    "ResponseBankingProductListV4_data": "up:ResponseBankingProductListV4_data",
+    "products": {
+      "@id": "up:products",
+      "@container": "@list"
+    },
+    "CategoryInputResourceIdentifier": "up:CategoryInputResourceIdentifier",
+    "CategoryResource": "up:CategoryResource",
+    "UpdateTransactionCategoryRequest": "up:UpdateTransactionCategoryRequest",
+    "ListCategoriesResponse": "up:ListCategoriesResponse",
+    "GetCategoryResponse": "up:GetCategoryResponse",
+    "ListTagsResponse": "up:ListTagsResponse",
+    "TagInputResourceIdentifier": "up:TagInputResourceIdentifier",
+    "TagResource": "up:TagResource",
+    "UpdateTransactionTagsRequest": "up:UpdateTransactionTagsRequest",
+    "ListTransactionsResponse": "up:ListTransactionsResponse",
+    "TransactionStatusEnum": "up:TransactionStatusEnum",
+    "GetTransactionResponse": "up:GetTransactionResponse",
+    "TransactionResource": "up:TransactionResource",
+    "CashbackObject": "up:CashbackObject",
+    "CardPurchaseMethodEnum": "up:CardPurchaseMethodEnum",
+    "NoteObject": "up:NoteObject",
+    "text": {
+      "@id": "up:text",
+      "@type": "xsd:string"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Up API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Up's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-21) from openapi/up-bank-accounts-api-openapi.yml, openapi/up-bank-attachments-api-openapi.yml, openapi/up-bank-banking-account-balances-api-openapi.yml.",
+  "dcterms:created": "2026-10-21",
+  "dcterms:source": [
+    "openapi/up-bank-accounts-api-openapi.yml",
+    "openapi/up-bank-attachments-api-openapi.yml",
+    "openapi/up-bank-banking-account-balances-api-openapi.yml",
+    "openapi/up-bank-banking-account-direct-debits-api-openapi.yml",
+    "openapi/up-bank-banking-account-scheduled-payments-api-openapi.yml"
+  ]
+}

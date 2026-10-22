@@ -1,0 +1,617 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/up-bank/main/json-schema/up-bank-get-transaction-response-schema.json",
+  "title": "GetTransactionResponse",
+  "description": "Successful response to get a single transaction.\n",
+  "x-generated": "2026-10-21",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/up-bank-transactions-api-openapi.yml#/components/schemas/GetTransactionResponse",
+  "type": "object",
+  "properties": {
+    "data": {
+      "description": "The transaction returned in this response.\n",
+      "allOf": [
+        {
+          "$ref": "#/$defs/TransactionResource"
+        }
+      ]
+    }
+  },
+  "required": [
+    "data"
+  ],
+  "$defs": {
+    "CardPurchaseMethodEnum": {
+      "enum": [
+        "BAR_CODE",
+        "OCR",
+        "CARD_PIN",
+        "CARD_DETAILS",
+        "CARD_ON_FILE",
+        "ECOMMERCE",
+        "MAGNETIC_STRIPE",
+        "CONTACTLESS"
+      ],
+      "description": "Specifies the type of card charge.\n"
+    },
+    "CardPurchaseMethodObject": {
+      "type": "object",
+      "description": "Provides information about the card used for a transaction.\n",
+      "properties": {
+        "method": {
+          "description": "The type of card purchase.\n",
+          "allOf": [
+            {
+              "$ref": "#/$defs/CardPurchaseMethodEnum"
+            }
+          ]
+        },
+        "cardNumberSuffix": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The last four digits of the card used for the purchase, if applicable.\n"
+        }
+      },
+      "required": [
+        "method",
+        "cardNumberSuffix"
+      ]
+    },
+    "CashbackObject": {
+      "type": "object",
+      "description": "Provides information about an instant reimbursement in the form of\ncashback.\n",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "A brief description of why this cashback was paid.\n"
+        },
+        "amount": {
+          "description": "The total amount of cashback paid, represented as a positive value.\n",
+          "allOf": [
+            {
+              "$ref": "#/$defs/MoneyObject"
+            }
+          ]
+        }
+      },
+      "required": [
+        "description",
+        "amount"
+      ]
+    },
+    "CustomerObject": {
+      "type": "object",
+      "description": "Provides information about the customer who initiated a transaction\n",
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "description": "The Upname or preferred name of the customer\n"
+        }
+      },
+      "required": [
+        "displayName"
+      ]
+    },
+    "HoldInfoObject": {
+      "type": "object",
+      "description": "Provides information about the amount at which a transaction was in the\n`HELD` status.\n",
+      "properties": {
+        "amount": {
+          "description": "The amount of this transaction while in the `HELD` status, in\nAustralian dollars.\n",
+          "allOf": [
+            {
+              "$ref": "#/$defs/MoneyObject"
+            }
+          ]
+        },
+        "foreignAmount": {
+          "description": "The foreign currency amount of this transaction while in the `HELD`\nstatus. This field will be `null` for domestic transactions. The amount\nwas converted to the AUD amount reflected in the `amount` field.\n",
+          "allOf": [
+            {
+              "$ref": "#/$defs/MoneyObject"
+            }
+          ]
+        }
+      },
+      "required": [
+        "amount",
+        "foreignAmount"
+      ]
+    },
+    "MoneyObject": {
+      "type": "object",
+      "description": "Provides information about a value of money.\n",
+      "properties": {
+        "currencyCode": {
+          "type": "string",
+          "description": "The ISO 4217 currency code.\n"
+        },
+        "value": {
+          "type": "string",
+          "description": "The amount of money, formatted as a string in the relevant currency.\nFor example, for an Australian dollar value of $10.56, this field will\nbe `\"10.56\"`. The currency symbol is not included in the string.\n"
+        },
+        "valueInBaseUnits": {
+          "type": "integer",
+          "description": "The amount of money in the smallest denomination for the currency, as a\n64-bit integer.  For example, for an Australian dollar value of $10.56,\nthis field will be `1056`.\n"
+        }
+      },
+      "required": [
+        "currencyCode",
+        "value",
+        "valueInBaseUnits"
+      ]
+    },
+    "NoteObject": {
+      "type": "object",
+      "description": "Provides information about the note and attachement.\n",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "A text note about the transaction.\n"
+        }
+      },
+      "required": [
+        "text"
+      ]
+    },
+    "RoundUpObject": {
+      "type": "object",
+      "description": "Provides information about how a Round Up was applied, such as whether or\nnot a boost was included in the Round Up.\n",
+      "properties": {
+        "amount": {
+          "description": "The total amount of this Round Up, including any boosts, represented as\na negative value.\n",
+          "allOf": [
+            {
+              "$ref": "#/$defs/MoneyObject"
+            }
+          ]
+        },
+        "boostPortion": {
+          "description": "The portion of the Round Up `amount` owing to boosted Round Ups,\nrepresented as a negative value. If no boost was added to the Round Up\nthis field will be `null`.\n",
+          "allOf": [
+            {
+              "$ref": "#/$defs/MoneyObject"
+            }
+          ]
+        }
+      },
+      "required": [
+        "amount",
+        "boostPortion"
+      ]
+    },
+    "TransactionResource": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of this resource: `transactions`"
+        },
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for this transaction.\n"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "description": "The current processing status of this transaction, according to\nwhether or not this transaction has settled or is still held.\n",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/TransactionStatusEnum"
+                }
+              ]
+            },
+            "rawText": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "The original, unprocessed text of the transaction. This is often not\na perfect indicator of the actual merchant, but it is useful for\nreconciliation purposes in some cases.\n"
+            },
+            "description": {
+              "type": "string",
+              "description": "A short description for this transaction. Usually the merchant name\nfor purchases.\n"
+            },
+            "message": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Attached message for this transaction, such as a payment message, or a\ntransfer note.\n"
+            },
+            "isCategorizable": {
+              "type": "boolean",
+              "description": "Boolean flag set to true on transactions that support the use of\ncategories.\n"
+            },
+            "holdInfo": {
+              "description": "If this transaction is currently in the `HELD` status, or was ever in\nthe `HELD` status, the `amount` and `foreignAmount` of the\ntransaction while `HELD`.\n",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/HoldInfoObject"
+                }
+              ]
+            },
+            "roundUp": {
+              "description": "Details of how this transaction was rounded-up. If no Round Up was\napplied this field will be `null`.\n",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/RoundUpObject"
+                }
+              ]
+            },
+            "cashback": {
+              "description": "If all or part of this transaction was instantly reimbursed in the\nform of cashback, details of the reimbursement.\n",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/CashbackObject"
+                }
+              ]
+            },
+            "amount": {
+              "description": "The amount of this transaction in Australian dollars. For\ntransactions that were once `HELD` but are now `SETTLED`, refer to\nthe `holdInfo` field for the original `amount` the transaction was\n`HELD` at.\n",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/MoneyObject"
+                }
+              ]
+            },
+            "foreignAmount": {
+              "description": "The foreign currency amount of this transaction. This field will be\n`null` for domestic transactions. The amount was converted to the AUD\namount reflected in the `amount` of this transaction. Refer to the\n`holdInfo` field for the original `foreignAmount` the transaction was\n`HELD` at.\n",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/MoneyObject"
+                }
+              ]
+            },
+            "cardPurchaseMethod": {
+              "description": "Information about the card used for this transaction, if applicable.\n",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/CardPurchaseMethodObject"
+                }
+              ]
+            },
+            "settledAt": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time",
+              "description": "The date-time at which this transaction settled. This field will be\n`null` for transactions that are currently in the `HELD` status.\n"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date-time at which this transaction was first encountered.\n"
+            },
+            "transactionType": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "A description of the transaction method used e.g. Purchase, BPAY Payment.\n"
+            },
+            "note": {
+              "description": "A customer provided note about the transaction.  Can only be provided by Up High subscribers.\n",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/NoteObject"
+                }
+              ]
+            },
+            "performingCustomer": {
+              "description": "The customer who initated the transaction.  For 2Up accounts this could be the customer who's card was used.\n",
+              "allOf": [
+                {
+                  "$ref": "#/$defs/CustomerObject"
+                }
+              ]
+            }
+          },
+          "required": [
+            "status",
+            "rawText",
+            "description",
+            "message",
+            "isCategorizable",
+            "holdInfo",
+            "roundUp",
+            "cashback",
+            "amount",
+            "foreignAmount",
+            "cardPurchaseMethod",
+            "settledAt",
+            "createdAt",
+            "transactionType",
+            "note",
+            "performingCustomer"
+          ]
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "account": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "The type of this resource: `accounts`"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "The unique identifier of the resource within its type.\n"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "id"
+                  ]
+                },
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "related": {
+                      "type": "string",
+                      "description": "The link to retrieve the related resource(s) in this relationship.\n"
+                    }
+                  },
+                  "required": [
+                    "related"
+                  ]
+                }
+              },
+              "required": [
+                "data"
+              ]
+            },
+            "transferAccount": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "The type of this resource: `accounts`"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "The unique identifier of the resource within its type.\n"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "id"
+                  ]
+                },
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "related": {
+                      "type": "string",
+                      "description": "The link to retrieve the related resource(s) in this relationship.\n"
+                    }
+                  },
+                  "required": [
+                    "related"
+                  ]
+                }
+              },
+              "required": [
+                "data"
+              ],
+              "description": "If this transaction is a transfer between accounts, this relationship\nwill contain the account the transaction went to/came from. The\n`amount` field can be used to determine the direction of the transfer.\n"
+            },
+            "category": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "The type of this resource: `categories`"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "The unique identifier of the resource within its type.\n"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "id"
+                  ]
+                },
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "self": {
+                      "type": "string",
+                      "description": "The link to retrieve or modify linkage between this resources and the\nrelated resource(s) in this relationship.\n"
+                    },
+                    "related": {
+                      "type": "string",
+                      "description": "The link to retrieve the related resource(s) in this relationship.\n"
+                    }
+                  },
+                  "required": [
+                    "self"
+                  ]
+                }
+              },
+              "required": [
+                "data"
+              ]
+            },
+            "parentCategory": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "The type of this resource: `categories`"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "The unique identifier of the resource within its type.\n"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "id"
+                  ]
+                },
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "related": {
+                      "type": "string",
+                      "description": "The link to retrieve the related resource(s) in this relationship.\n"
+                    }
+                  },
+                  "required": [
+                    "related"
+                  ]
+                }
+              },
+              "required": [
+                "data"
+              ]
+            },
+            "tags": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "description": "The type of this resource: `tags`"
+                      },
+                      "id": {
+                        "type": "string",
+                        "description": "The label of the tag, which also acts as the tag’s unique identifier.\n"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "id"
+                    ]
+                  }
+                },
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "self": {
+                      "type": "string",
+                      "description": "The link to retrieve or modify linkage between this resources and the\nrelated resource(s) in this relationship.\n"
+                    }
+                  },
+                  "required": [
+                    "self"
+                  ]
+                }
+              },
+              "required": [
+                "data"
+              ]
+            },
+            "attachment": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "The type of this resource: `attachments`"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "The unique identifier of the resource within its type.\n"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "id"
+                  ]
+                },
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "related": {
+                      "type": "string",
+                      "description": "The link to retrieve the related resource(s) in this relationship.\n"
+                    }
+                  },
+                  "required": [
+                    "related"
+                  ]
+                }
+              },
+              "required": [
+                "data"
+              ]
+            }
+          },
+          "required": [
+            "account",
+            "transferAccount",
+            "category",
+            "parentCategory",
+            "tags",
+            "attachment"
+          ]
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "self": {
+              "type": "string",
+              "description": "The canonical link to this resource within the API.\n"
+            }
+          },
+          "required": [
+            "self"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "attributes",
+        "relationships"
+      ]
+    },
+    "TransactionStatusEnum": {
+      "enum": [
+        "HELD",
+        "SETTLED"
+      ],
+      "description": "Specifies which stage of processing a transaction is currently at.\nCurrently returned values are `HELD` and `SETTLED`. When a transaction is\nheld, its account’s `availableBalance` is affected. When a transaction is\nsettled, its account’s `currentBalance` is affected.\n"
+    }
+  }
+}

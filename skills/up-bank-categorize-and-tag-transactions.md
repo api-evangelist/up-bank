@@ -1,14 +1,17 @@
 ---
-name: Categorize and tag Up transactions
+name: up-bank-categorize-and-tag-transactions
 description: Enrich Up transactions by setting their category and adding or removing user tags, respecting the categorizable and 6-tag constraints.
-api: openapi/up-bank-openapi.json
+api:
+- openapi/up-bank-categories-api-openapi.yml
+- openapi/up-bank-tags-api-openapi.yml
+- openapi/up-bank-transactions-api-openapi.yml
 operations:
-  - GET /categories
-  - GET /transactions/{id}
-  - PATCH /transactions/{transactionId}/relationships/category
-  - GET /tags
-  - POST /transactions/{transactionId}/relationships/tags
-  - DELETE /transactions/{transactionId}/relationships/tags
+- getCategories
+- getTransactionsById
+- patchTransactionsByTransactionIdRelationshipsCategory
+- getTags
+- postTransactionsByTransactionIdRelationshipsTags
+- deleteTransactionsByTransactionIdRelationshipsTags
 ---
 
 # Categorize and tag Up transactions

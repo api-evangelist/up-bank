@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/up-bank/main/json-schema/up-bank-list-tags-response-schema.json",
+  "title": "ListTagsResponse",
+  "description": "Successful response to get all tags. This returns a paginated list of\ntags, which can be scrolled by following the `prev` and `next` links if\npresent.\n",
+  "x-generated": "2026-10-21",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/up-bank-tags-api-openapi.yml#/components/schemas/ListTagsResponse",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/TagResource"
+      },
+      "description": "The list of tags returned in this response.\n"
+    },
+    "links": {
+      "type": "object",
+      "properties": {
+        "prev": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The link to the previous page in the results. If this value is `null`\nthere is no previous page.\n"
+        },
+        "next": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The link to the next page in the results. If this value is `null`\nthere is no next page.\n"
+        }
+      },
+      "required": [
+        "prev",
+        "next"
+      ]
+    }
+  },
+  "required": [
+    "data",
+    "links"
+  ],
+  "$defs": {
+    "TagResource": {
+      "type": "object",
+      "description": "Provides information about a tag.\n",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of this resource: `tags`"
+        },
+        "id": {
+          "type": "string",
+          "description": "The label of the tag, which also acts as the tag’s unique identifier.\n"
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "transactions": {
+              "type": "object",
+              "properties": {
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "related": {
+                      "type": "string",
+                      "description": "The link to retrieve the related resource(s) in this relationship.\n"
+                    }
+                  },
+                  "required": [
+                    "related"
+                  ]
+                }
+              }
+            }
+          },
+          "required": [
+            "transactions"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "relationships"
+      ]
+    }
+  }
+}

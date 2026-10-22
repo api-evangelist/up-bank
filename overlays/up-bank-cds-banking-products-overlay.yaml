@@ -2,7 +2,7 @@ overlay: 1.0.0
 info:
   title: API Evangelist enhancements for Up CDR Product Reference Data API
   version: 1.0.0
-extends: openapi/up-bank-cds-banking-products-openapi.yml
+extends: ../openapi/_original/up-bank-cds-banking-products-openapi.yml
 actions:
   - target: $.info
     update:

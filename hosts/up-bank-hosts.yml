@@ -1,0 +1,146 @@
+generated: '2026-10-21'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 10
+  own: 5
+  other_domain: 3
+  platform: 2
+  roles:
+  - api
+  - identity
+  - other
+  - portal
+  - security
+  - source
+  - website
+hosts:
+- host: api.bugcrowd.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: bugcrowd.com
+  role: api
+  relation: other-domain
+- host: api.com.au
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: api.com.au
+  role: api
+  relation: other-domain
+- host: api.up.com.au
+  found_by:
+  - apis[]
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types: []
+  serves:
+  - api
+  registrable_domain: up.com.au
+  role: api
+  relation: own
+- host: app.up.com.au
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: up.com.au
+  role: other
+  relation: own
+- host: bugcrowd.com
+  found_by:
+  - pointer
+  - probed
+  - well-known
+  types:
+  - Security
+  serves: []
+  registrable_domain: bugcrowd.com
+  role: security
+  relation: other-domain
+- host: developer.up.com.au
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - site-links
+  - docs-index
+  - contract-discovery
+  - well-known
+  types:
+  - DeveloperPortal
+  - Documentation
+  - GettingStarted
+  - Deprecation
+  - APIReference
+  serves:
+  - docs
+  registrable_domain: up.com.au
+  role: portal
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - IssueTracker
+  - License
+  - GitHubOrganization
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: up.com.au
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - site-links
+  - docs-index
+  - contract-discovery
+  - well-known
+  types:
+  - BlogRSS
+  - Blog
+  - SignUp
+  - TermsOfService
+  - Support
+  - Roadmap
+  - ChangeLog
+  - Newsroom
+  - AcceptableUsePolicy
+  - SecurityPolicy
+  serves:
+  - docs
+  registrable_domain: up.com.au
+  role: identity
+  relation: own
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform
+- host: www.up.com.au
+  found_by:
+  - pointer
+  - probed
+  - well-known
+  types:
+  - Website
+  - Pricing
+  - PrivacyPolicy
+  serves: []
+  registrable_domain: up.com.au
+  role: website
+  relation: own
