@@ -13,6 +13,8 @@ checked:
 - https://n8n.io/integrations/up-bank/
 - https://zapier.com/apps/up-bank/integrations
 - https://zapier.com/apps/up/integrations
+- https://api.apis.guru/v2/list.json
+- https://api.apis.guru/v2/providers.json
 summary: null
 marketplace_apps: []
 edges:
@@ -33,4 +35,45 @@ edges:
     api_families: null
     detected_by: sweep-standard-registers.py
     detected: '2026-10-14'
+- partner_name: APIs.guru OpenAPI Directory
+  partner: apis-guru
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: third-party
+  evidence: https://apis.guru/
+  category: API definition directory listing (OpenAPI)
+  contract_reference:
+    register: APIs.guru OpenAPI Directory
+    spec_file: null
+    standard: APIs.guru OpenAPI Directory
+    role: listed-in-directory
+    directory_provider: up.com.au
+    matched_domain: up.com.au
+    matched_by: domain
+    apis_listed: 1
+    version_count: 1
+    first_added: '2021-01-22'
+    last_updated: '2023-03-06'
+    origin_publisher_hosted: false
+    origin_hosts:
+    - raw.githubusercontent.com
+    categories:
+    - financial
+    own_openapi_files: 14
+    listings:
+    - key: up.com.au
+      title: Up API
+      preferred: v1
+      versions: 1
+      swagger_url: https://api.apis.guru/v2/specs/up.com.au/v1/openapi.json
+      origin_url: https://raw.githubusercontent.com/up-banking/api/master/v1/openapi.json
+      openapi_version: 3.0.3
+    signal_note: 'participation only: a community directory listing (APIs.guru collects definitions; the provider
+      did not file them). Signals: version_count, apis_listed, origin_publisher_hosted.'
+    detected_by: sweep-openapi-directory-apis-guru.py
+    detected: '2026-10-22'
+  detected_by: sweep-openapi-directory-apis-guru.py
+  first_seen: '2026-10-22'
 templates: []
