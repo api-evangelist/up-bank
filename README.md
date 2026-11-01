@@ -1,4 +1,4 @@
-# Up (up-bank)
+# Up
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,85 +64,237 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Up is an Australian digital-only neobank founded in 2018 as a collaboration between Melbourne software company Ferocia and Bendigo and Adelaide Bank. Up is not a mutual and is not separately licensed; it operates as a brand of ASX-listed Bendigo and Adelaide Bank, which holds the ADI licence, provides the underlying deposit products, and acquired full ownership of Ferocia and Up in 2021. Marketed as Australia's first fully cloud-hosted bank, Up serves more than one million customers through a mobile-first app. It exposes both a documented personal-banking developer API and the mandatory public CDR Product Reference Data API.
+Up is an Australian digital-only neobank founded in 2018 as a collaboration between Melbourne software company Ferocia and Bendigo and Adelaide Bank. Up is not a mutual and is not separately licensed; it operates as a brand of ASX-listed Bendigo and Adelaide Bank, which holds the Authorised Deposit-taking Institution (ADI) licence, provides the underlying deposit products, and acquired full ownership of Ferocia and Up in 2021. Marketed as Australia's first fully cloud-hosted bank, Up serves more than one million customers through a mobile-first app with no monthly account fees, high-interest savers, and rich transaction categorisation. Up has a strong public API posture for its size - it exposes both a documented personal-banking developer API (accounts, transactions, tags, webhooks) and, as required of every Australian data holder under the Consumer Data Right (CDR / Open Banking), a public, unauthenticated Product Reference Data (PRD) API conforming to the DSB Consumer Data Standards.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/up-bank/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/up-bank/refs/heads/main/apis.yml)
+**Areas:** Finance · Banks · Open Banking · CDR · Consumer Banking · Australia · Neobank · Product Reference Data
 
-## Tags
+## Up on APIs.io
 
-- Financial
-- Banks
-- Open Banking
-- CDR
-- Consumer Banking
-- Australia
-- Neobank
-- Product Reference Data
+Everything profiled for Up is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/up-bank/](https://apis.io/providers/up-bank/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (14)
 
-- **Created:** 2026-07-20
-- **Modified:** 2026-07-20
+- [Up Accounts API](https://apis.io/apis/up-bank/up-bank-accounts-api/) — Accounts represent the underlying store used to track balances and the transactions that have occurred to modify those balances over time. Up currently has…
+- [Up Attachments API](https://apis.io/apis/up-bank/up-bank-attachments-api/) — Attachments represent uploaded files that are attached to transactions, these are commonly receipts.
+- [Up Banking Account Balances API](https://apis.io/apis/up-bank/up-bank-banking-account-balances-api/) — Banking Account Balance endpoints
+- [Up Banking Account Direct Debits API](https://apis.io/apis/up-bank/up-bank-banking-account-direct-debits-api/) — Banking Account Direct Debit endpoints
+- [Up Banking Account Scheduled Payments API](https://apis.io/apis/up-bank/up-bank-banking-account-scheduled-payments-api/) — Banking Account Scheduled Payment endpoints
+- [Up Banking Account Transactions API](https://apis.io/apis/up-bank/up-bank-banking-account-transactions-api/) — Banking Account Transaction endpoints
+- [Up Banking Accounts API](https://apis.io/apis/up-bank/up-bank-banking-accounts-api/) — Banking Account endpoints
+- [Up Banking Payees API](https://apis.io/apis/up-bank/up-bank-banking-payees-api/) — Banking Payee endpoints
+- [Up Banking Products API](https://apis.io/apis/up-bank/up-bank-banking-products-api/) — Banking Product endpoints
+- [Up Categories API](https://apis.io/apis/up-bank/up-bank-categories-api/) — Categories enable understanding where your money goes by driving powerful insights in Up. All categories in Up are pre-defined and are automatically…
+- [Up Tags API](https://apis.io/apis/up-bank/up-bank-tags-api/) — Tags are custom labels that can be associated with transactions on Up. Within the Up application, tags provide additional insight into spending. For…
+- [Up Transactions API](https://apis.io/apis/up-bank/up-bank-transactions-api/) — Transactions represent the movement of money into and out of an account. They have many characteristics that vary depending on the kind of transaction.…
+- [Up Utility endpoints API](https://apis.io/apis/up-bank/up-bank-utility-endpoints-api/) — Some endpoints exist not to expose data, but to test the API itself. Currently there is only one endpoint in this group: ping!
+- [Up Webhooks API](https://apis.io/apis/up-bank/up-bank-webhooks-api/) — Webhooks provide a mechanism for a configured URL to receive events when transaction activity occurs on Up. You can think of webhooks as being like push…
 
-## APIs
+### Published properties
 
-### Up CDR Product Reference Data API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Public, unauthenticated Product Reference Data (PRD) API mandated for all Australian data holders under the Consumer Data Right. Confirmed live (HTTP 200, `x-v: 3`) returning a `data.products` array of four products (Up Everyday, Up Saver, Up Essentials Saver, Up Home Loan) with fees, rates, and eligibility. Conforms to the DSB Consumer Data Standards Banking APIs; the harvested OpenAPI is the shared CDS standard contract, not an Up-proprietary spec.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis](https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis)
-- **Base URL:** `https://api.up.com.au/cds-au/v1/banking/products`
+Event-driven and webhook contracts.
 
-#### Tags
+- [Up Personal Banking Webhooks](https://apis.io/asyncapis/up-bank/up-bank-webhooks-asyncapi/)
 
-- CDR
-- Open Banking
-- Product Reference Data
-- Banking
-- Australia
+#### Event channels (1)
 
-#### Properties
+Individual events and webhooks the provider emits.
 
-- [Documentation](https://consumerdatastandardsaustralia.github.io/standards/#get-products)
-- [API Reference](https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis)
-- [OpenAPI](openapi/up-bank-cds-banking-products-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [webhook-events](https://apis.io/channels/up-bank/webhook-events/)
 
-### Up Personal Banking API
+#### MCP servers (1)
 
-Up's own documented personal-banking developer API (v1, beta), giving account holders programmatic read access to accounts and transaction data plus management of categories, tags, attachments, and webhooks for real-time transaction events. Authenticated with a Personal Access Token (Bearer) obtained in the Up app or at api.up.com.au; currently scoped to personal use. The bank-specific OpenAPI 3.0.3 contract (17 paths) is published at github.com/up-banking/api and harvested verbatim.
+Model Context Protocol servers that expose the API to agents.
 
-- **Human URL:** [https://developer.up.com.au/](https://developer.up.com.au/)
-- **Base URL:** `https://api.up.com.au/api/v1`
+- [up-bank](https://apis.io/servers/up-bank/up-bank/)
 
-#### Tags
+#### Agentic access (1)
 
-- Banking
-- Transactions
-- Accounts
-- Webhooks
-- Personal Finance
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Properties
+- [Up Bank Agentic Access](https://apis.io/agentic-access/up-bank/up-bank-agentic-access/)
 
-- [Documentation](https://developer.up.com.au/)
-- [API Reference](https://developer.up.com.au/#welcome)
-- [OpenAPI](openapi/up-bank-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Source Code](https://github.com/up-banking/api)
+#### JSON Schema (31)
 
-## Common Properties
+The data models the API reads and writes.
+
+- [CreateWebhookRequest](https://apis.io/schemas/up-bank/up-bank-create-webhook-request/)
+- [CreateWebhookResponse](https://apis.io/schemas/up-bank/up-bank-create-webhook-response/)
+- [GetAccountResponse](https://apis.io/schemas/up-bank/up-bank-get-account-response/)
+- [GetAttachmentResponse](https://apis.io/schemas/up-bank/up-bank-get-attachment-response/)
+- [GetCategoryResponse](https://apis.io/schemas/up-bank/up-bank-get-category-response/)
+- [GetTransactionResponse](https://apis.io/schemas/up-bank/up-bank-get-transaction-response/)
+- [GetWebhookResponse](https://apis.io/schemas/up-bank/up-bank-get-webhook-response/)
+- [ListAccountsResponse](https://apis.io/schemas/up-bank/up-bank-list-accounts-response/)
+- [ListAttachmentsResponse](https://apis.io/schemas/up-bank/up-bank-list-attachments-response/)
+- [ListCategoriesResponse](https://apis.io/schemas/up-bank/up-bank-list-categories-response/)
+- [ListTagsResponse](https://apis.io/schemas/up-bank/up-bank-list-tags-response/)
+- [ListTransactionsResponse](https://apis.io/schemas/up-bank/up-bank-list-transactions-response/)
+- [ListWebhookDeliveryLogsResponse](https://apis.io/schemas/up-bank/up-bank-list-webhook-delivery-logs-response/)
+- [ListWebhooksResponse](https://apis.io/schemas/up-bank/up-bank-list-webhooks-response/)
+- [PingResponse](https://apis.io/schemas/up-bank/up-bank-ping-response/)
+- [ResponseBankingAccountByIdV5](https://apis.io/schemas/up-bank/up-bank-response-banking-account-by-id-v5/)
+- [ResponseBankingAccountListV3](https://apis.io/schemas/up-bank/up-bank-response-banking-account-list-v3/)
+- [ResponseBankingAccountsBalanceById](https://apis.io/schemas/up-bank/up-bank-response-banking-accounts-balance-by-id/)
+- [ResponseBankingAccountsBalanceList](https://apis.io/schemas/up-bank/up-bank-response-banking-accounts-balance-list/)
+- [ResponseBankingDirectDebitAuthorisationList](https://apis.io/schemas/up-bank/up-bank-response-banking-direct-debit-authorisation-list/)
+- [ResponseBankingInstalmentPlanList](https://apis.io/schemas/up-bank/up-bank-response-banking-instalment-plan-list/)
+- [ResponseBankingPayeeByIdV2](https://apis.io/schemas/up-bank/up-bank-response-banking-payee-by-id-v2/)
+- [ResponseBankingPayeeListV2](https://apis.io/schemas/up-bank/up-bank-response-banking-payee-list-v2/)
+- [ResponseBankingProductByIdV7](https://apis.io/schemas/up-bank/up-bank-response-banking-product-by-id-v7/)
+- [ResponseBankingProductListV4](https://apis.io/schemas/up-bank/up-bank-response-banking-product-list-v4/)
+- …and 6 more published on APIs.io
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Up Bank Context](https://apis.io/jsonld/up-bank/up-bank-context/)
+
+#### Collections (14)
+
+Postman and Open Collection request collections.
+
+- [CDR Banking Accounts API](https://apis.io/collections/up-bank/open-up-bank-accounts-api/)
+- [CDR Banking Accounts Attachments API](https://apis.io/collections/up-bank/open-up-bank-attachments-api/)
+- [CDR Banking Accounts Banking Account Balances API](https://apis.io/collections/up-bank/open-up-bank-banking-account-balances-api/)
+- [CDR Banking Accounts Banking Account Direct Debits API](https://apis.io/collections/up-bank/open-up-bank-banking-account-direct-debits-api/)
+- [CDR Banking Accounts Banking Account Scheduled Payments API](https://apis.io/collections/up-bank/open-up-bank-banking-account-scheduled-payments-api/)
+- [CDR Banking Accounts Banking Account Transactions API](https://apis.io/collections/up-bank/open-up-bank-banking-account-transactions-api/)
+- [CDR Banking Accounts API](https://apis.io/collections/up-bank/open-up-bank-banking-accounts-api/)
+- [CDR Banking Accounts Banking Payees API](https://apis.io/collections/up-bank/open-up-bank-banking-payees-api/)
+- [CDR Banking Accounts Banking Products API](https://apis.io/collections/up-bank/open-up-bank-banking-products-api/)
+- [CDR Banking Accounts Categories API](https://apis.io/collections/up-bank/open-up-bank-categories-api/)
+- [CDR Banking Accounts Tags API](https://apis.io/collections/up-bank/open-up-bank-tags-api/)
+- [CDR Banking Accounts Transactions API](https://apis.io/collections/up-bank/open-up-bank-transactions-api/)
+- [CDR Banking Accounts Utility endpoints API](https://apis.io/collections/up-bank/open-up-bank-utility-endpoints-api/)
+- [CDR Banking Accounts Webhooks API](https://apis.io/collections/up-bank/open-up-bank-webhooks-api/)
+
+#### Overlays (16)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Up Bank Accounts Api Overlay](https://apis.io/overlays/up-bank/up-bank-accounts-api-overlay/)
+- [Up Bank Attachments Api Overlay](https://apis.io/overlays/up-bank/up-bank-attachments-api-overlay/)
+- [Up Bank Banking Account Balances Api Overlay](https://apis.io/overlays/up-bank/up-bank-banking-account-balances-api-overlay/)
+- [Up Bank Banking Account Direct Debits Api Overlay](https://apis.io/overlays/up-bank/up-bank-banking-account-direct-debits-api-overlay/)
+- [Up Bank Banking Account Scheduled Payments Api Overlay](https://apis.io/overlays/up-bank/up-bank-banking-account-scheduled-payments-api-overlay/)
+- [Up Bank Banking Account Transactions Api Overlay](https://apis.io/overlays/up-bank/up-bank-banking-account-transactions-api-overlay/)
+- [Up Bank Banking Accounts Api Overlay](https://apis.io/overlays/up-bank/up-bank-banking-accounts-api-overlay/)
+- [Up Bank Banking Payees Api Overlay](https://apis.io/overlays/up-bank/up-bank-banking-payees-api-overlay/)
+- [Up Bank Banking Products Api Overlay](https://apis.io/overlays/up-bank/up-bank-banking-products-api-overlay/)
+- [Up Bank Categories Api Overlay](https://apis.io/overlays/up-bank/up-bank-categories-api-overlay/)
+- [Up Bank Cds Banking Products Overlay](https://apis.io/overlays/up-bank/up-bank-cds-banking-products-overlay/)
+- [Up Bank Openapi Overlay](https://apis.io/overlays/up-bank/up-bank-openapi-overlay/)
+- [Up Bank Tags Api Overlay](https://apis.io/overlays/up-bank/up-bank-tags-api-overlay/)
+- [Up Bank Transactions Api Overlay](https://apis.io/overlays/up-bank/up-bank-transactions-api-overlay/)
+- [Up Bank Utility Endpoints Api Overlay](https://apis.io/overlays/up-bank/up-bank-utility-endpoints-api-overlay/)
+- [Up Bank Webhooks Api Overlay](https://apis.io/overlays/up-bank/up-bank-webhooks-api-overlay/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Up API Rules](https://apis.io/rules/up-bank/up-bank-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Up Bank Authentication](https://apis.io/security/up-bank/up-bank-authentication/)
+- [Up Bank Domain Security](https://apis.io/security/up-bank/up-bank-domain-security/)
+- [Up Bank Vulnerability Disclosure](https://apis.io/security/up-bank/up-bank-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Up Bank Scopes](https://apis.io/scopes/up-bank/up-bank-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Up Bank Plans Pricing](https://apis.io/plans/up-bank/up-bank-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Up Bank Rate Limits](https://apis.io/rate-limits/up-bank/up-bank-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.up.com.au/)
-- [Developer Portal](https://developer.up.com.au/)
 - [Documentation](https://developer.up.com.au/)
-- [GitHub Organization](https://github.com/up-banking)
-- [LinkedIn](https://www.linkedin.com/company/upbanking/)
-- [Blog](https://up.com.au/blog/)
+- [Getting started](https://developer.up.com.au/#getting-started)
+- [API reference](https://developer.up.com.au/#welcome)
 - [Pricing](https://www.up.com.au/pricing/)
-- [Terms of Service](https://up.com.au/terms-and-information/)
-- [Privacy Policy](https://www.up.com.au/privacy/)
+- [Sign up](https://up.com.au/download/)
 - [Support](https://up.com.au/support/)
+- [Changelog](https://up.com.au/blog/release-notes/)
+- [Blog](https://up.com.au/blog/)
+- [Security](https://bugcrowd.com/engagements/bendigobank-vdp)
+- [Terms of service](https://up.com.au/terms-and-information/)
+- [Privacy policy](https://www.up.com.au/privacy/)
+- [GitHub](https://github.com/up-banking)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 60.1** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 69.1 |
+| Contract governance | 22.0 |
+| Operational transparency | 71.1 |
+| Developer ergonomics | 49.4 |
+| Access clarity | 76.3 |
+
+**Agent readiness 49.5** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 55.1** — Banking & Open Finance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/up-bank/](https://apis.io/providers/up-bank/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Up: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/up-bank/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
